@@ -27,6 +27,12 @@ body {
     font-family: 'Sora', sans-serif;
 }
 
+nav{
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
 .main-accent-button {
     font-size: 1.6rem;
     padding: 2.5rem;
@@ -38,47 +44,75 @@ body {
 }
 
 .nav {
-    height: 70px;
+    height: 100px;
     width: 100%;
-    background-color: var(--accent-color);
+    background-color: var(--main-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem;
 }
-
-
+.nav-logo img {
+    width: 10rem;
+    height: 5rem;
+}
 
 .nav-left {
     font-size: 1.2rem;
+    display: flex;
+    gap: 1.5rem;
 }
 
 .nav-right {
     font-size: 1.2rem;
     white-space: nowrap; /* This prevents elements from wrapping to the next line */
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
 }
 
-.nav-right > a {
-    padding: 13px 10px;
+.nav-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:flex-start;
+}
+
+.nav-right a {
     text-decoration: none;
-    color: #efefef;
+    color: var(--white);
+    transition: .2s;
 }
 
-.nav-links > a:hover {
-    background-color: rgba(0, 0, 0, 0.3);
+.nav-right a:hover {
+    color: var(--accent-color);
 }
 
 .nav-title {
     display: inline-block;
     font-size: 2.2rem;
-    color: #fff;
+    color: var(--accent-color);
+    font-weight: bold;
 }
 
 .nav-title-small {
     display: inline-block;
     font-size: 1.2rem;
-    color: #fff;
+    color: var(--accent-color);
 }
 
+.accent-bar{
+    height: 4rem;
+    background-color: var(--accent-color);
+    box-shadow: 0 1px 11px 1px var(--accent-color);
+    transition: height .3s;
+}
+
+.spacer{
+    height: 14rem;
+}
 
 @media (max-width:600px) {
     .nav>.nav-btn {
@@ -162,17 +196,17 @@ footer hr{
     border: none;
 }
 
-.left-picture-1{
+img.left-picture-1{
     width: 26.7rem;
     height: 19.6rem;
 }
 
-.left-picture-2{
+img.left-picture-2{
     width: 16.2rem;
     height: 5.4rem;
 }
 
-.middle-picture{
+img.middle-picture{
     width: 21rem;
     height: 12rem;
 }

@@ -1,24 +1,37 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 html {
-    font-size: 62.5%
+    font-size: 62.5%;
 }
 
 :root {
+    /* main color */
     --main-color: #222831;
     --accent-color: #FD7014;
+    /* other colors */
     --white: #FFFFFF;
     --dark-white: #D9D9D9;
     --black: #000000;
     --light-grey: #58585A;
-    --dark-grey: #1E1E1E
+    --dark-grey: #1E1E1E;
+    --red: #b90000;
 }
 
 body {
     background-color: var(--main-color);
-    font-family: roboto,sans-serif
+    font-family: 'Sora', sans-serif;
+}
+
+.main-accent-button {
+    font-size: 1.6rem;
+    padding: 2.5rem;
+    border-radius: 5rem;
+    background-color: var(--accent-color);
+    color: var(--white);
+    font-weight: bold;
+    cursor: pointer;
 }

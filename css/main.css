@@ -1,0 +1,115 @@
+.content {}
+
+.intro {
+    position: relative;
+}
+
+.intro-bg {
+    height: 80vh;
+    z-index: -1;
+    background:
+        linear-gradient(90deg, hsla(223, 90%, 56%, 0), hsla(0, 5%, 9%, 0.8) 55%),
+        url("../images/kmitl-campus-drone-view.png") no-repeat center center / cover;
+}
+
+.intro-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    position: absolute;
+    top: 30%;
+    left: 60%;
+    color: var(--white);
+}
+
+.intro-text-title {
+    font-size: 4rem;
+    font-weight: bold;
+}
+.custom-btn {
+    width: 20rem;
+    height: 5rem;
+    color: #fff;
+    border-radius: 5rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    background: var(--accent-color);
+    line-height: 42px;
+    padding: 0;
+    border: none;
+  }
+.custom-btn span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-top: 0.3rem;
+    font-weight: bold;
+}
+
+.custom-btn:before,
+.custom-btn:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    bottom: 0;
+    background: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.custom-btn:before {
+    height: 0%;
+    width: 2px;
+}
+
+.custom-btn:after {
+    width: 0%;
+    height: 2px;
+}
+
+.custom-btn:hover {
+    color: var(--accent-color);
+    background: transparent;
+}
+
+.custom-btn:hover:before {
+    height: 100%;
+}
+
+.custom-btn:hover:after {
+    width: 100%;
+}
+
+.custom-btn span:before,
+.custom-btn span:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    background: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.custom-btn span:before {
+    width: 2px;
+    height: 0%;
+}
+
+.custom-btn span:after {
+    height: 2px;
+    width: 0%;
+}
+
+.custom-btn span:hover:before {
+    height: 100%;
+}
+
+.custom-btn span:hover:after {
+    width: 100%;
+}

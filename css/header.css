@@ -118,6 +118,16 @@ nav {
     height: 14rem;
 }
 
+#login {
+    width: 4rem;
+    transition: 0.2s;
+}
+
+#login:hover {
+    transform: scale(1.1);
+    fill: #000000;
+}
+
 #label-darkmode {
     width: 5.5rem;
     height: 2.5rem;
@@ -137,7 +147,7 @@ nav {
     position: absolute;
     top: auto;
     left: auto;
-    background: var(--neutral-gray);
+    background: var(--black);
     border-radius: 2rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     transition: 0.3s;

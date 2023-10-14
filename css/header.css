@@ -167,6 +167,7 @@ nav{
         overflow-y: auto;
     }
 }
+
 footer {
     background-color: var(--dark-grey);
     padding: 2rem;
@@ -176,6 +177,7 @@ footer {
     justify-content: space-around;
     align-items: center;
     font-weight: bold;
+    flex-wrap: wrap;
 }
 
 footer .contract-section{
@@ -194,6 +196,10 @@ footer hr{
     height: 0.2rem;
     background-color: var(--neutral-gray);
     border: none;
+}
+
+footer img{
+    width: 25%;
 }
 
 img.left-picture-1{
@@ -225,4 +231,9 @@ div .facebook{
     display: flex;
     justify-content: flex-start;
     gap: 0.5rem;
+}
+
+footer p{
+    font-size: 1.4rem;
+    color: var(--white);
 }

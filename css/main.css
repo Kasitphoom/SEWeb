@@ -5,7 +5,7 @@
 }
 
 .intro-bg {
-    height: 80vh;
+    height: 100vh;
     z-index: -1;
     background:
         linear-gradient(90deg, hsla(223, 90%, 56%, 0), hsla(0, 5%, 9%, 0.8) 55%),

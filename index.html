@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="./css/header.css">
   <link rel="stylesheet" type="text/css" href="./css/main.css">
+  <script src="./js/header.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -14,7 +15,7 @@
 
 <body>
   <nav>
-    <div class="nav">
+    <div class="nav" id="navbar">
       <div class="nav-left">
         <img class="nav-logo" src="./images/SE_logo_tranparent.svg" alt="">
         <div class="nav-text">
@@ -22,8 +23,32 @@
           <div class="nav-title-small">King Mongkut's Institute of Technology Ladkrabang</div>
         </div>
       </div>
-      <div class="nav-right">
-        <div style="display: flex;">
+      <div class="nav-right" id="navRight">
+        <div class="wrap-darkmode">
+          <div class="nav-move">
+            <input type="checkbox" id="darkmode-toggle">
+            <label for="darkmode-toggle" id="label-darkmode">
+              <i class="fa-solid fa-moon fa-xl"></i>
+              <i class="fa-solid fa-sun fa-xl"></i>
+            </label>
+            <a href="">About</a>
+            <a href="">Program</a>
+            <a href="">Admission</a>
+            <a href="">Research</a>
+            <a href="">Industry</a>
+            <a href="">News</a>
+            <a href="">Event</a>
+            <a href="">EN</a>
+          </div>
+        </div>
+        <a href="javascript:void(0);" class="bars" onclick="changeToResponsive()"><i
+            class="fa-solid fa-bars fa-2xl"></i></a>
+        <a href=""><img id="login" src="./images/user-default-avatar.svg" alt=""></a>
+      </div>
+    </div>
+    <div class="nav-bottom" style="display: none;">
+      <div class="nav-move" style="display: none;">
+        <div class="wrap-darkmode">
           <input type="checkbox" id="darkmode-toggle">
           <label for="darkmode-toggle" id="label-darkmode">
             <i class="fa-solid fa-moon fa-xl"></i>
@@ -38,7 +63,6 @@
         <a href="">News</a>
         <a href="">Event</a>
         <a href="">EN</a>
-        <a href=""><img id="login" src="./images/user-default-avatar.svg" alt=""></a>
       </div>
     </div>
     <div class="accent-bar"></div>
@@ -53,42 +77,42 @@
       <div class="intro-text">
         <div class="intro-text-title">International Program <br>B.Eng. Software Engineering</div>
         <a class="custom-btn"><span>SEE OUR PROGRAM</span></a>
+      </div>
+      <div class="about"></div>
     </div>
-    <div class="about"></div>
-  </div>
 
-  <footer>
-    <div class="footer-content">
-      <img src="./images/SE_fullname.png" class="left-picture-1" alt="No image 1">
-      <img src="./images/Kmitl_logo.png" class="left-picture-2" alt="No image  2">
-      <img src="./images/SE_logo.svg" class="middle-picture" alt="No image 3">
+    <footer>
+      <div class="footer-content">
+        <img src="./images/SE_fullname.png" class="left-picture-1" alt="No image 1">
+        <img src="./images/Kmitl_logo.png" class="left-picture-2" alt="No image  2">
+        <img src="./images/SE_logo.svg" class="middle-picture" alt="No image 3">
 
-      <div class="contract-section">
-        <p class="contract-caption">Contact</p>
-        <hr style="width:100%">
-        <p>Phone: (123) 456-7890</p>
-        <div class="email">
-          <i class="fa-solid fa-envelope"></i>
-          <p>contact@example.com</p>
-        </div>
-        <div class="email">
-          <i class="fa-solid fa-envelope"></i>
-          <p>contact@example.com</p>
-        </div>
-        <div class="email">
-          <i class="fa-solid fa-envelope"></i>
-          <p>contact@example.com</p>
-        </div>
-        <div class="facebook">
-          <i class="fa-brands fa-square-facebook"></i>
-          <p>facebook.com/SE_KMITL</p>
+        <div class="contract-section">
+          <p class="contract-caption">Contact</p>
+          <hr style="width:100%">
+          <p>Phone: (123) 456-7890</p>
+          <div class="email">
+            <i class="fa-solid fa-envelope"></i>
+            <p>contact@example.com</p>
+          </div>
+          <div class="email">
+            <i class="fa-solid fa-envelope"></i>
+            <p>contact@example.com</p>
+          </div>
+          <div class="email">
+            <i class="fa-solid fa-envelope"></i>
+            <p>contact@example.com</p>
+          </div>
+          <div class="facebook">
+            <i class="fa-brands fa-square-facebook"></i>
+            <p>facebook.com/SE_KMITL</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="copyrightSE">
-      <p>© 2022 Software Engineering, King Mongkut's Institute of Technology Ladkrabang</p>
-    </div>
-  </footer>
+      <div class="copyrightSE">
+        <p>© 2022 Software Engineering, King Mongkut's Institute of Technology Ladkrabang</p>
+      </div>
+    </footer>
 </body>
 
 </html>

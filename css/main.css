@@ -1,11 +1,17 @@
-.content {}
+.content .alternate-bg:nth-child(even) {
+    background: var(--middle-grey);
+}
+
+.content .alternate-bg:nth-child(odd) {
+    background: var(--main-color);
+}
 
 .intro {
     position: relative;
 }
 
 .intro-bg {
-    height: 100vh;
+    height: 80vh;
     z-index: -1;
     background:
         linear-gradient(90deg, hsla(223, 90%, 56%, 0), hsla(0, 5%, 9%, 0.8) 55%),
@@ -23,9 +29,10 @@
 }
 
 .intro-text-title {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: bold;
 }
+
 .custom-btn {
     width: 20rem;
     height: 5rem;
@@ -40,10 +47,11 @@
     display: inline-block;
     outline: none;
     background: var(--accent-color);
-    line-height: 42px;
+    line-height: 4.2rem;
     padding: 0;
     border: none;
 }
+
 .custom-btn span {
     position: relative;
     display: block;
@@ -67,12 +75,12 @@
 
 .custom-btn:before {
     height: 0%;
-    width: 2px;
+    width: 0.2rem;
 }
 
 .custom-btn:after {
     width: 0%;
-    height: 2px;
+    height: 0.2rem;
 }
 
 .custom-btn:hover {
@@ -99,12 +107,12 @@
 }
 
 .custom-btn span:before {
-    width: 2px;
+    width: 0.2rem;
     height: 0%;
 }
 
 .custom-btn span:after {
-    height: 2px;
+    height: 0.2rem;
     width: 0%;
 }
 
@@ -114,4 +122,151 @@
 
 .custom-btn span:hover:after {
     width: 100%;
+}
+
+.about-wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 6rem;
+    gap: 4rem;
+}
+
+.about-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.br {
+    display: block;
+    height: 0.2rem;
+    background-color: var(--neutral-grey);
+}
+
+.br2 {
+    display: block;
+    height: 0.2rem;
+    background-color: var(--middle-grey);
+}
+
+.info-header {
+    color: var(--accent-color);
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 0.2rem 0.2rem 0.6rem var(--dark-grey);
+}
+
+.info-content {
+    color: var(--white);
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 3rem;
+}
+
+.news-wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 10rem;
+    gap: 4rem;
+}
+
+.news-header-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.news-header {
+    color: var(--accent-color);
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 0.2rem 0.2rem 0.6rem var(--dark-grey);
+}
+
+.news-boxes {
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+    justify-content: center;
+}
+
+.news-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 30rem;
+    background-color: var(--main-color);
+    border-radius: 1rem;
+    padding: 0rem;
+    /* box-shadow: 0 1px 11px 1px var(--accent-color); */
+}
+
+.news-img {
+    width: 100%;
+    height: 16rem;
+    border-radius: 1rem;
+    background-color: var(--white);
+}
+
+.news-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    flex-grow: 1;
+}
+
+.news-title {
+    color: var(--white);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.news-info {
+    color: var(--white);
+    font-size: 1.3rem;
+    flex-grow: 1;
+}
+
+.event {
+    height: 80vh;
+    z-index: -1;
+    background:
+        linear-gradient(90deg, var(--middle-grey) 30%, hsla(0, 5%, 9%, 0)),
+        url("../images/kmitl-campus-drone-view.png") no-repeat center center / cover;
+}
+
+.event-wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    gap: 4rem;
+    width: 30%;
+    height: 100%;
+    justify-content:space-between;
+}
+
+.event-header {
+    color: var(--accent-color);
+    font-size: 3rem;
+    font-weight: bold;
+}
+.event-content {}
+
+.event-title {
+    color: var(--white);
+    font-size: 2.6rem;
+    font-weight: bold;
+}
+.event-date {
+    color: var(--white);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.event-info {
+    color: var(--white);
+    font-size: 1.6rem;
+    flex-grow: 1;
 }

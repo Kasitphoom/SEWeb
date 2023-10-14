@@ -20,7 +20,7 @@ html {
     --middle-grey: #393E46;
     --dark-grey: #1E1E1E;
     --red: #b90000;
-    --neutral-gray: #656565;
+    --neutral-grey: #656565;
 }
 
 body {
@@ -78,6 +78,7 @@ nav {
     gap: 2rem;
     padding: 2rem;
 }
+
 .nav-move {
     font-size: 1.2rem;
     white-space: nowrap;
@@ -119,7 +120,8 @@ nav {
     font-size: 1.2rem;
     color: var(--accent-color);
 }
-.nav-bottom {   
+
+.nav-bottom {
     background-color: var(--middle-grey);
     height: 80px;
 }
@@ -130,9 +132,11 @@ nav {
     box-shadow: 0 1px 11px 1px var(--accent-color);
     transition: height .3s;
 }
+
 .bars {
     display: none;
 }
+
 .spacer {
     height: 14rem;
 }
@@ -146,6 +150,7 @@ nav {
     transform: scale(1.1);
     fill: #000000;
 }
+
 .wrap-darkmode {
     display: flex;
     display: flex;
@@ -175,6 +180,7 @@ nav {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     transition: 0.3s;
 }
+
 #label-darkmode .fa-moon {
     position: absolute;
     color: var(--white);
@@ -196,10 +202,12 @@ nav {
     transition: opacity 0.2s;
     transition: 0.3s;
 }
+
 #darkmode-toggle:checked+#label-darkmode .fa-moon {
     transform: translateX(205%);
     opacity: 0%;
-}  
+}
+
 #darkmode-toggle:checked+#label-darkmode .fa-sun {
     transform: translateX(145%);
     opacity: 100%;
@@ -236,7 +244,7 @@ footer {
     flex-wrap: wrap;
 }
 
-.footer-content .contract-section{
+.footer-content .contract-section {
     width: 25%;
     display: flex;
     flex-direction: column;
@@ -248,43 +256,43 @@ footer {
     transition: 0.5s;
 }
 
-.footer-content hr{
+.footer-content hr {
     width: 100%;
     height: 0.2rem;
-    background-color: var(--neutral-gray);
+    background-color: var(--neutral-grey);
     border: none;
 }
 
 
-img.left-picture-1{
+img.left-picture-1 {
     width: 26.7rem;
     height: 19.6rem;
     transition: 0.5s;
 }
 
-img.left-picture-2{
+img.left-picture-2 {
     width: 16.2rem;
     height: 5.4rem;
     transition: 0.5s;
 }
 
-img.middle-picture{
+img.middle-picture {
     width: 21rem;
     height: 12rem;
     transition: 0.5s;
 }
 
-.footer-content i{
+.footer-content i {
     color: var(--white);
 }
 
-div .email{
+div .email {
     display: flex;
     justify-content: flex-start;
     gap: 0.5rem;
 }
 
-div .facebook{
+div .facebook {
     display: flex;
     justify-content: flex-start;
     gap: 0.5rem;
@@ -298,7 +306,7 @@ div .facebook{
     padding: 1rem;
 }
 
-.copyrightSE p{
+.copyrightSE p {
     font-size: 1.4rem;
     color: var(--white);
     transition: 0.5s;
@@ -310,9 +318,11 @@ div .facebook{
     .bars {
         display: block;
     }
+
     .nav-move {
         display: none;
     }
+
     /* .responsive .nav-move {
         display: flex;
         position: absolute;
@@ -320,147 +330,148 @@ div .facebook{
     }
     */
 }
+
 /* footer responsive */
 
-@media screen and (max-width: 950px){
+@media screen and (max-width: 950px) {
 
     .footer-content .contract-section {
         font-size: 1.2rem;
         transition: 0.5s;
     }
-    
-    .footer-content img.left-picture-1{ 
+
+    .footer-content img.left-picture-1 {
         width: 20rem;
         height: 14.7rem;
         transition: 0.5s;
     }
 
-    .footer-content img.left-picture-2{ 
+    .footer-content img.left-picture-2 {
         width: 12.2rem;
         height: 4.1rem;
         transition: 0.5s;
     }
 
-    .footer-content img.middle-picture{ 
+    .footer-content img.middle-picture {
         width: 15rem;
         height: 11rem;
         transition: 0.5s;
     }
 
-    .copyrightSE p{
+    .copyrightSE p {
         font-size: 1.05rem;
         transition: 0.5s;
     }
 
-    .footer-content{
+    .footer-content {
         height: 28.5rem;
         transition: 0.5s;
     }
 }
 
-@media screen and (max-width: 750px){
- 
+@media screen and (max-width: 750px) {
+
     .footer-content .contract-section {
         font-size: 0.9rem;
         transition: 0.375s;
     }
-    
-    .footer-content img.left-picture-1{ 
+
+    .footer-content img.left-picture-1 {
         width: 15rem;
         height: 11.025rem;
         transition: 0.5s;
     }
 
-    .footer-content img.left-picture-2{ 
+    .footer-content img.left-picture-2 {
         width: 9.15rem;
         height: 3.075rem;
         transition: 0.5s;
     }
 
-    .footer-content img.middle-picture{ 
+    .footer-content img.middle-picture {
         width: 11.25rem;
         height: 8.25rem;
         transition: 0.5s;
     }
 
-    .copyrightSE p{
+    .copyrightSE p {
         font-size: 0.787rem;
         transition: 0.5s;
     }
 
-    .footer-content{
+    .footer-content {
         height: 21.375rem;
         transition: 0.5s;
     }
 }
 
-@media screen and (max-width: 550px){
+@media screen and (max-width: 550px) {
 
     .footer-content .contract-section {
         font-size: 0.675rem;
         transition: 0.5s;
     }
-    
-    .footer-content img.left-picture-1{ 
+
+    .footer-content img.left-picture-1 {
         width: 11.25rem;
         height: 8.268rem;
         transition: 0.5s;
     }
 
-    .footer-content img.left-picture-2{ 
+    .footer-content img.left-picture-2 {
         width: 6.862rem;
         height: 2.306rem;
         transition: 0.5s;
     }
 
-    .footer-content img.middle-picture{ 
+    .footer-content img.middle-picture {
         width: 8.437rem;
         height: 6.187rem;
         transition: 0.5s;
     }
 
-    .copyrightSE p{
+    .copyrightSE p {
         font-size: 0.59rem;
         transition: 0.5s;
     }
 
-    .footer-content{
+    .footer-content {
         height: 16.031rem;
         transition: 0.5s;
     }
 }
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 400px) {
 
     .footer-content .contract-section {
         font-size: 0.5rem;
         transition: 0.5s;
     }
-    
-    .footer-content img.left-picture-1{ 
+
+    .footer-content img.left-picture-1 {
         width: 8.437rem;
         height: 6.201rem;
         transition: 0.5s;
     }
 
-    .footer-content img.left-picture-2{ 
+    .footer-content img.left-picture-2 {
         width: 5.146rem;
         height: 1.73rem;
         transition: 0.5s;
     }
 
-    .footer-content img.middle-picture{ 
+    .footer-content img.middle-picture {
         width: 6.328rem;
         height: 4.64rem;
         transition: 0.5s;
     }
 
-    .copyrightSE p{
+    .copyrightSE p {
         font-size: 0.443rem;
         transition: 0.5s;
     }
 
-    .footer-content{
+    .footer-content {
         height: 12.023rem;
         transition: 0.5s;
     }

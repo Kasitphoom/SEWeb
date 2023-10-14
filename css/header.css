@@ -245,6 +245,7 @@ footer {
     color: var(--white);
     font-size: 1.6rem;
     gap: 1rem;
+    transition: 0.5s;
 }
 
 .footer-content hr{
@@ -258,16 +259,19 @@ footer {
 img.left-picture-1{
     width: 26.7rem;
     height: 19.6rem;
+    transition: 0.5s;
 }
 
 img.left-picture-2{
     width: 16.2rem;
     height: 5.4rem;
+    transition: 0.5s;
 }
 
 img.middle-picture{
     width: 21rem;
     height: 12rem;
+    transition: 0.5s;
 }
 
 .footer-content i{
@@ -297,6 +301,7 @@ div .facebook{
 .copyrightSE p{
     font-size: 1.4rem;
     color: var(--white);
+    transition: 0.5s;
 }
 
 /* responsive Phong*/
@@ -311,6 +316,154 @@ div .facebook{
     /* .responsive .nav-move {
         display: flex;
         position: absolute;
-        top: 128px;
-    } */
+        display: block;
+    }
+    */
 }
+/* footer responsive */
+
+@media screen and (max-width: 950px){
+
+    .footer-content .contract-section {
+        font-size: 1.2rem;
+        transition: 0.5s;
+    }
+    
+    .footer-content img.left-picture-1{ 
+        width: 20rem;
+        height: 14.7rem;
+        transition: 0.5s;
+    }
+
+    .footer-content img.left-picture-2{ 
+        width: 12.2rem;
+        height: 4.1rem;
+        transition: 0.5s;
+    }
+
+    .footer-content img.middle-picture{ 
+        width: 15rem;
+        height: 11rem;
+        transition: 0.5s;
+    }
+
+    .copyrightSE p{
+        font-size: 1.05rem;
+        transition: 0.5s;
+    }
+
+    .footer-content{
+        height: 28.5rem;
+        transition: 0.5s;
+    }
+}
+
+@media screen and (max-width: 750px){
+ 
+    .footer-content .contract-section {
+        font-size: 0.9rem;
+        transition: 0.375s;
+    }
+    
+    .footer-content img.left-picture-1{ 
+        width: 15rem;
+        height: 11.025rem;
+        transition: 0.5s;
+    }
+
+    .footer-content img.left-picture-2{ 
+        width: 9.15rem;
+        height: 3.075rem;
+        transition: 0.5s;
+    }
+
+    .footer-content img.middle-picture{ 
+        width: 11.25rem;
+        height: 8.25rem;
+        transition: 0.5s;
+    }
+
+    .copyrightSE p{
+        font-size: 0.787rem;
+        transition: 0.5s;
+    }
+
+    .footer-content{
+        height: 21.375rem;
+        transition: 0.5s;
+    }
+}
+
+@media screen and (max-width: 550px){
+
+    .footer-content .contract-section {
+        font-size: 0.675rem;
+        transition: 0.5s;
+    }
+    
+    .footer-content img.left-picture-1{ 
+        width: 11.25rem;
+        height: 8.268rem;
+        transition: 0.5s;
+    }
+
+    .footer-content img.left-picture-2{ 
+        width: 6.862rem;
+        height: 2.306rem;
+        transition: 0.5s;
+    }
+
+    .footer-content img.middle-picture{ 
+        width: 8.437rem;
+        height: 6.187rem;
+        transition: 0.5s;
+    }
+
+    .copyrightSE p{
+        font-size: 0.59rem;
+        transition: 0.5s;
+    }
+
+    .footer-content{
+        height: 16.031rem;
+        transition: 0.5s;
+    }
+}
+
+@media screen and (max-width: 400px){
+
+    .footer-content .contract-section {
+        font-size: 0.5rem;
+        transition: 0.5s;
+    }
+    
+    .footer-content img.left-picture-1{ 
+        width: 8.437rem;
+        height: 6.201rem;
+        transition: 0.5s;
+    }
+
+    .footer-content img.left-picture-2{ 
+        width: 5.146rem;
+        height: 1.73rem;
+        transition: 0.5s;
+    }
+
+    .footer-content img.middle-picture{ 
+        width: 6.328rem;
+        height: 4.64rem;
+        transition: 0.5s;
+    }
+
+    .copyrightSE p{
+        font-size: 0.443rem;
+        transition: 0.5s;
+    }
+
+    .footer-content{
+        height: 12.023rem;
+        transition: 0.5s;
+    }
+}
+
+/* end footer responsive */

@@ -43,7 +43,7 @@
     line-height: 42px;
     padding: 0;
     border: none;
-  }
+}
 .custom-btn span {
     position: relative;
     display: block;
@@ -51,6 +51,8 @@
     height: 100%;
     padding-top: 0.3rem;
     font-weight: bold;
+    text-align: center;
+    font-size: 1.6rem;
 }
 
 .custom-btn:before,

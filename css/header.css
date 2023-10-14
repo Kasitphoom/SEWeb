@@ -262,6 +262,7 @@ div .facebook{
 footer p{
     font-size: 1.4rem;
     color: var(--white);
+    width: 50rem
 }
 
 /* responsive */

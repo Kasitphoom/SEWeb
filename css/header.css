@@ -27,7 +27,7 @@ body {
     font-family: 'Sora', sans-serif;
 }
 
-nav{
+nav {
     position: fixed;
     width: 100%;
     z-index: 100;
@@ -52,6 +52,7 @@ nav{
     align-items: center;
     padding: 1rem;
 }
+
 .nav-logo img {
     width: 10rem;
     height: 5rem;
@@ -60,24 +61,27 @@ nav{
 .nav-left {
     font-size: 1.2rem;
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
+    padding: 2rem;
 }
 
 .nav-right {
     font-size: 1.2rem;
-    white-space: nowrap; /* This prevents elements from wrapping to the next line */
+    white-space: nowrap;
+    /* This prevents elements from wrapping to the next line */
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    padding: 2rem;
 }
 
 .nav-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items:flex-start;
+    align-items: flex-start;
 }
 
 .nav-right a {
@@ -103,16 +107,96 @@ nav{
     color: var(--accent-color);
 }
 
-.accent-bar{
+.accent-bar {
     height: 4rem;
     background-color: var(--accent-color);
     box-shadow: 0 1px 11px 1px var(--accent-color);
     transition: height .3s;
 }
 
-.spacer{
+.spacer {
     height: 14rem;
 }
+
+#login {
+    width: 4rem;
+    transition: 0.2s;
+}
+
+#login:hover {
+    transform: scale(1.1);
+    fill: #000000;
+}
+
+#label-darkmode {
+    width: 5.5rem;
+    height: 2.5rem;
+    position: relative;
+    display: block;
+    background: var(--dark-grey);
+    border-radius: 2rem;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2), 0 0 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#label-darkmode:after {
+    content: "";
+    width: 2.5rem;
+    height: 2.5rem;
+    position: absolute;
+    top: auto;
+    left: auto;
+    background: var(--black);
+    border-radius: 2rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+#label-darkmode .fa-moon {
+    position: absolute;
+    color: var(--white);
+    z-index: 1;
+    top: 1.2rem;
+    left: 0.6rem;
+    opacity: 100%;
+    transition: opacity 0.2s;
+    transition: 0.3s;
+}
+
+#label-darkmode .fa-sun {
+    position: absolute;
+    color: var(--white);
+    z-index: 1;
+    top: 1.2rem;
+    left: 0.6rem;
+    opacity: 0%;
+    transition: opacity 0.2s;
+    transition: 0.3s;
+}
+#darkmode-toggle:checked+#label-darkmode .fa-moon {
+    transform: translateX(205%);
+    opacity: 0%;
+}  
+#darkmode-toggle:checked+#label-darkmode .fa-sun {
+    transform: translateX(145%);
+    opacity: 100%;
+}
+
+#darkmode-toggle {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+#darkmode-toggle:checked+#label-darkmode {
+    background: var(--light-grey);
+}
+
+#darkmode-toggle:checked+#label-darkmode:after {
+    transform: translateX(115%);
+    background-color: var(--accent-color);
+}
+
 
 @media (max-width:600px) {
     .nav>.nav-btn {
@@ -180,7 +264,7 @@ footer {
     flex-wrap: wrap;
 }
 
-footer .contract-section{
+footer .contract-section {
     width: 25%;
     display: flex;
     flex-direction: column;
@@ -191,7 +275,7 @@ footer .contract-section{
     gap: 1rem;
 }
 
-footer hr{
+footer hr {
     width: 100%;
     height: 0.2rem;
     background-color: var(--neutral-gray);
@@ -199,32 +283,32 @@ footer hr{
 }
 
 
-img.left-picture-1{
+img.left-picture-1 {
     width: 26.7rem;
     height: 19.6rem;
 }
 
-img.left-picture-2{
+img.left-picture-2 {
     width: 16.2rem;
     height: 5.4rem;
 }
 
-img.middle-picture{
+img.middle-picture {
     width: 21rem;
     height: 12rem;
 }
 
-footer i{
+footer i {
     color: var(--white);
 }
 
-div .email{
+div .email {
     display: flex;
     justify-content: flex-start;
     gap: 0.5rem;
 }
 
-div .facebook{
+div .facebook {
     display: flex;
     justify-content: flex-start;
     gap: 0.5rem;

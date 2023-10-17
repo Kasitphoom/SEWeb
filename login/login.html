@@ -2,43 +2,42 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/header.css">
-    <link rel="stylesheet" type="text/css" href="../css/login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../css/header.css">
+  <link rel="stylesheet" type="text/css" href="../css/login.css">
+  <script src="../js/login.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
+  <title>Document</title>
 </head>
+
 <body>
-    <!-- content goes here -->
-    <div class="container">
-      <img src="../images/SE_logo_tranparent.svg" alt="" class="fixed-image">
-      <div class="top"></div>
-      <div class="bottom"></div>
-      <div class="center">
-        <h2>Please Sign In</h2>
-        <input type="email" id="account-email" placeholder="email">
-        <input type="password" id="account-password" placeholder="password">
+  <!-- content goes here -->
+  <div class="container">
+    <img src="../images/SE_logo_tranparent.svg" alt="" class="fixed-image">
+    <div class="top"></div>
+    <div class="bottom"></div>
+    <div class="center">
+      <h2>Please Sign In</h2>
+      <form id="login-form">
+        <input type="text" id="account-email" name="email" placeholder="email" required>
+        <input type="text" id="account-password" name="password" placeholder="password" required>
         <div class="button-section">
-          <a class="button-home" href="../index.html" onclick="goHome()">
-            <i class="fa-solid fa-house fa-lg"></i>
-          </a>
-          <button class="button-login" onclick="myFunction()">
-            Login
-          </button>
+          <a class="button-home" href="../index.html" onclick="goHome()"><i class="fa-solid fa-house fa-lg"></i></a>
+          <button type="submit" class="button-login">Login</button>
         </div>
-      </div>
+      </form>
+      <div id="message"></div>
     </div>
-    <!-- content end here -->
-    <script>
-      function goHome() {
-        console.log("Home");
-      }
-      function myFunction() {
-        console.log("login");
-      }
-    </script>
+  </div>
+  <!-- content end here -->
+  <script>
+    function goHome() {
+      console.log("Home");
+    }
+  </script>
 </body>
+
 </html>

@@ -135,12 +135,21 @@ nav {
     transition: height .3s;
 }
 
+.accent-bar.small-bar{
+    height: 2rem;
+}
+
 .bars {
     display: none;
 }
 
 .spacer {
     height: 14rem;
+    transition: height .3s;
+}
+
+.spacer.accent-bar{
+    height: 12rem;
 }
 
 #login {

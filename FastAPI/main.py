@@ -6,13 +6,16 @@ import BTrees.OOBTree
 import transaction
 from database import db  # Import the initialized database
 
+storage = ZODB.FileStorage.FileStorage('C:/.Phong/.kmitl/.year2/html/pr/SEWeb/data_storage/mydata.fs')
+
+db = ZODB.DB(storage)
 connection = db.open()
 root = connection.root
 
-# # Check if 'users' exist in the root. If not, create it.
-# root.users = BTrees.OOBTree.BTree()
-# root.users.setdefault("Phong", { "email": "Phong", "password": "Phong1234"})
-# transaction.commit()
+# Check if 'users' exist in the root. If not, create it.
+if not hasattr(root, 'users'):
+    root.users = BTrees.OOBTree.BTree()
+
 
 app = FastAPI()
 

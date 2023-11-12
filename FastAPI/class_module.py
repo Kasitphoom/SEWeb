@@ -1,7 +1,8 @@
 import persistent
 
 class Client(persistent.Persistent):
-    def __init__(self, name, user_name, password, avatar=None):
+    def __init__(self, ID, name, user_name, password, avatar=None):
+        self.ID = ID
         self.name = name
         self.user_name = user_name
         self.password = password
@@ -16,9 +17,8 @@ class Client(persistent.Persistent):
         return False
 
 class Lecturer(Client):
-    def __init__(self, courses, lecuturer_id, name, user_name, password, avatar=None):
-        super().__init__(name, user_name, password, avatar)
-        self.id = lecuturer_id
+    def __init__(self, ID, courses, name, user_name, password, avatar=None):
+        super().__init__(ID ,name, user_name, password, avatar)
         self.courses = courses
 
     def setCourses(self, courses):
@@ -29,10 +29,9 @@ class Lecturer(Client):
     
 
 class Student(Client):
-    def __init__(self, enrolls, student_id, name, user_name, password, avatar=None):
-        super().__init__(name, user_name, password, avatar)
+    def __init__(self, ID, enrolls, name, user_name, password, avatar=None):
+        super().__init__(ID, name, user_name, password, avatar)
         self.enrolls = enrolls
-        self.id = student_id
 
     def enrollCourse(self, course):
         enrollment = Enrollment(self, course)
@@ -56,7 +55,7 @@ class Student(Client):
     def __str__(self):
         courses = ""
         courses += "            Transcripts            \n"
-        courses += "ID:     {} Name: {}\n".format(self.id, self.name)
+        courses += "ID:     {} Name: {}\n".format(self.ID, self.name)
         courses += "Course list\n"
         for enroll in self.enrolls:
             courses += "ID:         {}, Course: {}          , Credit: {} Score: {} Grade: {}\n".format(enroll.getCourse().course_id, enroll.getCourse().name, enroll.getCourse().credit, enroll.getScore(), enroll.getGrade())

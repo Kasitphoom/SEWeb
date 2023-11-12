@@ -1,60 +1,38 @@
 import persistent
-import ZODB, ZODB.FileStorage, BTrees.OOBTree
-import transaction
 
-storage = ZODB.FileStorage.FileStorage('mydata.fs')
-db = ZODB.DB(storage)
-connection = db.open()
-root = connection.root
-
-class Course(persistent.Persistent):
-    def __init__(self, course_id, name , credit=3):
-        self.credit = credit
-        self.course_id = course_id
+class Client(persistent.Persistent):
+    def __init__(self, name, user_name, password, avatar=None):
         self.name = name
-        self.gradeScheme = [
-            {"Grade": "A", "min":80, "max":100},
-            {"Grade": "B", "min":70, "max":79},
-            {"Grade": "C", "min":60, "max":69},
-            {"Grade": "D", "min":50, "max":59},
-            {"Grade": "F", "min":0, "max":49}
-        ]
+        self.user_name = user_name
+        self.password = password
+        self.avatar = avatar
 
-    def getCredit(self):
-        return self.credit
+    def setAvatar(self, avatar):
+        self.avatar = avatar
 
-    def setName(self, name):
-        self.name = name
+    def login(self, user_name, password):
+        if self.user_name == user_name and self.password == password:
+            return True
+        return False
 
-    def printDetail(self):
-        print("ID:          {}, Course:         {}      ,Credit: {}".format(self.course_id, self.name, self.credit))
+class Lecturer(Client):
+    def __init__(self, courses, lecuturer_id, name, user_name, password, avatar=None):
+        super().__init__(name, user_name, password, avatar)
+        self.id = lecuturer_id
+        self.courses = courses
 
-    def scoreGrading(self, score):
-        for grade in self.gradeScheme:
-            if score >= grade["min"] and score <= grade["max"]:
-                return grade["Grade"]
-        return None
+    def setCourses(self, courses):
+        self.courses = courses
+
+    def addCourse(self, course):
+        self.courses.append(course)
     
-    def setGradeScheme(self, gradeScheme):
-        self.gradeScheme = gradeScheme
 
-    def scoreGradingAsNum(self,score):
-        grade = self.scoreGrading(score)
-        switcher = {
-            "A": 4,
-            "B": 3,
-            "C": 2,
-            "D": 1,
-            "F": 0
-        }
-        return switcher.get(grade, "Invalid grade")
-
-class Student(persistent.Persistent):
-    def __init__(self,enrolls, student_id, name, password):
+class Student(Client):
+    def __init__(self, enrolls, student_id, name, user_name, password, avatar=None):
+        super().__init__(name, user_name, password, avatar)
         self.enrolls = enrolls
         self.id = student_id
-        self.name = name
-        self.password = password
 
     def enrollCourse(self, course):
         enrollment = Enrollment(self, course)
@@ -66,42 +44,6 @@ class Student(persistent.Persistent):
             if enrollment.getCourse() == course:
                 return enrollment
         return None
-    
-    @classmethod
-    def login(cls, student_id, password):
-        storage = ZODB.FileStorage.FileStorage('mydata.fs')
-        db = ZODB.DB(storage)
-        connection = db.open()
-        root = connection.root
-
-        students = root.students
-        for s in students:
-            student = students[s]
-            print("Input values: student_id =", student_id, "password =", password)
-            print("Stored values: student.id =", student.id, "student.password =", student.password)
-            if student.id == student_id and student.password == password:
-                transaction.commit()
-                db.close()
-                print("LOGIN SUCCESSFUL")
-                return True
-
-        transaction.commit()
-        db.close()
-        print("LOGIN FAILED")
-        return False
-    
-    @classmethod
-    def get_all_students():
-        storage = ZODB.FileStorage.FileStorage('mydata.fs')
-        db = ZODB.DB(storage)
-        connection = db.open()
-        
-        root = connection.root
-        students = root.students
-        all_students = {student.id: {"name": student.name, "password": student.password} for student in students.values()}
-        transaction.commit()
-        db.close()
-        return all_students
 
     def getGPA(self):
         totalpoint = 0
@@ -127,6 +69,48 @@ class Student(persistent.Persistent):
 
     def setName(self, name):
         self.name = name
+
+class Course(persistent.Persistent):
+    def __init__(self, course_id, name , credit=3):
+        self.credit = credit
+        self.course_id = course_id
+        self.name = name
+        self.gradeScheme = [
+            {"Grade": "A", "min":80, "max":100},
+            {"Grade": "B", "min":70, "max":79},
+            {"Grade": "C", "min":60, "max":69},
+            {"Grade": "D", "min":50, "max":59},
+            {"Grade": "F", "min":0, "max":49}
+        ]
+
+    def getCredit(self):
+        return self.credit
+
+    def setName(self, name):
+        self.name = name
+
+    def printDetail(self):
+        print("ID:{}, Course:{},Credit: {}".format(self.course_id, self.name, self.credit))
+
+    def scoreGrading(self, score):
+        for grade in self.gradeScheme:
+            if score >= grade["min"] and score <= grade["max"]:
+                return grade["Grade"]
+        return None
+    
+    def setGradeScheme(self, gradeScheme):
+        self.gradeScheme = gradeScheme
+
+    def scoreGradingAsNum(self,score):
+        grade = self.scoreGrading(score)
+        switcher = {
+            "A": 4,
+            "B": 3,
+            "C": 2,
+            "D": 1,
+            "F": 0
+        }
+        return switcher.get(grade, "Invalid grade")
 
 class Enrollment(persistent.Persistent):
     def __init__(self, course, score, student):
@@ -157,7 +141,3 @@ gradeScheme = [
     {"Grade": "D", "min":50, "max":59}, 
     {"Grade": "F", "min":0, "max":49}
 ]
-
-
-transaction.commit()
-db.close()

@@ -12,9 +12,13 @@ class Client(persistent.Persistent):
         self.avatar = avatar
 
     def login(self, ID, password):
+        print(self.password)
         if self.ID == ID and self.password == password:
             return True
         return False
+    
+    def setUsername(self, user_name):
+        self.user_name = user_name
 
 class Lecturer(Client):
     def __init__(self, ID, courses, name, user_name, password, avatar=None):

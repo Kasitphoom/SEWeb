@@ -1,1 +1,0 @@
-{"string": {"email": "string", "password": "string"}, "3223": {"email": "3223", "password": "st3232ring"}, "23232": {"email": "23232", "password": "string"}}

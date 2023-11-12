@@ -59,3 +59,4 @@ async def login(request: Request, user: User):
 @app.get("/login", response_class=HTMLResponse)
 async def login_form(request: Request, error: int = 0):
     return templates.TemplateResponse("login.html", {"request": request, "error": error})
+

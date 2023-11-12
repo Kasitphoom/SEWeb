@@ -23,17 +23,29 @@ def get_all_users():
 
 @app.post("/login")
 def getform(request: Request, email: str = Form(...), password: str = Form(...)):
-    student = Student.login(student_id, password)
+    student = Student.login(email, password)
     print(student)
     if student:
         # Successful login
         print("Successful login")
-        data = {"student_id": student_id, "password": password}
+        data = {"student_id": email, "password": password}
         return  templates.TemplateResponse("index.html", {"request": request, "data":data})
     else:
         # Invalid login
         print("Failed to login")
         return {"Error": "Invalid login"}
+
+@app.post("/login")
+async def set_login(request: Request, response: Response, user_name: str = Form(...), password: str = Form(...)):
+    if ID in clients.keys():
+        if clients[ID].login(ID, password):
+            response = RedirectResponse(url="/userform", status_code=303)
+            response.set_cookie(key="ID", value=ID)
+            return response
+        else:
+            return {"message": "Login failed"}
+    else: 
+        return {"message": "No student found"}
 
 @app.get("/login", response_class=HTMLResponse)
 async def login_form(request: Request, error: int = 0):

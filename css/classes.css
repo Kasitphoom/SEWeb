@@ -1,8 +1,110 @@
+.side-bar{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: fixed;
+    width: 25%;
+    padding: 4.5rem 2.5rem;
+    background-color: var(--middle-grey);
+    height: calc(100vh - 12rem);
+    bottom: 0;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 2rem;
+    overflow-y: auto;
+    gap: 2.5rem;
+}
+
+.course-container{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    /* background-color: var(--black); */
+}
+
+.course {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.6rem;
+    padding: 0.75rem;
+    width: 25rem;
+    background-color: var(--light-grey);
+    font-size: 1.4rem;
+    box-shadow: 1px 2px 7px 1px var(--accent-color);
+    width: 100%;
+}
+
+.course:hover {
+    background-color: var(--accent-color);
+    color: var(--white);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+
+.course:hover .dropdown-content {
+    display: block;
+    transition: 0.2s;
+}
+
+.dropdown-content {
+    display: none;
+    transition: 0.2s;
+}
+
+.course label {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 0.5rem;
+}
+
+.course-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    font-size: 1.4rem;
+    font-weight: normal;
+    gap: 1rem;
+    padding: 1.2rem;
+    border-radius: 0.6rem;
+    /* background-color: var(--accent-color); */
+}
+
+
+.course-content:hover {
+    background-color: var(--kmitl-orange);
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 20px;
+}
+  
+  /* Track */
+::-webkit-scrollbar-track {
+    background: var(--light-grey); 
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(198, 198, 198); 
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color); 
+}
+
 .content {
     display: flex;
     height: 100vh; /* Adjust this to your needs */
+    width: auto;
 }
-
+/* 
 .sidebar {
     width: 25%;
     background-color: var(--middle-grey);
@@ -12,10 +114,11 @@
     justify-content: flex-start;
     align-items: flex-start;
     color: white;
-}
+} */
 
 .right-content {
-    width: 75%;
+    width: 100%;
+    padding-left: calc(100vw * 0.25);
     font-size: 1.2rem;
     font-weight: bold;
     overflow: hidden;

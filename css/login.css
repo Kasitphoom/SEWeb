@@ -58,7 +58,7 @@ body {
     transform: rotate(135deg);
     background: var(--accent-color);
 }
-  
+
 .bottom::before {
     transform: rotate(-45deg);
     background: var(--dark-grey);

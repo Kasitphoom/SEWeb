@@ -51,7 +51,7 @@ nav {
 }
 
 .nav {
-    height: 100px;
+    height: 10rem;
     width: 100%;
     background-color: var(--main-color);
     display: flex;

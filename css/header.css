@@ -8,6 +8,10 @@ html {
     font-size: 62.5%;
 }
 
+a {
+    text-decoration: none;
+}
+
 :root {
     /* main color */
     --main-color: #222831;
@@ -131,7 +135,7 @@ nav {
 .accent-bar {
     height: 4rem;
     background-color: var(--accent-color);
-    box-shadow: 0 1px 11px 1px var(--accent-color);
+    box-shadow: 0 1px 11px 1px var(--black);
     transition: height .3s;
 }
 
@@ -155,6 +159,7 @@ nav {
 #login {
     width: 4rem;
     transition: 0.2s;
+    border-radius: 10rem;
 }
 
 #login:hover {

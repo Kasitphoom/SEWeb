@@ -1,0 +1,76 @@
+.content {
+    display: flex;
+    height: 100vh; /* Adjust this to your needs */
+}
+
+.sidebar {
+    width: 25%;
+    background-color: var(--middle-grey);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: white;
+}
+
+.right-content {
+    width: 75%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+
+.banner {
+    background-image: url(../images/maimai-festival.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 25vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+    color: white;
+}
+
+.wrap-assignment {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 3rem;
+    padding: 3rem 5rem;
+    color: var(--white);
+}
+
+.wrap-assignment .assignment {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+    padding: 2rem;
+    border-radius: 2rem;
+    background-color: var(--middle-grey);
+    transition: 0.5s;
+}
+
+.wrap-assignment .assignment:hover {
+    background-color: var(--accent-color);
+}
+
+.wrap-assignment .assignment .assignment-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-right: auto; /* Pushes title to the left */
+}
+
+.wrap-assignment .assignment .assignment-duedate,
+.wrap-assignment .assignment .assignment-status {
+    font-size: 2rem;
+    font-weight: bold;
+}

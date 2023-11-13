@@ -1,7 +1,7 @@
 import persistent
 
 class Client(persistent.Persistent):
-    def __init__(self, ID, name, user_name, password, avatar=None):
+    def __init__(self, ID, name, user_name, password, avatar="../images/user-default-avatar.svg"):
         self.ID = ID
         self.name = name
         self.user_name = user_name
@@ -74,10 +74,11 @@ class Student(Client):
         self.name = name
 
 class Course(persistent.Persistent):
-    def __init__(self, course_id, name , credit=3):
+    def __init__(self, course_id, name , credit=3, assignments=[]):
         self.credit = credit
         self.course_id = course_id
         self.name = name
+        self.assignments = assignments
         self.gradeScheme = [
             {"Grade": "A", "min":80, "max":100},
             {"Grade": "B", "min":70, "max":79},
@@ -135,6 +136,17 @@ class Enrollment(persistent.Persistent):
     
     def setScore(self, score):
         self.score = score
+
+class Assignment(persistent.Persistent):
+    def __init__(self, name, max_score, due_date, attachment=[] , submitted_work=[],description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."):
+        self.name = name
+        self.max_score = max_score
+        self.due_date = due_date
+        self.attachment = attachment
+        self.submitted_work = submitted_work
+        self.description = description
+
+
 
 
 gradeScheme = [

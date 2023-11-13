@@ -30,7 +30,7 @@ root.courses[301].setGradeScheme(gradeScheme)
 
 root.clients = BTrees.OOBTree.BTree()
 #Lecturers
-root.clients[9001] = Lecturer(9001, [], "Micheal Scott", "TheBestBoss", "Dunder Mifflin")
+root.clients[9001] = Lecturer(9001, [], "Micheal Scott", "TheBestBoss", "1234")
 
 root.clients[9001].setCourses([Course(101, "Computer Programming", 4), Course(201, "Web Programming", 4), Course(202, "Software Engineering Principles", 5), Course(301, "Artificial Intelligent", 3)])
 

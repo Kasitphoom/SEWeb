@@ -10,7 +10,7 @@
     bottom: 0;
     color: var(--white);
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 2.5rem;
     overflow-y: auto;
     gap: 2.5rem;
 }
@@ -31,7 +31,7 @@
     padding: 0.75rem;
     width: 25rem;
     background-color: var(--light-grey);
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     box-shadow: 1px 2px 7px 1px var(--accent-color);
     width: 100%;
 }
@@ -160,6 +160,7 @@
     border-radius: 2rem;
     background-color: var(--middle-grey);
     transition: 0.5s;
+    font-size: 1.6rem;
 }
 
 .wrap-assignment .assignment:hover {
@@ -167,13 +168,11 @@
 }
 
 .wrap-assignment .assignment .assignment-title {
-    font-size: 2rem;
     font-weight: bold;
     margin-right: auto; /* Pushes title to the left */
 }
 
 .wrap-assignment .assignment .assignment-duedate,
 .wrap-assignment .assignment .assignment-status {
-    font-size: 2rem;
     font-weight: bold;
 }

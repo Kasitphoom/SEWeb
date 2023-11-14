@@ -13,6 +13,9 @@ connection = db.open()
 root = connection.root
 clients = root.clients
 
+client = clients[9001]
+print()
+
 app = FastAPI()
 templates = Jinja2Templates(directory="../html")
 app.mount("/css", StaticFiles(directory="../css"), name="css")
@@ -48,13 +51,15 @@ async def set_login(request: Request, response: Response, ID: int = Form(...), p
 async def login_form(request: Request, error: int = 0):
     return templates.TemplateResponse("login.html", {"request": request, "error": error})
 
-@app.get("/classes/0", response_class=HTMLResponse)
-async def get_classes(request: Request, ID: int = Cookie(None)):
-    client = clients[ID]
-    course_index = 0
-    return templates.TemplateResponse("classes.html", {"request": request, "client": client, "course_index": course_index})
-
 @app.get("/classes/{course_index}", response_class=HTMLResponse)
 async def get_classes(request: Request, course_index: int, ID: int = Cookie(None)):
     client = clients[ID]
-    return templates.TemplateResponse("classes.html", {"request": request, "client": client, "course_index": course_index})
+    client_type = "None"
+    if type(client) == Lecturer:
+        client_type = "Lecturer"
+    elif type(client) == Student:
+        client_type = "Student"
+
+    return templates.TemplateResponse("classes.html", {"request": request, "client": client, "course_index": course_index, "client_type": client_type})
+    
+

@@ -48,4 +48,3 @@ root.clients[1102].enrolls = [Enrollment(root.courses[101], 80, root.clients[110
 
 transaction.commit()
 db.close()
-

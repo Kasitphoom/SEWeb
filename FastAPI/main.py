@@ -27,6 +27,7 @@ def index(request: Request, ID: int = Cookie(None)):
     if ID == None:
         return templates.TemplateResponse("index.html", {"request": request, "client": None})
     client = clients[ID]
+    print(client.avatar)
     return templates.TemplateResponse("index.html", {"request": request, "client": client})
 
 @app.get("/users/all")

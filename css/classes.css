@@ -131,10 +131,38 @@
 }
 
 .room-ctn .room a{
+    display: flex;
     padding: 0.5rem 2rem;
     border-radius: 2rem;
     background-color: var(--accent-color);
     color: var(--white);
+    transition: .2s;
+}
+
+.room-ctn .room a p{
+    width: 0;
+    opacity: 0;
+}
+
+.room-ctn .room a:hover{
+    gap: 1rem;
+}
+
+.room-ctn .room a:hover p{
+    animation: showtype 0.3s ease-in-out forwards;
+}
+
+.room-ctn .room a:hover:nth-child(1){
+    background-color: var(--green);
+}
+
+.room-ctn .room a:hover:nth-child(2){
+    background-color: var(--yellow);
+    color: var(--middle-grey);
+}
+
+.room-ctn .room a:hover:nth-child(3){
+    background-color: var(--red);
 }
 
 /* width */
@@ -234,4 +262,15 @@
 .wrap-assignment .assignment .assignment-duedate,
 .wrap-assignment .assignment .assignment-status {
     font-weight: bold;
+}
+
+@keyframes showtype{
+    0%{
+        opacity: 0;
+        width: 0;
+    }
+    100%{
+        opacity: 1;
+        width: 5.3rem;
+    }
 }

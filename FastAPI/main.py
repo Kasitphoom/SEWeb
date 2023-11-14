@@ -53,6 +53,8 @@ async def login_form(request: Request, error: int = 0):
 
 @app.get("/classes/{course_index}", response_class=HTMLResponse)
 async def get_classes(request: Request, course_index: int, ID: int = Cookie(None)):
+    if ID == None:
+        return RedirectResponse(url="/", status_code=303)
     client = clients[ID]
     client_type = "None"
     if type(client) == Lecturer:
@@ -62,4 +64,20 @@ async def get_classes(request: Request, course_index: int, ID: int = Cookie(None
 
     return templates.TemplateResponse("classes.html", {"request": request, "client": client, "course_index": course_index, "client_type": client_type})
     
+@app.get("/logout")
+async def logout(response: Response):
+    response = RedirectResponse(url="/", status_code=303)
+    response.delete_cookie(key="ID")
+    return response
 
+@app.get("/profile", response_class=HTMLResponse)
+async def get_profile(request: Request, ID: int = Cookie(None)):
+    client = clients[ID]
+    return templates.TemplateResponse("profile.html", {"request": request, "client": client})
+
+@app.post("/profile")
+async def set_profile(request: Request, ID: int = Cookie(None), name: str = Form(...), user_name: str = Form(...)):
+    client = clients[ID]
+    client.setName(name)
+    client.setUsername(user_name)
+    return RedirectResponse(url="/profile", status_code=303)

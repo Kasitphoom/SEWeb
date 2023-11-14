@@ -19,8 +19,8 @@
       <a href="/" class="nav-left">
         <img class="nav-logo" src="../images/SE_logo_tranparent.svg" alt="">
         <div class="nav-text">
-            <div class="nav-title">SOFTWARE ENGINEERING</div>
-            <div class="nav-title-small">King Mongkut's Institute of Technology Ladkrabang</div>
+          <div class="nav-title">SOFTWARE ENGINEERING</div>
+          <div class="nav-title-small">King Mongkut's Institute of Technology Ladkrabang</div>
         </div>
       </a>
       <div class="nav-right" id="navRight">
@@ -31,6 +31,9 @@
               <i class="fa-solid fa-moon fa-xl"></i>
               <i class="fa-solid fa-sun fa-xl"></i>
             </label>
+            {% if client != None %}
+            <a href="/classes/0">Clases</a>
+            {% endif %} 
             <a href="">About</a>
             <a href="">Program</a>
             <a href="">Admission</a>
@@ -44,9 +47,25 @@
         <a href="javascript:void(0);" class="bars" onclick="changeToResponsive()"><i
             class="fa-solid fa-bars fa-2xl"></i></a>
         {% if client == None %}
-          <a href="/login"><img id="login" src="../images/user-default-avatar.svg" alt=""></a>
-        {% else %}
-          <a href="/login"><img id="login" src="{{client.avatar}}" alt=""></a>
+        <div class="dropdown-header">
+          <img id="login" src="../images/user-default-avatar.svg" alt="Avatar">
+          <div class="dropdown-header-content">
+            <a href="/login">
+              <div>Login</div>
+            </a>
+          </div>
+        </div>
+        {% else %}<div class="dropdown-header">
+          <img id="login" src="{{ client.avatar }}" alt="Avatar">
+          <div class="dropdown-header-content">
+            <a href="/profile">
+              <div>Profile</div>
+            </a>
+            <a href="/logout" >
+              <div>Logout</div>
+            </a>
+          </div>
+        </div>
         {% endif %}
       </div>
     </div>
@@ -59,6 +78,9 @@
             <i class="fa-solid fa-sun fa-xl"></i>
           </label>
         </div>
+        {% if client != None %}
+        <a href="/classes/0">Clases</a>
+        {% endif %} 
         <a href="">About</a>
         <a href="">Program</a>
         <a href="">Admission</a>
@@ -206,4 +228,5 @@
     </div>
   </footer>
 </body>
+
 </html>

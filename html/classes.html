@@ -77,15 +77,31 @@
         <div class="side-bar">
             <label>Courses</label>
             <div class="course-container">
-                
+                {% if client_type == "Student" %}
+                {% for enroll in client.enrolls %}
                 <div class="course">
-                    <label>Software Engineering</label>
+                    <label>{{enroll.course.name}}</label>
                     <div class="dropdown-content">
                         <div class="course-content">Anouncements</div>
                         <div class="course-content">Rooms</div>
                         <div class="course-content">Assignments</div>
                     </div>
                 </div>
+                {% endfor %}
+                {% elif client_type == "Lecturer" %}
+                {% for course in client.courses %}
+                <div class="course">
+                    <label>{{course.name}}</label>
+                    <div class="dropdown-content">
+                        <div class="course-content">Anouncements</div>
+                        <div class="course-content">Rooms</div>
+                        <div class="course-content">Assignments</div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div>No enrolled courses.</div>
+                {% endif %}
             </div>
         </div>
         <div class="right-content">

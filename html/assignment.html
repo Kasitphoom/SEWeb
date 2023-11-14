@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/header.css">
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <link rel="stylesheet" type="text/css" href="../css/classes.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/classes.css">
     <script src="../js/header.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -32,6 +32,9 @@
                             <i class="fa-solid fa-moon fa-xl"></i>
                             <i class="fa-solid fa-sun fa-xl"></i>
                         </label>
+                        {% if client != None %}
+                        <a href="/classes/0/assignments">Clases</a>
+                        {% endif %} 
                         <a href="">About</a>
                         <a href="">Program</a>
                         <a href="">Admission</a>
@@ -77,22 +80,33 @@
         <div class="side-bar">
             <label>Courses</label>
             <div class="course-container">
+                {% if client_type == "Student" %}
+                {% for enroll in client.enrolls %}
                 <div class="course">
-                    <label>Software Engineering</label>
+                    <label>{{enroll.course.name}}</label>
                     <div class="dropdown-content">
                         <div class="course-content">Anouncements</div>
                         <div class="course-content">Rooms</div>
-                        <div class="course-content">Assignments</div>
+                        <a href="/classes/{{ loop.index - 1 }}/assignments"><div class="course-content">Assignments</div></a>
                     </div>
                 </div>
+                {% endfor %}
+                {% elif client_type == "Lecturer" %}
+                {% for course in client.courses %}
                 <div class="course">
-                    <label>Software Engineering Principles</label>
+                    <label>{{course.name}}</label>
                     <div class="dropdown-content">
-                        <div class="course-content">Anouncements</div>
+                        <div class="course-content">Announcements</div>
                         <div class="course-content">Rooms</div>
-                        <div class="course-content">Assignments</div>
+                        <a href="">
+                            <div class="course-content">Assignments</div>
+                        </a>
                     </div>
                 </div>
+                {% endfor %}
+                {% else %}
+                <div>No enrolled courses.</div>
+                {% endif %}
             </div>
         </div>
         <div class="right-content">
@@ -101,20 +115,21 @@
                 <div class="information-ctn">
                     <div class="assignment-information-title">
                         <div class="assignment-title">
-                            Assignment1
+                            {{ assignment.name }}
                         </div>
                         <div class="duedate">
-                            Due 9/11
+                            Due: {{ assignment.due_date }}
                         </div>
                     </div>
                     <div class="assignment-description">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta debitis sint a cupiditate in natus totam suscipit ullam id. Enim accusamus debitis optio impedit illo atque, sunt error, voluptatum quasi laudantium velit aperiam provident eveniet veritatis perspiciatis sequi, ea quisquam omnis voluptas maxime quaerat ullam minima non? Sint, earum fugiat.
+                        {{ assignment.description }}
                     </div>
                     <div class="horizontal-line"></div>
                     <div class="others">
                         <div class="others-title">
                             OTHER DOCUMENTS INCLUDED
                         </div>
+                        
                         <div class="documents">
                             <div class="document">
                                 <p class="name">AnyDOCS.docx</p>

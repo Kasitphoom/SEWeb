@@ -81,7 +81,7 @@ async def set_profile(request: Request, ID: int = Cookie(None), name: str = Form
     client.setName(name)
     client.setUsername(user_name)
     return RedirectResponse(url="/profile", status_code=303)@app.get("/classes/{course_index}/assignments/{assignment_name}", response_class=HTMLResponse)
-    
+
 @app.get("/classes/{course_index}/assignments/{assignment_name}", response_class=HTMLResponse)
 async def get_assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
     client = clients[ID]
@@ -90,6 +90,10 @@ async def get_assignment(request: Request, course_index: int, assignment_name: s
         client_type = "Lecturer"
     elif type(client) == Student:
         client_type = "Student"
-    return templates.TemplateResponse("classes.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type})
+        for a in client.enrolls[course_index].course.assignments:
+            if a.name == assignment_name:
+                assignment = a
+                break
+    return templates.TemplateResponse("assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment})
 
     

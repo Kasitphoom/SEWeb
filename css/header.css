@@ -502,3 +502,24 @@ div .facebook {
 }
 
 /* end footer responsive */
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 20px;
+}
+  
+  /* Track */
+::-webkit-scrollbar-track {
+    background: var(--light-grey); 
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(198, 198, 198); 
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color); 
+}

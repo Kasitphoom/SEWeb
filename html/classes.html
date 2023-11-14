@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" type="text/css" href="/css/classes.css">
-    <script src="../js/header.js" defer></script>
+    <script src="/js/header.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -33,8 +33,8 @@
                             <i class="fa-solid fa-sun fa-xl"></i>
                         </label>
                         {% if client != None %}
-                        <a href="/classes/0/assignments">Clases</a>
-                        {% endif %} 
+                        <a href="/classes/0/assignments">Classes</a>
+                        {% endif %}
                         <a href="">About</a>
                         <a href="">Program</a>
                         <a href="">Admission</a>
@@ -95,7 +95,9 @@
                     <div class="dropdown-content">
                         <div class="course-content">Anouncements</div>
                         <div class="course-content">Rooms</div>
-                        <a href="/classes/{{ loop.index - 1 }}/assignments"><div class="course-content">Assignments</div></a>
+                        <a href="/classes/{{ loop.index - 1 }}/assignments">
+                            <div class="course-content">Assignments</div>
+                        </a>
                     </div>
                 </div>
                 {% endfor %}
@@ -138,12 +140,13 @@
             </div>
             <div class="wrap-assignment">
                 {% for assignment in client.courses[course_index].assignments %}
-                <a href=""></a>
-                <div class="assignment">
-                    <div class="assignment-title">{{ assignment.name }}</div>
-                    <div class="assignment-status">{{ assignment.checksummited(client.ID) }}</div>
-                    <div class="assignment-duedate">Due {{ assignment.due_date }}</div>
-                </div>
+                <a href="">
+                    <div class="assignment">
+                        <div class="assignment-title">{{ assignment.name }}</div>
+                        <div class="assignment-status">{{ assignment.checksummited(client.ID) }}</div>
+                        <div class="assignment-duedate">Due {{ assignment.due_date }}</div>
+                    </div>
+                </a>
                 {% endfor %}
             </div>
             {% endif %}

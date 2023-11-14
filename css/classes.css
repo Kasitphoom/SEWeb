@@ -218,6 +218,7 @@
     color: var(--white);
 }
 
+
 .wrap-assignment .assignment {
     width: 100%;
     display: flex;
@@ -229,6 +230,8 @@
     background-color: var(--middle-grey);
     transition: 0.5s;
     font-size: 1.6rem;
+    color: var(--white);
+    text-decoration: none;
 }
 
 .wrap-assignment .assignment:hover {

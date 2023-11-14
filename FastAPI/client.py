@@ -35,11 +35,11 @@ root.courses[301].assignments = [Assignment("Write a AI 1", 10, "2021-01-10"), A
 
 root.clients = BTrees.OOBTree.BTree()
 #Lecturers
-root.clients[9001] = Lecturer(9001, [], "Micheal Scott", "TheBestBoss", "1234", "../images/gojo.png")
+root.clients[9001] = Lecturer(9001, [], "Micheal Scott", "TheBestBoss", "1234", "/images/gojo.png")
 root.clients[9001].setCourses([Course(101, "Computer Programming", 4), Course(201, "Web Programming", 4), Course(202, "Software Engineering Principles", 5), Course(301, "Artificial Intelligent", 3)])
 
 #Students
-root.clients[1100] = Student(1100, [], "Kasitphoom Thowongs", "student1101", "1234", "../images/micomet.jpg")
+root.clients[1100] = Student(1100, [], "Kasitphoom Thowongs", "student1101", "1234", "/images/micomet.jpg")
 root.clients[1100].enrolls = [Enrollment(root.courses[101], 80, root.clients[1100]), Enrollment(root.courses[201], 87, root.clients[1100]), Enrollment(root.courses[202], 69, root.clients[1100]), Enrollment(root.courses[301], 80, root.clients[1100])]
 root.clients[1101] = Student(1101, [], "Phupa Denphatcharangkul", "student1102", "1234")
 root.clients[1101].enrolls = [Enrollment(root.courses[101], 80, root.clients[1101]), Enrollment(root.courses[201], 87, root.clients[1101]), Enrollment(root.courses[202], 69, root.clients[1101]), Enrollment(root.courses[301], 80, root.clients[1101])]

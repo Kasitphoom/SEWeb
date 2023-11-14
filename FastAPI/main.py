@@ -38,7 +38,7 @@ def get_all_users():
 async def set_login(request: Request, response: Response, ID: int = Form(...), password: str = Form(...)):
     if ID in clients.keys():
         if clients[ID].login(ID, password):
-            response = RedirectResponse(url="/classes/0", status_code=303)
+            response = RedirectResponse(url="/classes/0/assignments", status_code=303)
             response.set_cookie(key="ID", value=ID)
             return response
         else:
@@ -51,7 +51,7 @@ async def set_login(request: Request, response: Response, ID: int = Form(...), p
 async def login_form(request: Request, error: int = 0):
     return templates.TemplateResponse("login.html", {"request": request, "error": error})
 
-@app.get("/classes/{course_index}", response_class=HTMLResponse)
+@app.get("/classes/{course_index}/assignments", response_class=HTMLResponse)
 async def get_classes(request: Request, course_index: int, ID: int = Cookie(None)):
     client = clients[ID]
     client_type = "None"
@@ -63,3 +63,14 @@ async def get_classes(request: Request, course_index: int, ID: int = Cookie(None
     return templates.TemplateResponse("classes.html", {"request": request, "client": client, "course_index": course_index, "client_type": client_type})
     
 
+@app.get("/classes/{course_index}/assignments/{assignment_name}", response_class=HTMLResponse)
+async def get_assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
+    client = clients[ID]
+    client_type = "None"
+    if type(client) == Lecturer:
+        client_type = "Lecturer"
+    elif type(client) == Student:
+        client_type = "Student"
+    return templates.TemplateResponse("classes.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type})
+
+    

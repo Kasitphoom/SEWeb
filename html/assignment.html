@@ -119,26 +119,83 @@
                             <div class="document">
                                 <p class="name">AnyDOCS.docx</p>
                                 <div class="options">
-                                    <a href="" class="option"><i class="fa-solid fa-eye"></i></a>
-                                    <a href="" class="option" download=""><i class="fa-solid fa-download"></i></a>
+                                    <a href="" class="option">
+                                        <i class="fa-solid fa-eye"></i>
+                                        <p>PREVIEW</p>
+                                    </a>
+                                    <a href="" class="option" download="">
+                                        <i class="fa-solid fa-download"></i>
+                                        <p>DOWNLOAD</p>
+                                    </a>
                                 </div>
                             </div>
                             <div class="document">
                                 <p class="name">AnyDOCS.docx</p>
                                 <div class="options">
-                                    <a href="" class="option"><i class="fa-solid fa-eye"></i></a>
-                                    <a href="" class="option" download=""><i class="fa-solid fa-download"></i></a>
+                                    <a href="" class="option">
+                                        <i class="fa-solid fa-eye"></i>
+                                        <p>PREVIEW</p>
+                                    </a>
+                                    <a href="" class="option" download="">
+                                        <i class="fa-solid fa-download"></i>
+                                        <p>DOWNLOAD</p>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="submission ctn">
-                    
+                <div class="submission-ctn">
+                    <div class="status">
+                        <p>STATUS</p>
+                        <div class="status-type not-submitted">
+                            NOT SUBMITTED
+                        </div>
+                    </div>
+                    <div class="userfiles" id="user-files">
+                        <!-- <div class="file">
+                            <a href="">Filename.png</a>
+                            <a href="" class="remove-file">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div> -->
+                    </div>
+                    <form action="" method="post">
+                        <input type="file" name="assignment-files" id="assignment-files" style="display: none;" multiple>
+                        <input type="submit" class="input submit" value="SUBMIT">
+                        <input type="submit" class="input choose-file" value="CHOOSE FILES" id="choose-file">
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        const AssignmentFiles = document.getElementById("assignment-files");
+        const ChooseFile = document.getElementById("choose-file");
+        ChooseFile.addEventListener("click", (e) => {
+            e.preventDefault();
+            AssignmentFiles.click();
+        });
+
+        AssignmentFiles.addEventListener("change", (e) => {
+            const UserFiles = document.getElementById("user-files");
+            const Files = AssignmentFiles.files;
+            for (let i = 0; i < Files.length; i++) {
+                const File = Files[i];
+                console.log(File);
+                // upload that file to submittedAssignment folder
+
+                // Tell API that there is a file upload then append file to UserFiles
+
+                UserFiles.innerHTML += `<div class="file">
+                            <a href="">${File.name}</a>
+                            <a href="" class="remove-file">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>`;
+            }
+        });
+    </script>
 </body>
 
 </html>

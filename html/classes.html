@@ -32,6 +32,9 @@
                             <i class="fa-solid fa-moon fa-xl"></i>
                             <i class="fa-solid fa-sun fa-xl"></i>
                         </label>
+                        {% if client != None %}
+                        <a href="/classes/0/assignments">Clases</a>
+                        {% endif %} 
                         <a href="">About</a>
                         <a href="">Program</a>
                         <a href="">Admission</a>
@@ -44,7 +47,17 @@
                 </div>
                 <a href="javascript:void(0);" class="bars" onclick="changeToResponsive()"><i
                         class="fa-solid fa-bars fa-2xl"></i></a>
-                <a href="/login"><img id="login" src="{{client.avatar}}" alt="not found"></a>
+                <div class="dropdown-header">
+                    <img id="login" src="{{ client.avatar }}" alt="Avatar">
+                    <div class="dropdown-header-content">
+                        <a href="/profile">
+                            <div>Profile</div>
+                        </a>
+                        <a href="/logout">
+                            <div>Logout</div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="nav-bottom" style="display: none;">
@@ -71,8 +84,6 @@
 
     <div class="spacer" id="spacer"></div>
 
-
-
     <div class="content">
         <div class="side-bar">
             <label>Courses</label>
@@ -93,9 +104,11 @@
                 <div class="course">
                     <label>{{course.name}}</label>
                     <div class="dropdown-content">
-                        <div class="course-content">Announcements</div>     
+                        <div class="course-content">Announcements</div>
                         <div class="course-content">Rooms</div>
-                        <a href="/classes/{{ loop.index - 1 }}/assignments"><div class="course-content">Assignments</div></a>
+                        <a href="">
+                            <div class="course-content">Assignments</div>
+                        </a>
                     </div>
                 </div>
                 {% endfor %}

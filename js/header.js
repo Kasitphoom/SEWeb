@@ -23,3 +23,8 @@ function scrollFunction() {
         spacer.classList.remove("small-bar");
     }
 }
+
+function toggleDropdown() {
+    var dropdownContent = document.getElementById("dropdownContent");
+    dropdownContent.classList.toggle("show");
+}

@@ -1,7 +1,7 @@
 import persistent
 
 class Client(persistent.Persistent):
-    def __init__(self, ID, name, user_name, password, avatar="../images/user-default-avatar.svg"):
+    def __init__(self, ID, name, user_name, password, avatar):
         self.ID = ID
         self.name = name
         self.user_name = user_name
@@ -21,7 +21,7 @@ class Client(persistent.Persistent):
         self.user_name = user_name
 
 class Lecturer(Client):
-    def __init__(self, ID, courses, name, user_name, password, avatar=None):
+    def __init__(self, ID, courses, name, user_name, password, avatar="../images/user-default-avatar.svg"):
         super().__init__(ID ,name, user_name, password, avatar)
         self.courses = courses
 
@@ -33,7 +33,7 @@ class Lecturer(Client):
     
 
 class Student(Client):
-    def __init__(self, ID, enrolls, name, user_name, password, avatar=None):
+    def __init__(self, ID, enrolls, name, user_name, password, avatar="../images/user-default-avatar.svg"):
         super().__init__(ID, name, user_name, password, avatar)
         self.enrolls = enrolls
 

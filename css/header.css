@@ -9,7 +9,7 @@ html {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 :root {
@@ -27,6 +27,8 @@ a {
     --dark-grey: #1E1E1E;
     --red: #b90000;
     --neutral-grey: #656565;
+    --yellow: #F2C94C;
+    --green: #27AE60;
 }
 
 body {
@@ -328,6 +330,12 @@ div .facebook {
     transition: 0.5s;
 }
 
+.horizontal-line{
+    height: 1px;
+    width: 100%;
+    background-color: var(--accent-color);
+}
+
 /* responsive Phong*/
 
 @media screen and (max-width:1245px) {
@@ -494,3 +502,24 @@ div .facebook {
 }
 
 /* end footer responsive */
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 20px;
+}
+  
+  /* Track */
+::-webkit-scrollbar-track {
+    background: var(--light-grey); 
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(198, 198, 198); 
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color); 
+}

@@ -10,7 +10,7 @@
     bottom: 0;
     color: var(--white);
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 2.5rem;
     overflow-y: auto;
     gap: 2.5rem;
 }
@@ -31,7 +31,7 @@
     padding: 0.75rem;
     width: 25rem;
     background-color: var(--light-grey);
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     box-shadow: 1px 2px 7px 1px var(--accent-color);
     width: 100%;
 }
@@ -70,6 +70,7 @@
     gap: 1rem;
     padding: 1.2rem;
     border-radius: 0.6rem;
+    color: var(--white);
     /* background-color: var(--accent-color); */
 }
 
@@ -78,26 +79,93 @@
     background-color: var(--kmitl-orange);
 }
 
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-    height: 20px;
+.right-content .title{
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--white);
+    padding: 2rem;
+    text-align: left;
 }
-  
-  /* Track */
-::-webkit-scrollbar-track {
-    background: var(--light-grey); 
+
+.room-ctn{
+    width: 100%;
+    background-color: var(--middle-grey);
+    padding: 2.5rem 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
-   
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: rgb(198, 198, 198); 
+
+.room-ctn p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-  
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-color); 
+
+.room-ctn .rooms-title{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    font-size: 1.6rem;
+    font-weight: bold;
 }
+
+.room-ctn .room{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: var(--light-grey);
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 1px 2px 7px 1px var(--accent-color);
+}
+
+
+.room-ctn .room-options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.room-ctn .room a{
+    display: flex;
+    padding: 0.5rem 2rem;
+    border-radius: 2rem;
+    background-color: var(--accent-color);
+    color: var(--white);
+    transition: .2s;
+}
+
+.room-ctn .room a p{
+    width: 0;
+    opacity: 0;
+}
+
+.room-ctn .room a:hover{
+    gap: 1rem;
+}
+
+.room-ctn .room a:hover p{
+    animation: showtype 0.3s ease-in-out forwards;
+}
+
+.room-ctn .room a:hover:nth-child(1){
+    background-color: var(--green);
+}
+
+.room-ctn .room a:hover:nth-child(2){
+    background-color: var(--yellow);
+    color: var(--middle-grey);
+}
+
+.room-ctn .room a:hover:nth-child(3){
+    background-color: var(--red);
+}
+
 
 .content {
     display: flex;
@@ -146,7 +214,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 3rem;
-    padding: 3rem 5rem;
+    padding: 1rem 5rem;
     color: var(--white);
 }
 
@@ -160,6 +228,7 @@
     border-radius: 2rem;
     background-color: var(--middle-grey);
     transition: 0.5s;
+    font-size: 1.6rem;
 }
 
 .wrap-assignment .assignment:hover {
@@ -167,13 +236,22 @@
 }
 
 .wrap-assignment .assignment .assignment-title {
-    font-size: 2rem;
     font-weight: bold;
     margin-right: auto; /* Pushes title to the left */
 }
 
 .wrap-assignment .assignment .assignment-duedate,
 .wrap-assignment .assignment .assignment-status {
-    font-size: 2rem;
     font-weight: bold;
+}
+
+@keyframes showtype{
+    0%{
+        opacity: 0;
+        width: 0;
+    }
+    100%{
+        opacity: 1;
+        width: 5.3rem;
+    }
 }

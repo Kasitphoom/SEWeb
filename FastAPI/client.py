@@ -29,6 +29,9 @@ root.courses[202].setGradeScheme(gradeScheme)
 root.courses[301].setGradeScheme(gradeScheme)
 
 root.courses[101].assignments = [Assignment("Assignment 1", 10, "2021-01-01"), Assignment("Assignment 2", 10, "2021-01-01"), Assignment("Assignment 3", 10, "2021-01-01"), Assignment("Assignment 4", 10, "2021-01-01")]
+root.courses[201].assignments = [Assignment("Write a website 1", 10, "2021-01-10"), Assignment("Write a website 2", 10, "2021-01-10"), Assignment("Write a website 3", 10, "2021-01-10"), Assignment("Write a website 4", 10, "2021-01-10")]
+root.courses[202].assignments = [Assignment("Write a software 1", 10, "2021-01-10"), Assignment("Write a software 2", 10, "2021-01-10"), Assignment("Write a software 3", 10, "2021-01-10"), Assignment("Write a software 4", 10, "2021-01-10")]
+root.courses[301].assignments = [Assignment("Write a AI 1", 10, "2021-01-10"), Assignment("Write a AI 2", 10, "2021-01-10"), Assignment("Write a AI 3", 10, "2021-01-10"), Assignment("Write a AI 4", 10, "2021-01-10")]
 
 root.clients = BTrees.OOBTree.BTree()
 #Lecturers

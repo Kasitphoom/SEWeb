@@ -43,7 +43,11 @@
         </div>
         <a href="javascript:void(0);" class="bars" onclick="changeToResponsive()"><i
             class="fa-solid fa-bars fa-2xl"></i></a>
-        <a href="/login"><img id="login" src="{{client.avatar}}" alt=""></a>
+        {% if client == None %}
+          <a href="/login"><img id="login" src="../images/user-default-avatar.svg" alt=""></a>
+        {% else %}
+          <a href="/login"><img id="login" src="{{client.avatar}}" alt=""></a>
+        {% endif %}
       </div>
     </div>
     <div class="nav-bottom" style="display: none;">

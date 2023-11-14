@@ -22,8 +22,9 @@ app.mount("/js", StaticFiles(directory="../js"), name="js")
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request, ID: int = Cookie(None)):
     if ID == None:
-        templates.TemplateResponse("index.html", {"request": request})
+        return templates.TemplateResponse("index.html", {"request": request, "client": None})
     client = clients[ID]
+    print(client.avatar)
     return templates.TemplateResponse("index.html", {"request": request, "client": client})
 
 @app.get("/users/all")
@@ -34,7 +35,7 @@ def get_all_users():
 async def set_login(request: Request, response: Response, ID: int = Form(...), password: str = Form(...)):
     if ID in clients.keys():
         if clients[ID].login(ID, password):
-            response = RedirectResponse(url="/classes", status_code=303)
+            response = RedirectResponse(url="/classes/0", status_code=303)
             response.set_cookie(key="ID", value=ID)
             return response
         else:
@@ -47,8 +48,13 @@ async def set_login(request: Request, response: Response, ID: int = Form(...), p
 async def login_form(request: Request, error: int = 0):
     return templates.TemplateResponse("login.html", {"request": request, "error": error})
 
-@app.get("/classes", response_class=HTMLResponse)
+@app.get("/classes/0", response_class=HTMLResponse)
 async def get_classes(request: Request, ID: int = Cookie(None)):
     client = clients[ID]
     course_index = 0
+    return templates.TemplateResponse("classes.html", {"request": request, "client": client, "course_index": course_index})
+
+@app.get("/classes/{course_index}", response_class=HTMLResponse)
+async def get_classes(request: Request, course_index: int, ID: int = Cookie(None)):
+    client = clients[ID]
     return templates.TemplateResponse("classes.html", {"request": request, "client": client, "course_index": course_index})

@@ -71,37 +71,78 @@
 
     <div class="spacer" id="spacer"></div>
 
-
+    
 
     <div class="content">
         <div class="side-bar">
             <label>Courses</label>
             <div class="course-container">
-                {% for enrollment in client.enrolls %}
                 <div class="course">
-                    <label>{{ enrollment.course.name }}</label>
+                    <label>Software Engineering</label>
                     <div class="dropdown-content">
-                        <div class="course-content">Announcements</div>     
+                        <div class="course-content">Anouncements</div>
                         <div class="course-content">Rooms</div>
-                        <a href="/classes/{{ loop.index - 1 }}"><div class="course-content">Assignments</div></a>
+                        <div class="course-content">Assignments</div>
                     </div>
                 </div>
-                {% endfor %}
+                <div class="course">
+                    <label>Software Engineering Principles</label>
+                    <div class="dropdown-content">
+                        <div class="course-content">Anouncements</div>
+                        <div class="course-content">Rooms</div>
+                        <div class="course-content">Assignments</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="right-content">
             <div class="banner"></div>
             <div class="title">
-                {{ client.enrolls[course_index].course.name }} - Assignments
+                [CLASS NAME] - Rooms available
             </div>
             <div class="wrap-assignment">
-                {% for assignment in client.enrolls[course_index].course.assignments %}
-                <div class="assignment">
-                    <div class="assignment-title">{{ assignment.name }}</div>
-                    <div class="assignment-status">Submitted</div>
-                    <div class="assignment-duedate">Due {{ assignment.due_date }}</div>
+                <div class="room-ctn">
+                    <div class="rooms-title">
+                        <p>ROOM NUMBER</p>
+                        <p>ROOM TITLE</p>
+                        <p>OPTIONS</p>
+                    </div>
+                    <div class="horizontal-line"></div>
+                    <div class="room">
+                        <p>f768f10b-160f-4d81-b75b-257258f432d9</p>
+                        <p>Room Title</p>
+                        <div class="room-options">
+                            <a href="">
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                                <p>JOIN</p>
+                            </a>
+                            <!-- 
+                            FOR TEACHER
+                            <a href="">Edit</a>
+                            <a href="">Delete</a> 
+                            -->
+                        </div>
+                    </div>
+                    <div class="room">
+                        <p>f768f10b-160f-4d81-b75b-257258f432d9</p>
+                        <p>Room Title</p>
+                        <div class="room-options">
+                            <a href="">
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                                <p>JOIN</p>
+                            </a>
+                            <a href="">
+                                <i class="fa-solid fa-pencil"></i>
+                                <p>EDIT</p>
+                            </a>
+                            <a href="">
+                                <i class="fa-solid fa-trash"></i>
+                                <p>DELETE</p>
+                            </a>
+                           
+                        </div>
+                    </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>

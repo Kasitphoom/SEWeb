@@ -88,4 +88,5 @@ input[type="submit"]:hover {
     height: 10rem;
     object-fit: cover;
     margin-bottom: 1rem;
+    border-radius: 10rem;
 }

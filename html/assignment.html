@@ -163,9 +163,15 @@
                 <div class="submission-ctn">
                     <div class="status">
                         <p>STATUS</p>
+                        {% if assignment.checkSubmitted(client.ID) == "Not Summited" %}
                         <div class="status-type not-submitted">
                             NOT SUBMITTED
                         </div>
+                        {% else %}
+                        <div class="status-type submitted">
+                            SUBMITTED
+                        </div>
+                        {% endif %}
                     </div>
                     <div class="userfiles" id="user-files">
                         <!-- <div class="file">

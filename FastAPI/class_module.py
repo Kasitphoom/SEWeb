@@ -178,8 +178,10 @@ class Assignment(persistent.Persistent):
     def checkSubmitted(self, student):
         if student in self.submitted_work:
             return "Summited"
-        return "Not summited"
+        return "Not Summited"
     
+    def haveAttachment(self):
+        return len(self.attachment) > 0
 
 gradeScheme = [
     {"Grade": "A", "min":80, "max":100},

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/header.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/classes.css">
+    <script src="../js/header.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>
+        <div class="nav" id="navbar">
+            <a href="/" class="nav-left">
+                <img class="nav-logo" src="../images/SE_logo_tranparent.svg" alt="">
+                <div class="nav-text">
+                    <div class="nav-title">SOFTWARE ENGINEERING</div>
+                    <div class="nav-title-small">King Mongkut's Institute of Technology Ladkrabang</div>
+                </div>
+            </a>
+            <div class="nav-right" id="navRight">
+                <div class="wrap-darkmode">
+                    <div class="nav-move">
+                        <input type="checkbox" id="darkmode-toggle">
+                        <label for="darkmode-toggle" id="label-darkmode">
+                            <i class="fa-solid fa-moon fa-xl"></i>
+                            <i class="fa-solid fa-sun fa-xl"></i>
+                        </label>
+                        <a href="">About</a>
+                        <a href="">Program</a>
+                        <a href="">Admission</a>
+                        <a href="">Research</a>
+                        <a href="">Industry</a>
+                        <a href="">News</a>
+                        <a href="">Event</a>
+                        <a href="">EN</a>
+                    </div>
+                </div>
+                <a href="javascript:void(0);" class="bars" onclick="changeToResponsive()"><i
+                        class="fa-solid fa-bars fa-2xl"></i></a>
+                <a href="/login"><img id="login" src=" {{ client.avatar }}" alt=""></a>
+            </div>
+        </div>
+        <div class="nav-bottom" style="display: none;">
+            <div class="nav-move" style="display: none;">
+                <div class="wrap-darkmode">
+                    <input type="checkbox" id="darkmode-toggle">
+                    <label for="darkmode-toggle" id="label-darkmode">
+                        <i class="fa-solid fa-moon fa-xl"></i>
+                        <i class="fa-solid fa-sun fa-xl"></i>
+                    </label>
+                </div>
+                <a href="">About</a>
+                <a href="">Program</a>
+                <a href="">Admission</a>
+                <a href="">Research</a>
+                <a href="">Industry</a>
+                <a href="">News</a>
+                <a href="">Event</a>
+                <a href="">EN</a>
+            </div>
+        </div>
+        <div class="accent-bar" id="accent-bar"></div>
+    </nav>
+
+    <div class="spacer" id="spacer"></div>
+
+    
+
+    <div class="content">
+        <div class="side-bar">
+            <label>Courses</label>
+            <div class="course-container">
+                <div class="course">
+                    <label>Software Engineering</label>
+                    <div class="dropdown-content">
+                        <div class="course-content">Anouncements</div>
+                        <div class="course-content">Rooms</div>
+                        <div class="course-content">Assignments</div>
+                    </div>
+                </div>
+                <div class="course">
+                    <label>Software Engineering Principles</label>
+                    <div class="dropdown-content">
+                        <div class="course-content">Anouncements</div>
+                        <div class="course-content">Rooms</div>
+                        <div class="course-content">Assignments</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-content">
+            <div class="banner"></div>
+            <div class="assignment-ctn">
+                <div class="information-ctn">
+                    <div class="assignment-information-title">
+                        <div class="assignment-title">
+                            Assignment1
+                        </div>
+                        <div class="duedate">
+                            Due 9/11
+                        </div>
+                    </div>
+                    <div class="assignment-description">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta debitis sint a cupiditate in natus totam suscipit ullam id. Enim accusamus debitis optio impedit illo atque, sunt error, voluptatum quasi laudantium velit aperiam provident eveniet veritatis perspiciatis sequi, ea quisquam omnis voluptas maxime quaerat ullam minima non? Sint, earum fugiat.
+                    </div>
+                    <div class="horizontal-line"></div>
+                    <div class="others">
+                        <div class="others-title">
+                            OTHER DOCUMENTS INCLUDED
+                        </div>
+                        <div class="documents">
+                            <div class="document">
+                                <p class="name">AnyDOCS.docx</p>
+                                <div class="options">
+                                    <a href="" class="option">
+                                        <i class="fa-solid fa-eye"></i>
+                                        <p>PREVIEW</p>
+                                    </a>
+                                    <a href="" class="option" download="">
+                                        <i class="fa-solid fa-download"></i>
+                                        <p>DOWNLOAD</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="document">
+                                <p class="name">AnyDOCS.docx</p>
+                                <div class="options">
+                                    <a href="" class="option">
+                                        <i class="fa-solid fa-eye"></i>
+                                        <p>PREVIEW</p>
+                                    </a>
+                                    <a href="" class="option" download="">
+                                        <i class="fa-solid fa-download"></i>
+                                        <p>DOWNLOAD</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="submission-ctn">
+                    <div class="status">
+                        <p>STATUS</p>
+                        <div class="status-type not-submitted">
+                            NOT SUBMITTED
+                        </div>
+                    </div>
+                    <div class="userfiles" id="user-files">
+                        <!-- <div class="file">
+                            <a href="">Filename.png</a>
+                            <a href="" class="remove-file">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div> -->
+                    </div>
+                    <form action="" method="post">
+                        <input type="file" name="assignment-files" id="assignment-files" style="display: none;" multiple>
+                        <input type="submit" class="input submit" value="SUBMIT">
+                        <input type="submit" class="input choose-file" value="CHOOSE FILES" id="choose-file">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const AssignmentFiles = document.getElementById("assignment-files");
+        const ChooseFile = document.getElementById("choose-file");
+        ChooseFile.addEventListener("click", (e) => {
+            e.preventDefault();
+            AssignmentFiles.click();
+        });
+
+        AssignmentFiles.addEventListener("change", (e) => {
+            const UserFiles = document.getElementById("user-files");
+            const Files = AssignmentFiles.files;
+            for (let i = 0; i < Files.length; i++) {
+                const File = Files[i];
+                console.log(File);
+                // upload that file to submittedAssignment folder
+
+                // Tell API that there is a file upload then append file to UserFiles
+
+                UserFiles.innerHTML += `<div class="file">
+                            <a href="">${File.name}</a>
+                            <a href="" class="remove-file">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>`;
+            }
+        });
+    </script>
+</body>
+
+</html>

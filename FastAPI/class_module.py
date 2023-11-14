@@ -141,7 +141,7 @@ class Enrollment(persistent.Persistent):
         self.score = score
 
 class Assignment(persistent.Persistent):
-    def __init__(self, name, max_score, due_date, attachment=[] , submitted_work=[],description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."):
+    def __init__(self, name, max_score, due_date, attachment=[] , submitted_work={}, description=""):
         self.name = name
         self.max_score = max_score
         self.due_date = due_date
@@ -149,8 +149,37 @@ class Assignment(persistent.Persistent):
         self.submitted_work = submitted_work
         self.description = description
 
+    def summitWork(self, student, work):
+        self.submitted_work[student] = {"work": work, "score": 0}
 
+    def unSummitWork(self, student):
+        self.submitted_work.pop(student)
 
+    def grading(self, student, score):
+        #check whether student has submitted work
+        if student not in self.submitted_work.keys():
+            return False
+        self.submitted_work[student]["score"] = score
+        return True
+
+    def setDiscription(self, description):
+        self.description = description
+
+    def addAttachment(self, attachment):
+        self.attachment.append(attachment)
+
+    def removeAttachment(self, attachment):
+        if attachment in self.attachment:
+            self.attachment.remove(attachment)
+
+    def getWorkScore(self, student):
+        return self.submitted_work[student]["score"]
+    
+    def checkSubmitted(self, student):
+        if student in self.submitted_work:
+            return "Summited"
+        return "Not summited"
+    
 
 gradeScheme = [
     {"Grade": "A", "min":80, "max":100},

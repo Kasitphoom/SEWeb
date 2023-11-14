@@ -22,7 +22,7 @@ app.mount("/js", StaticFiles(directory="../js"), name="js")
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request, ID: int = Cookie(None)):
     if ID == None:
-        return templates.TemplateResponse("index.html", {"request": request})
+        return templates.TemplateResponse("index.html", {"request": request, "client": None})
     client = clients[ID]
     return templates.TemplateResponse("index.html", {"request": request, "client": client})
 

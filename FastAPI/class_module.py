@@ -141,7 +141,7 @@ class Enrollment(persistent.Persistent):
         self.score = score
 
 class Assignment(persistent.Persistent):
-    def __init__(self, name, max_score, due_date, attachment=[] , submitted_work={}, description=""):
+    def __init__(self, name, max_score, due_date, attachment=[] , submitted_work={}, description="No Description"):
         self.name = name
         self.max_score = max_score
         self.due_date = due_date

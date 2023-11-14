@@ -33,8 +33,8 @@
                             <i class="fa-solid fa-sun fa-xl"></i>
                         </label>
                         {% if client != None %}
-                        <a href="/classes/0/assignments">Clases</a>
-                        {% endif %} 
+                        <a href="/classes/0/assignments">Classes</a>
+                        {% endif %}
                         <a href="">About</a>
                         <a href="">Program</a>
                         <a href="">Admission</a>
@@ -95,7 +95,9 @@
                     <div class="dropdown-content">
                         <div class="course-content">Anouncements</div>
                         <div class="course-content">Rooms</div>
-                        <a href="/classes/{{ loop.index - 1 }}/assignments"><div class="course-content">Assignments</div></a>
+                        <a href="/classes/{{ loop.index - 1 }}/assignments">
+                            <div class="course-content">Assignments</div>
+                        </a>
                     </div>
                 </div>
                 {% endfor %}

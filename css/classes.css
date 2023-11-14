@@ -245,6 +245,66 @@
     font-weight: bold;
 }
 
+/* For assignment page */
+.assignment-ctn{
+    display: flex;
+    padding: 3rem;
+    text-align: left;
+    color: var(--white);
+}
+
+.assignment-information-title{
+    background-color: var(--middle-grey);
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+.assignment-information-title .assignment-title{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.assignment-information-title .duedate{
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.assignment-description{
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    font-weight: normal;
+    line-height: 1.5em;
+}
+
+.information-ctn .others-title{
+    font-size: 2rem;
+}
+
+.documents{
+    display: flex;
+    flex-direction: column;
+}
+
+.documents .document{
+    display: flex;
+    width: 100%;
+    background-color: var(--light-grey);
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+.documents .document .options{
+    display: flex;
+    gap: 1rem;
+}
+.documents .document .options:nth-child(1){
+    background-color: var(--yellow);
+}
+
 @keyframes showtype{
     0%{
         opacity: 0;

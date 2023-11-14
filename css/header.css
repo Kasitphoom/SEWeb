@@ -328,6 +328,12 @@ div .facebook {
     transition: 0.5s;
 }
 
+.horizontal-line{
+    height: 1px;
+    width: 100%;
+    background-color: var(--accent-color);
+}
+
 /* responsive Phong*/
 
 @media screen and (max-width:1245px) {

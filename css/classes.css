@@ -78,6 +78,65 @@
     background-color: var(--kmitl-orange);
 }
 
+.right-content .title{
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--white);
+    padding: 2rem;
+    text-align: left;
+}
+
+.room-ctn{
+    width: 100%;
+    background-color: var(--middle-grey);
+    padding: 2.5rem 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.room-ctn p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.room-ctn .rooms-title{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.room-ctn .room{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: var(--light-grey);
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 1px 2px 7px 1px var(--accent-color);
+}
+
+
+.room-ctn .room-options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.room-ctn .room a{
+    padding: 0.5rem 2rem;
+    border-radius: 2rem;
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -146,7 +205,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 3rem;
-    padding: 3rem 5rem;
+    padding: 1rem 5rem;
     color: var(--white);
 }
 

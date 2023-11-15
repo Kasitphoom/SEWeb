@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" type="text/css" href="/css/classes.css">
+    <link rel="stylesheet" type="text/css" href="/css/add_assignment.css">
     <script src="/js/header.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -121,46 +122,34 @@
         </div>
         <div class="right-content">
             <div class="banner"></div>
-            <form action="/" method="post" enctype="multipart/form-data"></form>
-                <div class="edit-assignment">        
-                    <div class="information-ctn">
-                        <div class="edit-assignment-section">
-                            <div class="title">Edit Assignment</div>
-                            <div class="input-ctn">
-                                <label class="title" for="assignment-name">Assignment Name</label>
-                                <input type="text" name="assignment-name" id="assignment-name" value="{{ assignment.name }}">
-                            </div>
-                            
-                        </div>
+            <div class="add-assignment-container-top">
+                <div class="add-assignment-container">
+                    <h2>Add Assignment</h2>
+                    <form action="/addAssignment/{{course_index}}" method="POST" enctype="multipart/form-data" id="profile">
+                        <!-- Existing form fields -->
+                        <div class="wrap-add-assignment">
+                            <div class="add-assignment-content">
+                                <label for="name">ASSIGNMENT NAME</label>
+                                <input type="text" id="name" name="name" value="Assignment 1" required>
+        
+                                <label for="due_date">DUE DATE</label>
+                                <input type="text" id="due_date" name="due_date" value="2021-11-1" required>
 
-                    </div>
-                    
+                                <label for="description">DESCRIPTION</label>
+                                <input type="text" id="description" name="description" value="No Description">
+                            </div>
+                            <!-- New profile picture upload field -->
+                            <div class="add-assignment-content">
+                                <input type="file" name="attachmentFiles" id="attachment-files" style="display: none;" multiple>
+                                <input type="submit" class="input choose-file" value="CHOOSE FILES" id="choose-file">
+                            </div>
+                        </div>
+                        <input type="submit" value="Save Changes" id="save-changes">
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-    <script>
-        const AssignmentFiles = document.getElementById("assignment-files");
-        const ChooseFile = document.getElementById("choose-file");
-        ChooseFile.addEventListener("click", (e) => {
-            e.preventDefault();
-            AssignmentFiles.click();
-        });
-
-        AssignmentFiles.addEventListener("change", (e) => {
-            const UserFiles = document.getElementById("user-files");
-            const Files = AssignmentFiles.files;
-            UserFiles.innerHTML = ""
-            for (let i = 0; i < Files.length; i++) {
-                const File = Files[i];
-                console.log(File);
-
-                UserFiles.innerHTML += `<div class="file">
-                            <a href="">${File.name}</a>
-                        </div>`;
-            }
-        });
-    </script>
 </body>
 
 </html>

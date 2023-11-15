@@ -78,11 +78,18 @@ async def get_profile(request: Request, ID: int = Cookie(None)):
     return templates.TemplateResponse("profile.html", {"request": request, "client": client})
 
 @app.post("/profile")
-async def set_profile(request: Request, ID: int = Cookie(None), name: str = Form(...), user_name: str = Form(...)):
+async def set_profile(request: Request, ID: int = Cookie(None), name: str = Form(...), user_name: str = Form(...), avatar: UploadFile = File(...)):
+    UPLOAD_DIR = "Upload"
     client = clients[ID]
     client.setName(name)
     client.setUsername(user_name)
-    return RedirectResponse(url="/profile", status_code=303)@app.get("/classes/{course_index}/assignments/{assignment_name}", response_class=HTMLResponse)
+    data = await avatar.read()
+    saveas = UPLOAD_DIR + "/" + avatar.filename
+    with open(saveas, 'wb') as f:
+        f.write(data)
+    saveas = "/" + UPLOAD_DIR + "/" + avatar.filename
+    client.setAvatar(saveas)
+    return RedirectResponse(url="/profile", status_code=303)
 
 @app.get("/classes/{course_index}/assignments/{assignment_name}", response_class=HTMLResponse)
 async def get_assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
@@ -139,7 +146,8 @@ async def upload_file(request: Request, course_index: int, ASS_ID: str, ID: int 
 async def add_Assignment(request: Request, course_index: int, ID: int = Cookie(None)):
     client = clients[ID]
     client_type = "Lecturer"
-    assignments = client.courses[course_index].assignments
+    course = client.courses[course_index]
+    assignments = course.assignments
     new_id = None
 
     while True:
@@ -149,10 +157,11 @@ async def add_Assignment(request: Request, course_index: int, ID: int = Cookie(N
 
     due_date = date.today()
     assignment_index = len(assignments)
-    new_assignment = Assignment(new_id, "Assignment {}".format(assignment_index), 10, due_date)
-    assignments.append(new_assignment)
-    assignments._p_changed = True
+    new_assignment = Assignment(new_id, "Assignment {}".format(assignment_index + 1), 10, due_date)
+    course.addAssignment(new_assignment)
     assignment_name = new_assignment.name
+    # for i in assignments:
+    #     print(i)
         
     return templates.TemplateResponse("edit_assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": new_assignment, "ID": ID})
 

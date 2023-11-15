@@ -14,9 +14,6 @@ class Client(persistent.Persistent):
         self.password = password
         self.avatar = avatar
 
-    def setAvatar(self, avatar):
-        self.avatar = avatar
-
     def login(self, ID, password):
         print(self.password)
         if self.ID == ID and self.password == password:
@@ -28,6 +25,9 @@ class Client(persistent.Persistent):
 
     def setName(self, name):
         self.name = name
+
+    def setAvatar(self, avatar):
+        self.avatar = avatar
 
 class Lecturer(Client):
     def __init__(self, ID, courses, name, user_name, password, avatar="../images/user-default-avatar.svg"):
@@ -128,6 +128,10 @@ class Course(persistent.Persistent):
             "F": 0
         }
         return switcher.get(grade, "Invalid grade")
+    
+    def addAssignment(self, assignment):
+        self.assignments.append(assignment)
+        self._p_changed = True
 
 class Enrollment(persistent.Persistent):
     def __init__(self, course, score, student):
@@ -182,6 +186,9 @@ class Assignment(persistent.Persistent):
 
     def setDiscription(self, description):
         self.description = description
+
+    def getDesciption(self):
+        return self.description
 
     def addAttachment(self, attachment):
         self.attachment.append(attachment)

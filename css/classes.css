@@ -203,7 +203,7 @@
     padding-left: calc(100vw * 0.25);
     font-size: 1.2rem;
     font-weight: bold;
-    overflow: hidden;
+    overflow-y: auto;
     text-overflow: ellipsis;
     text-align: right;
 }

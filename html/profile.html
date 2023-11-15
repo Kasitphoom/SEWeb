@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/profile.css">
     <script src="/js/header.js" defer></script>
+    <script src="/js/profile.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -99,7 +100,7 @@
                     <!-- New profile picture upload field -->
                     <div class="left-content">
                         <img id="profile-pic" src="{{ client.avatar }}" alt="">
-                        <input type="file" id="profilePicture" name="avatar" accept="image/*">
+                        <input type="file" id="choose-image" name="avatar" accept="image/*">
                     </div>
                 </div>
                 <input type="submit" value="Save Changes">

@@ -1,5 +1,10 @@
 import persistent
 import os
+import uuid
+from datetime import date
+
+def generate_uuid():
+    return str(uuid.uuid4())
 
 class Client(persistent.Persistent):
     def __init__(self, ID, name, user_name, password, avatar):
@@ -165,12 +170,14 @@ class Assignment(persistent.Persistent):
             os.remove(work)
         # print(self.submitted_work)
         self.submitted_work.pop(student)
+        self._p_changed = True
 
     def grading(self, student, score):
         #check whether student has submitted work
         if student not in self.submitted_work.keys():
             return False
         self.submitted_work[student]["score"] = score
+        self._p_changed = True
         return True
 
     def setDiscription(self, description):

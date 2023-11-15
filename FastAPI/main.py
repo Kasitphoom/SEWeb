@@ -135,8 +135,36 @@ async def upload_file(request: Request, course_index: int, ASS_ID: str, ID: int 
             currentAss.unSummitWork(ID)
     return RedirectResponse("/classes/{}/assignments/{}".format(course_index, currentAss.name), status_code=303)
 
-@app.get("/add")
+@app.get("/classes/{course_index}/addAssignment", response_class=HTMLResponse)
+async def add_Assignment(request: Request, course_index: int, ID: int = Cookie(None)):
+    client = clients[ID]
+    client_type = "Lecturer"
+    assignments = client.courses[course_index].assignments
+    new_id = None
 
+    while True:
+        new_id = generate_uuid()
+        if not any(new_id == assignment.id for assignment in assignments):
+            break
+
+    due_date = date.today()
+    assignment_index = len(assignments)
+    new_assignment = Assignment(new_id, "Assignment {}".format(assignment_index), 10, due_date)
+    assignments.append(new_assignment)
+    assignments._p_changed = True
+    assignment_name = new_assignment.name
+        
+    return templates.TemplateResponse("edit_assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": new_assignment, "ID": ID})
+
+@app.get("/classes/{course_index}/editAssignment/{assignment_name}", response_class=HTMLResponse)
+async def edit_Assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
+    client = clients[ID]
+    client_type = "Lecturer"
+    for a in client.courses[course_index].assignments:
+        if a.name == assignment_name:
+            assignment = a
+            break
+    return templates.TemplateResponse("edit_assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment, "ID": ID})
 
 @app.on_event("shutdown")
 async def shutdown():

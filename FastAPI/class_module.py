@@ -83,12 +83,13 @@ class Student(Client):
         self.name = name
 
 class Course(persistent.Persistent):
-    def __init__(self, course_id, name , credit=3, assignments=[], rooms = []):
+    def __init__(self, course_id, name , credit=3, assignments=[], rooms = [], banner="/images/default-banner.png"):
         self.credit = credit
         self.course_id = course_id
         self.name = name
         self.assignments = assignments
         self.rooms = rooms
+        self.banner = banner
         self.gradeScheme = [
             {"Grade": "A", "min":80, "max":100},
             {"Grade": "B", "min":70, "max":79},

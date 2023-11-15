@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" type="text/css" href="/css/classes.css">
+    <link rel="stylesheet" type="text/css" href="/css/add_assignment.css">
     <script src="/js/header.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -32,9 +33,6 @@
                             <i class="fa-solid fa-moon fa-xl"></i>
                             <i class="fa-solid fa-sun fa-xl"></i>
                         </label>
-                        {% if client != None %}
-                        <a href="/classes/0/assignments">Classes</a>
-                        {% endif %}
                         <a href="">About</a>
                         <a href="">Program</a>
                         <a href="">Admission</a>
@@ -47,17 +45,7 @@
                 </div>
                 <a href="javascript:void(0);" class="bars" onclick="changeToResponsive()"><i
                         class="fa-solid fa-bars fa-2xl"></i></a>
-                <div class="dropdown-header">
-                    <img id="login" src="{{ client.avatar }}" alt="Avatar">
-                    <div class="dropdown-header-content">
-                        <a href="/profile">
-                            <div>Profile</div>
-                        </a>
-                        <a href="/logout">
-                            <div>Logout</div>
-                        </a>
-                    </div>
-                </div>
+                <a href="/login"><img id="login" src=" {{ client.avatar }}" alt=""></a>
             </div>
         </div>
         <div class="nav-bottom" style="display: none;">
@@ -84,26 +72,12 @@
 
     <div class="spacer" id="spacer"></div>
 
+    
+
     <div class="content">
         <div class="side-bar">
             <label>Courses</label>
             <div class="course-container">
-                {% if client_type == "Student" %}
-                {% for enroll in client.enrolls %}
-                <div class="course">
-                    <label>{{enroll.course.name}}</label>
-                    <div class="dropdown-content">
-                        <div class="course-content">Anouncements</div>
-                        <a href="/classes/{{ enroll.course.course_id }}/rooms">
-                            <div class="course-content">Rooms</div>
-                        </a>
-                        <a href="/classes/{{ loop.index - 1 }}/assignments">
-                            <div class="course-content">Assignments</div>
-                        </a>
-                    </div>
-                </div>
-                {% endfor %}
-                {% elif client_type == "Lecturer" %}
                 {% for course in client.courses %}
                 <div class="course">
                     <label>{{course.name}}</label>
@@ -118,61 +92,46 @@
                     </div>
                 </div>
                 {% endfor %}
-                {% else %}
-                <div>No enrolled courses.</div>
-                {% endif %}
             </div>
         </div>
         <div class="right-content">
             <div class="banner"></div>
-            {% if client_type == "Student" %}
-            <div class="title">
-                {{ client.enrolls[course_index].course.name }} - Assignments
-            </div>
-            <div class="wrap-assignment">
-                {%if client.enrolls[course_index].course.assignments|length > 0 %}
-                {% for assignment in client.enrolls[course_index].course.assignments %}
-                <a href="/classes/{{course_index}}/assignments/{{assignment.name}}" class="assignment">
-                    <div class="assignment-title">{{ assignment.name }}</div>
-                    <div class="assignment-status">{{ assignment.checkSubmitted(client.ID) }}</div>
-                    <div class="assignment-duedate">Due {{ assignment.due_date }}</div>
-                </a>
-                {% endfor %}
-                {% else %}
-                <div>No assignments.</div>
-                {% endif %}
-            </div>
-            {% elif client_type == "Lecturer" %}
-            <div class="title">
-                {{ client.courses[course_index].name }} - Assignments
-                <a href="/classes/{{course_index}}/addAssignment" class="add-assignment">
-                    ADD ASSIGNMENT <i class="fa-solid fa-plus"></i>
-                </a>
-            </div>
-            <div class="wrap-assignment">
-                {%if client.courses[course_index].assignments|length > 0 %}
-                {% for assignment in client.courses[course_index].assignments %}
-                <div class="assignment">
-                    <div class="assignment-title">{{ assignment.name }}</div>
-                    <div class="assignment-ctn-edit">
-                        <a href="/classes/{{course_index}}/editAssignment/{{assignment.name}}">
-                            <i class="fa-solid fa-pencil"></i>
-                            <p>EDIT</p>
-                        </a>
-                        <a href="/classes/{{course_index}}/removeAssignment/{{assignment.name}}">
-                            <i class="fa-solid fa-trash"></i>
-                            <p>DELETE</p>
-                        </a>
-                    </div>
-
+            <div class="add-assignment-container-top">
+                <div class="add-assignment-container">
+                    <h2>
+                        {{type}} Room
+                    </h2>
+                    {% if type == "edit" %}
+                    <form action="/room/edit/{{room.id}}" method="POST" enctype="multipart/form-data" id="profile">
+                        <!-- Existing form fields -->
+                        <div class="wrap-add-assignment">
+                            <div class="add-assignment-content">
+                                
+                                <label for="id">ROOM ID</label>
+                                <input type="text" id="id" name="id" value="{{room.id}}" required readonly>
+                                <label for="title">ROOM TITLE</label>
+                                <input type="text" id="title" name="title" value="{{room.title}}" required>
+                            </div>
+                        </div>
+                        <input type="submit" value="Save Changes" id="save-changes">
+                    </form>
+                    {% else %}
+                    <form action="/room/add/{{course_id}}/{{room_id}}" method="POST" enctype="multipart/form-data" id="profile">
+                        <!-- Existing form fields -->
+                        <div class="wrap-add-assignment">
+                            <div class="add-assignment-content">
+                                
+                                <label for="id">ROOM ID</label>
+                                <input type="text" id="id" name="id" value="{{room_id}}" required readonly>
+                                <label for="title">ROOM TITLE</label>
+                                <input type="text" id="title" name="title" value="" required>
+                            </div>
+                        </div>
+                        <input type="submit" value="Add Room" id="save-changes">
+                    </form>
+                    {% endif %}
                 </div>
-
-                {% endfor %}
-                {% else %}
-                <div>No assignments.</div>
-                {% endif %}
             </div>
-            {% endif %}
         </div>
     </div>
 </body>

@@ -86,7 +86,7 @@
                     <label>{{enroll.course.name}}</label>
                     <div class="dropdown-content">
                         <div class="course-content">Anouncements</div>
-                        <a href="/classes/{{ loop.index - 1 }}/rooms">
+                        <a href="/classes/{{ enroll.course.course_id }}/rooms">
                             <div class="course-content">Rooms</div>
                         </a>
                         <a href="/classes/{{ loop.index - 1 }}/assignments">
@@ -101,7 +101,7 @@
                     <label>{{course.name}}</label>
                     <div class="dropdown-content">
                         <div class="course-content">Announcements</div>
-                        <a href="/classes/{{ loop.index - 1 }}/rooms">
+                        <a href="/classes/{{ course.course_id }}/rooms">
                             <div class="course-content">Rooms</div>
                         </a>
                         <a href="/classes/{{ loop.index - 1 }}/assignments">

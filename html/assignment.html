@@ -131,32 +131,21 @@
                         </div>
                         
                         <div class="documents">
+                            {% for file in assignment.attachment %}
                             <div class="document">
-                                <p class="name">AnyDOCS.docx</p>
+                                <p class="name">{{ file.split('/') | last }}</p>
                                 <div class="options">
-                                    <a href="" class="option">
+                                    <a href="{{ file }}" class="option" target="_blank">
                                         <i class="fa-solid fa-eye"></i>
                                         <p>PREVIEW</p>
                                     </a>
-                                    <a href="" class="option" download="">
+                                    <a href="{{ file }}" class="option" download="">
                                         <i class="fa-solid fa-download"></i>
                                         <p>DOWNLOAD</p>
                                     </a>
                                 </div>
                             </div>
-                            <div class="document">
-                                <p class="name">AnyDOCS.docx</p>
-                                <div class="options">
-                                    <a href="" class="option">
-                                        <i class="fa-solid fa-eye"></i>
-                                        <p>PREVIEW</p>
-                                    </a>
-                                    <a href="" class="option" download="">
-                                        <i class="fa-solid fa-download"></i>
-                                        <p>DOWNLOAD</p>
-                                    </a>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -178,9 +167,9 @@
                         {% else %}
                             {% for file in assignment.submitted_work[ID]["work"] %}
                             <div class="file">
-                                <a href="/{{ file }}" target="_blank">{{ file.split('/') | last }}</a>
-                                <a href="" class="remove-file">
-                                    <i class="fa-solid fa-trash"></i>
+                                <p>{{ file.split('/') | last }}</p>
+                                <a href="/{{ file }}" target="_blank" class="remove-file">
+                                    <i class="fa-solid fa-eye"></i>
                                 </a>
                             </div>
                             {% endfor %}
@@ -190,11 +179,12 @@
                         <input type="file" name="assignmentFiles" id="assignment-files" style="display: none;" multiple>
                         {% if assignment.checkSubmitted(client.ID) == "Not Summited" %}
                         <input type="submit" class="input submit" value="SUBMIT">
-                        {% else %}
-                        <input type="submit" class="input submit" value="UNSUBMIT">
-                        {% endif %}
-                        
                         <input type="submit" class="input choose-file" value="CHOOSE FILES" id="choose-file">
+                        {% else %}
+                        <a class="status-type not-submitted" href="/unsubmit/{{course_index}}/{{ assignment.id }}">
+                            UNSUBMIT WORK
+                        </a>
+                        {% endif %}
                     </form>
                 </div>
             </div>
@@ -218,9 +208,6 @@
 
                 UserFiles.innerHTML += `<div class="file">
                             <a href="">${File.name}</a>
-                            <a href="" class="remove-file">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
                         </div>`;
             }
         });

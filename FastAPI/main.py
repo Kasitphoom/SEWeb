@@ -120,6 +120,17 @@ async def upload_file(request: Request, course_index: int, ASS_ID: str, assignme
             print(assignment.submitted_work, summitfiles)
     return RedirectResponse("/classes/{}/assignments/{}".format(course_index, currentAss.name), status_code=303)
 
+@app.get("/unsubmit/{course_index}/{ASS_ID}")
+async def upload_file(request: Request, course_index: int, ASS_ID: str, ID: int = Cookie(None)):
+    currentAss = None
+    student = root.clients[ID]
+    assignments = student.enrolls[course_index].course.assignments
+    for assignment in assignments:
+        if assignment.id == ASS_ID:
+            currentAss = assignment
+            currentAss.unSummitWork(ID)
+    return RedirectResponse("/classes/{}/assignments/{}".format(course_index, currentAss.name), status_code=303)
+
 @app.on_event("shutdown")
 async def shutdown():
     transaction.commit()

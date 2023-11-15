@@ -358,6 +358,7 @@
     background-color: var(--middle-grey);
     padding: 2rem;
     border-radius: 1rem;
+    gap: 1.5rem
 }
 
 .submission-ctn .status{
@@ -377,10 +378,12 @@
 
 .submission-ctn .not-submitted{
     background-color: var(--red);
+    color: var(--white);
 }
 
 .submission-ctn .submitted{
     background-color: var(--green);
+    color: var(--white);
 }
 
 .userfiles{
@@ -397,6 +400,8 @@
     border-radius: 1rem;
     background-color: var(--light-grey);
     font-size: 1.6rem;
+    min-width: 24rem;
+    gap: 2rem;
 }
 
 .userfiles .file a{
@@ -409,7 +414,7 @@
 }
 
 .userfiles .file .remove-file{
-    background-color: var(--red);
+    background-color: var(--yellow);
     padding: 0.5rem 2rem;
     border-radius: 1rem;
 }

@@ -141,7 +141,8 @@ class Enrollment(persistent.Persistent):
         self.score = score
 
 class Assignment(persistent.Persistent):
-    def __init__(self, name, max_score, due_date, attachment=[] , submitted_work={}, description="No Description"):
+    def __init__(self, ID, name, max_score, due_date, attachment=[] , submitted_work={}, description="No Description"):
+        self.id = ID
         self.name = name
         self.max_score = max_score
         self.due_date = due_date
@@ -149,8 +150,9 @@ class Assignment(persistent.Persistent):
         self.submitted_work = submitted_work
         self.description = description
 
-    def summitWork(self, student, work):
-        self.submitted_work[student] = {"work": work, "score": 0}
+    def summitWork(self, studentId, work):
+        self.submitted_work[studentId] = {"work": work, "score": 0}
+        self._p_changed = True
 
     def unSummitWork(self, student):
         self.submitted_work.pop(student)

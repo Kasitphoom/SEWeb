@@ -1,8 +1,9 @@
-from fastapi import FastAPI, Request, Form, HTTPException, Body, Cookie
+from fastapi import FastAPI, Request, Form, HTTPException, Body, Cookie, File, UploadFile
 from pydantic import BaseModel
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from typing import List
 from class_module import *
 import ZODB, ZODB.FileStorage
 import transaction
@@ -21,6 +22,7 @@ templates = Jinja2Templates(directory="../html")
 app.mount("/css", StaticFiles(directory="../css"), name="css")
 app.mount("/images", StaticFiles(directory="../images"), name="images")
 app.mount("/js", StaticFiles(directory="../js"), name="js")
+app.mount("/Upload", StaticFiles(directory="Upload"), name="Upload")
 
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request, ID: int = Cookie(None)):
@@ -94,6 +96,30 @@ async def get_assignment(request: Request, course_index: int, assignment_name: s
             if a.name == assignment_name:
                 assignment = a
                 break
-    return templates.TemplateResponse("assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment})
+    return templates.TemplateResponse("assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment, "ID": ID})
 
-    
+@app.post("/uploadFile/{course_index}/{ASS_ID}")
+async def upload_file(request: Request, course_index: int, ASS_ID: str, assignmentFiles: List[UploadFile] = File(...), ID: int = Cookie(None)):
+    # loop through request.form()
+    UPLOAD_DIR = "Upload"
+    summitfiles = []
+    for file in assignmentFiles:
+        data = await file.read()
+        saveas = UPLOAD_DIR + "/" + file.filename
+        with open(saveas, 'wb') as f:
+            f.write(data)
+        summitfiles.append(saveas)
+        
+    currentAss = None
+    student = root.clients[ID]
+    assignments = student.enrolls[course_index].course.assignments
+    for assignment in assignments:
+        if assignment.id == ASS_ID:
+            currentAss = assignment
+            currentAss.summitWork(ID, summitfiles)
+            print(assignment.submitted_work, summitfiles)
+    return RedirectResponse("/classes/{}/assignments/{}".format(course_index, currentAss.name), status_code=303)
+
+@app.on_event("shutdown")
+async def shutdown():
+    transaction.commit()

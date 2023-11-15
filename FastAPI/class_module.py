@@ -77,11 +77,12 @@ class Student(Client):
         self.name = name
 
 class Course(persistent.Persistent):
-    def __init__(self, course_id, name , credit=3, assignments=[]):
+    def __init__(self, course_id, name , credit=3, assignments=[], rooms = []):
         self.credit = credit
         self.course_id = course_id
         self.name = name
         self.assignments = assignments
+        self.rooms = rooms
         self.gradeScheme = [
             {"Grade": "A", "min":80, "max":100},
             {"Grade": "B", "min":70, "max":79},
@@ -107,6 +108,9 @@ class Course(persistent.Persistent):
     
     def setGradeScheme(self, gradeScheme):
         self.gradeScheme = gradeScheme
+        
+    def addRoom(self, roomID):
+        self.rooms.append(roomID)
 
     def scoreGradingAsNum(self,score):
         grade = self.scoreGrading(score)
@@ -141,7 +145,8 @@ class Enrollment(persistent.Persistent):
         self.score = score
 
 class Assignment(persistent.Persistent):
-    def __init__(self, name, max_score, due_date, attachment=[] , submitted_work={}, description="No Description"):
+    def __init__(self, ID, name, max_score, due_date, attachment=[] , submitted_work={}, description="No Description"):
+        self.id = ID
         self.name = name
         self.max_score = max_score
         self.due_date = due_date
@@ -149,8 +154,9 @@ class Assignment(persistent.Persistent):
         self.submitted_work = submitted_work
         self.description = description
 
-    def summitWork(self, student, work):
-        self.submitted_work[student] = {"work": work, "score": 0}
+    def summitWork(self, studentId, work):
+        self.submitted_work[studentId] = {"work": work, "score": 0}
+        self._p_changed = True
 
     def unSummitWork(self, student):
         self.submitted_work.pop(student)
@@ -181,8 +187,10 @@ class Assignment(persistent.Persistent):
     def checkSubmitted(self, student):
         if student in self.submitted_work:
             return "Summited"
-        return "Not summited"
+        return "Not Summited"
     
+    def haveAttachment(self):
+        return len(self.attachment) > 0
 
 gradeScheme = [
     {"Grade": "A", "min":80, "max":100},

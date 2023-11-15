@@ -139,6 +139,9 @@
             {% elif client_type == "Lecturer" %}
             <div class="title">
                 {{ client.courses[course_index].name }} - Assignments
+                <a href="/addAssignment" class="add-assignment">
+                    ADD ASSIGNMENT <i class="fa-solid fa-plus"></i>
+                </a>
             </div>
             <div class="wrap-assignment">
                 {%if client.courses[course_index].assignments|length > 0 %}

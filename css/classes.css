@@ -85,6 +85,17 @@
     color: var(--white);
     padding: 2rem;
     text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.right-content .title .add-assignment{
+    background-color: var(--accent-color);
+    padding: 1.5rem 2rem;
+    border-radius: 3rem;
+    color: var(--white);
+    transition: .2s;
+    font-size: 2rem;
 }
 
 .room-ctn{
@@ -137,16 +148,19 @@
     border-radius: 2rem;
     background-color: var(--accent-color);
     color: var(--white);
-    transition: .2s;
+    transition: .3s;
+    max-width: 6rem;
 }
 
 .room-ctn .room a p{
     width: 0;
     opacity: 0;
+    overflow: hidden;
 }
 
 .room-ctn .room a:hover{
     gap: 1rem;
+    max-width: 30rem;
 }
 
 .room-ctn .room a:hover p{
@@ -286,6 +300,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    width: 100%;
 }
 
 .information-ctn .others-title{
@@ -319,6 +334,8 @@
     padding: 0.5rem 2rem;
     border-radius: 1rem;
     display: flex;
+    max-width: 6rem;
+    transition: max-width 0.3s;
 }
 
 .documents .document .option:nth-child(1){
@@ -331,11 +348,13 @@
 
 .documents .document .option p{
     opacity: 0;
-    width: 0;
+    width: 0px;
+    overflow: hidden;
 }
 
 .documents .document .option:hover{
     gap: 1rem;
+    max-width: 30rem;
 }
 
 .documents .document .option:hover p{
@@ -350,6 +369,7 @@
     background-color: var(--middle-grey);
     padding: 2rem;
     border-radius: 1rem;
+    gap: 1.5rem
 }
 
 .submission-ctn .status{
@@ -369,10 +389,12 @@
 
 .submission-ctn .not-submitted{
     background-color: var(--red);
+    color: var(--white);
 }
 
 .submission-ctn .submitted{
     background-color: var(--green);
+    color: var(--white);
 }
 
 .userfiles{
@@ -389,6 +411,8 @@
     border-radius: 1rem;
     background-color: var(--light-grey);
     font-size: 1.6rem;
+    min-width: 24rem;
+    gap: 2rem;
 }
 
 .userfiles .file a{
@@ -401,7 +425,7 @@
 }
 
 .userfiles .file .remove-file{
-    background-color: var(--red);
+    background-color: var(--yellow);
     padding: 0.5rem 2rem;
     border-radius: 1rem;
 }
@@ -451,6 +475,6 @@
     }
     100%{
         opacity: 1;
-        width: 9rem;
+        width: 100%;
     }
 }

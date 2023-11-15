@@ -131,54 +131,60 @@
                         </div>
                         
                         <div class="documents">
+                            {% for file in assignment.attachment %}
                             <div class="document">
-                                <p class="name">AnyDOCS.docx</p>
+                                <p class="name">{{ file.split('/') | last }}</p>
                                 <div class="options">
-                                    <a href="" class="option">
+                                    <a href="{{ file }}" class="option" target="_blank">
                                         <i class="fa-solid fa-eye"></i>
                                         <p>PREVIEW</p>
                                     </a>
-                                    <a href="" class="option" download="">
+                                    <a href="{{ file }}" class="option" download="">
                                         <i class="fa-solid fa-download"></i>
                                         <p>DOWNLOAD</p>
                                     </a>
                                 </div>
                             </div>
-                            <div class="document">
-                                <p class="name">AnyDOCS.docx</p>
-                                <div class="options">
-                                    <a href="" class="option">
-                                        <i class="fa-solid fa-eye"></i>
-                                        <p>PREVIEW</p>
-                                    </a>
-                                    <a href="" class="option" download="">
-                                        <i class="fa-solid fa-download"></i>
-                                        <p>DOWNLOAD</p>
-                                    </a>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
                 <div class="submission-ctn">
                     <div class="status">
                         <p>STATUS</p>
+                        {% if assignment.checkSubmitted(client.ID) == "Not Summited" %}
                         <div class="status-type not-submitted">
                             NOT SUBMITTED
                         </div>
+                        {% else %}
+                        <div class="status-type submitted">
+                            SUBMITTED
+                        </div>
+                        {% endif %}
                     </div>
                     <div class="userfiles" id="user-files">
-                        <!-- <div class="file">
-                            <a href="">Filename.png</a>
-                            <a href="" class="remove-file">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div> -->
+                        {% if assignment.checkSubmitted(client.ID) == "Not Summited" %}
+                        {% else %}
+                            {% for file in assignment.submitted_work[ID]["work"] %}
+                            <div class="file">
+                                <p>{{ file.split('/') | last }}</p>
+                                <a href="/{{ file }}" target="_blank" class="remove-file">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
-                    <form action="" method="post">
-                        <input type="file" name="assignment-files" id="assignment-files" style="display: none;" multiple>
+                    <form action="/uploadFile/{{course_index}}/{{ assignment.id }}" method="post" enctype="multipart/form-data">
+                        <input type="file" name="assignmentFiles" id="assignment-files" style="display: none;" multiple>
+                        {% if assignment.checkSubmitted(client.ID) == "Not Summited" %}
                         <input type="submit" class="input submit" value="SUBMIT">
                         <input type="submit" class="input choose-file" value="CHOOSE FILES" id="choose-file">
+                        {% else %}
+                        <a class="status-type not-submitted" href="/unsubmit/{{course_index}}/{{ assignment.id }}">
+                            UNSUBMIT WORK
+                        </a>
+                        {% endif %}
                     </form>
                 </div>
             </div>
@@ -195,18 +201,13 @@
         AssignmentFiles.addEventListener("change", (e) => {
             const UserFiles = document.getElementById("user-files");
             const Files = AssignmentFiles.files;
+            UserFiles.innerHTML = ""
             for (let i = 0; i < Files.length; i++) {
                 const File = Files[i];
                 console.log(File);
-                // upload that file to submittedAssignment folder
-
-                // Tell API that there is a file upload then append file to UserFiles
 
                 UserFiles.innerHTML += `<div class="file">
                             <a href="">${File.name}</a>
-                            <a href="" class="remove-file">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
                         </div>`;
             }
         });

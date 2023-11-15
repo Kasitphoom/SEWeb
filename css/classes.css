@@ -248,10 +248,6 @@
     text-decoration: none;
 }
 
-.wrap-assignment .assignment:hover {
-    background-color: var(--accent-color);
-}
-
 .wrap-assignment .assignment .assignment-title {
     font-weight: bold;
     margin-right: auto; /* Pushes title to the left */
@@ -478,4 +474,52 @@
         opacity: 1;
         width: 100%;
     }
+}
+.hover-orange:hover{
+    background-color: var(--kmitl-orange);
+}
+
+.assignment a{
+    display: flex;
+    padding: 0.5rem 2rem;
+    border-radius: 2rem;
+    background-color: var(--accent-color);
+    color: var(--white);
+    transition: .3s;
+    max-width: 6rem;
+}
+
+.assignment a p{
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.assignment a:hover{
+    gap: 1rem;
+    max-width: 30rem;
+}
+
+.assignment a:hover p{
+    animation: showtype 0.3s ease-in-out forwards;
+}
+
+.assignment a:hover:nth-child(1){
+    background-color: var(--green);
+    color: var(--middle-grey);
+}
+
+.assignment a:hover:nth-child(2){
+    background-color: var(--yellow);
+    color: var(--middle-grey);
+}
+
+.assignment a:hover:nth-child(3){
+    background-color: var(--red);
+}
+
+.assignment .assignment-ctn-edit {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 }

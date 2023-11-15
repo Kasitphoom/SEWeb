@@ -175,10 +175,16 @@ async def edit_Assignment(request: Request, course_index: int, assignment_name: 
             break
     return templates.TemplateResponse("edit_assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment, "ID": ID})
 
-@app.post("/classes/{course_index}/removeAssignment/{assignment_name}")
-async def remove_Assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
+@app.get("/classes/{course_index}/removeAssignment/{assignment_name}")
+async def remove_assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
     client = clients[ID]
-    return {"message": "Assignment removed"}
+    course = client.courses[course_index]
+    assignments = course.assignments
+    for assignment in assignments:
+        if assignment.name == assignment_name:
+            course.removeAssignment(assignment)
+            break
+    return RedirectResponse("/classes/{}/assignments".format(course_index), status_code=303)
 
 @app.post("/classes/{course_index}/editAssignment/{assignment_name}")
 async def save_Edit_Assignment(request: Request, course_index: int, assignment_name: str, name: str = Form(...), due_date: str = Form(...), description: str = Form(...), ID: int = Cookie(None)):

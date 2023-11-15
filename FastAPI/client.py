@@ -15,8 +15,6 @@ gradeScheme = [
     {"Grade": "F", "min":0, "max":49}
 ]
 
-
-
 root.courses = BTrees.OOBTree.BTree()
 root.courses[101] = Course(101, "Computer Programming", 4)
 root.courses[201] = Course(201, "Web Programming", 4)

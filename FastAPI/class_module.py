@@ -77,11 +77,12 @@ class Student(Client):
         self.name = name
 
 class Course(persistent.Persistent):
-    def __init__(self, course_id, name , credit=3, assignments=[]):
+    def __init__(self, course_id, name , credit=3, assignments=[], rooms = []):
         self.credit = credit
         self.course_id = course_id
         self.name = name
         self.assignments = assignments
+        self.rooms = rooms
         self.gradeScheme = [
             {"Grade": "A", "min":80, "max":100},
             {"Grade": "B", "min":70, "max":79},
@@ -107,6 +108,9 @@ class Course(persistent.Persistent):
     
     def setGradeScheme(self, gradeScheme):
         self.gradeScheme = gradeScheme
+        
+    def addRoom(self, roomID):
+        self.rooms.append(roomID)
 
     def scoreGradingAsNum(self,score):
         grade = self.scoreGrading(score)

@@ -90,6 +90,10 @@ async def get_assignment(request: Request, course_index: int, assignment_name: s
     client_type = "None"
     if type(client) == Lecturer:
         client_type = "Lecturer"
+        for a in client.courses[course_index].assignments:
+            if a.name == assignment_name:
+                assignment = a
+                break
     elif type(client) == Student:
         client_type = "Student"
         for a in client.enrolls[course_index].course.assignments:

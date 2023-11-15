@@ -85,6 +85,17 @@
     color: var(--white);
     padding: 2rem;
     text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.right-content .title .add-assignment{
+    background-color: var(--accent-color);
+    padding: 1.5rem 2rem;
+    border-radius: 3rem;
+    color: var(--white);
+    transition: .2s;
+    font-size: 2rem;
 }
 
 .room-ctn{

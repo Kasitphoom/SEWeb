@@ -475,6 +475,9 @@
         width: 100%;
     }
 }
+.hover-orange:hover{
+    background-color: var(--kmitl-orange);
+}
 
 .assignment a{
     display: flex;

@@ -23,6 +23,9 @@ class Client(persistent.Persistent):
     def setName(self, name):
         self.name = name
 
+    def setAvatar(self, avatar):
+        self.avatar = avatar
+
 class Lecturer(Client):
     def __init__(self, ID, courses, name, user_name, password, avatar="../images/user-default-avatar.svg"):
         super().__init__(ID ,name, user_name, password, avatar)

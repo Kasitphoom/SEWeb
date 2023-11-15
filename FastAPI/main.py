@@ -87,6 +87,7 @@ async def set_profile(request: Request, ID: int = Cookie(None), name: str = Form
     saveas = UPLOAD_DIR + "/" + avatar.filename
     with open(saveas, 'wb') as f:
         f.write(data)
+    saveas = "/" + UPLOAD_DIR + "/" + avatar.filename
     client.setAvatar(saveas)
     return RedirectResponse(url="/profile", status_code=303)
 
@@ -141,7 +142,19 @@ async def upload_file(request: Request, course_index: int, ASS_ID: str, ID: int 
             currentAss.unSummitWork(ID)
     return RedirectResponse("/classes/{}/assignments/{}".format(course_index, currentAss.name), status_code=303)
 
-@app.get("/add")
+@app.get("/addAssignment/{course_index}", response_class=HTMLResponse)
+async def get_classes(request: Request, course_index: int, ID: int = Cookie(None)):
+    if ID == None:
+        return RedirectResponse(url="/", status_code=303)
+    client = clients[ID]
+    client_type = "None"
+    if type(client) == Lecturer:
+        client_type = "Lecturer"
+    elif type(client) == Student:
+        client_type = "Student"
+
+    return templates.TemplateResponse("add_assignment.html", {"request": request, "client": client, "course_index": course_index, "client_type": client_type})
+
 
 
 @app.on_event("shutdown")

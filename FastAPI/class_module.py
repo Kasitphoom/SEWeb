@@ -9,9 +9,6 @@ class Client(persistent.Persistent):
         self.password = password
         self.avatar = avatar
 
-    def setAvatar(self, avatar):
-        self.avatar = avatar
-
     def login(self, ID, password):
         print(self.password)
         if self.ID == ID and self.password == password:

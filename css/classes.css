@@ -505,11 +505,16 @@
 }
 
 .assignment a:hover:nth-child(1){
-    background-color: var(--yellow);
+    background-color: var(--green);
     color: var(--middle-grey);
 }
 
 .assignment a:hover:nth-child(2){
+    background-color: var(--yellow);
+    color: var(--middle-grey);
+}
+
+.assignment a:hover:nth-child(3){
     background-color: var(--red);
 }
 

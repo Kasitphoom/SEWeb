@@ -45,7 +45,7 @@ form {
     flex-direction: column;
 }
 
-label {
+.add-assignment-content label {
     margin-top: 10px;
 }
 

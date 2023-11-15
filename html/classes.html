@@ -146,7 +146,7 @@
             <div class="wrap-assignment">
                 {%if client.courses[course_index].assignments|length > 0 %}
                 {% for assignment in client.courses[course_index].assignments %}
-                <a href="/classes/{{course_index}}/assignments/{{assignment.name}}" class="assignment">
+                <a href="/classes/{{course_index}}/editAssignment/{{assignment.name}}" class="assignment">
                     <div class="assignment-title">{{ assignment.name }}</div>
                     <div class="assignment-duedate">Due {{ assignment.due_date }}</div>
                 </a>

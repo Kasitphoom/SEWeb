@@ -184,7 +184,17 @@ class Assignment(persistent.Persistent):
         self._p_changed = True
         return True
 
-    def setDiscription(self, description):
+    def setName(self, name):
+        self.name = name
+
+    def setDueDate(self, due_date):
+        if len(due_date.split("-")) != 3 and len(due_date) != 10 and len(due_date.split("-")[0]) != 4:
+            self.due_date = date.today()
+        else:
+            self.due_date = due_date
+        
+
+    def setDescription(self, description):
         self.description = description
 
     def getDesciption(self):

@@ -109,9 +109,7 @@
                     <div class="dropdown-content">
                         <div class="course-content">Announcements</div>
                         <div class="course-content">Rooms</div>
-                        <a href="">
-                            <div class="course-content">Assignments</div>
-                        </a>
+                        <a href="/classes/{{ loop.index - 1 }}/assignments"><div class="course-content">Assignments</div></a>
                     </div>
                 </div>
                 {% endfor %}
@@ -124,19 +122,19 @@
             <div class="banner"></div>
             <div class="add-assignment-container-top">
                 <div class="add-assignment-container">
-                    <h2>Add Assignment</h2>
-                    <form action="/addAssignment/{{course_index}}" method="POST" enctype="multipart/form-data" id="profile">
+                    <h2>Edit Assignment</h2>
+                    <form action="/classes/{{course_index}}/editAssignment/{{assignment.name}}" method="POST" enctype="multipart/form-data" id="profile">
                         <!-- Existing form fields -->
                         <div class="wrap-add-assignment">
                             <div class="add-assignment-content">
                                 <label for="name">ASSIGNMENT NAME</label>
-                                <input type="text" id="name" name="name" value="Assignment 1" required>
+                                <input type="text" id="name" name="name" value="{{assignment_name}}" required>
         
-                                <label for="due_date">DUE DATE</label>
-                                <input type="text" id="due_date" name="due_date" value="2021-11-1" required>
+                                <label for="due_date">DUE DATE(yyyy-mm-dd)</label>
+                                <input type="text" id="due_date" name="due_date" value="{{assignment.due_date}}" required>
 
                                 <label for="description">DESCRIPTION</label>
-                                <input type="text" id="description" name="description" value="No Description">
+                                <input type="text" id="description" name="description" value="{{assignment.description}}">
                             </div>
                             <!-- New profile picture upload field -->
                             <div class="add-assignment-content">

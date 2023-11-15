@@ -22,7 +22,15 @@
         {% include 'sidebar.html'%}
         
         <div class="right-content">
-            <div class="banner"></div>
+            <div class="banner">
+                {% if client_type == "Student" %}
+                <img src="{{ client.enrolls[course_index].course.banner}}" alt="">
+                {% elif client_type == "Lecturer" %}
+                <img src="{{ client.courses[course_index].banner}}" alt="">
+                {% else %}
+                <img src="/images/default-banner.png" alt="">
+                {% endif %}
+            </div>
             <div class="assignment-ctn">
                 <div class="information-ctn">
                     <div class="assignment-information-title">

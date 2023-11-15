@@ -16,7 +16,7 @@ gradeScheme = [
 ]
 
 root.courses = BTrees.OOBTree.BTree()
-root.courses[101] = Course(101, "Computer Programming", 4)
+root.courses[101] = Course(101, "Computer Programming", 4, banner="/images/maimai-festival.jpg")
 root.courses[201] = Course(201, "Web Programming", 4)
 root.courses[202] = Course(202, "Software Engineering Principles", 5)
 root.courses[301] = Course(301, "Artificial Intelligent", 3)

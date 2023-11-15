@@ -19,11 +19,13 @@
     {% include 'nav.html'%}
 
     <div class="content">
-        
+
         {% include 'sidebar.html'%}
 
         <div class="right-content">
-            <div class="banner"></div>
+            <div class="banner">
+                <img src="{{ course.banner }}" alt="">
+            </div>
             <div class="add-assignment-container-top">
                 <div class="add-assignment-container">
                     <h2>

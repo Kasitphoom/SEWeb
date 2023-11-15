@@ -22,7 +22,9 @@
         {% include 'sidebar.html'%}
 
         <div class="right-content">
-            <div class="banner"></div>
+            <div class="banner">
+                <img src="{{ course.banner }}" alt="">
+            </div>
             <div class="title">
                 {{ course.name }} - Rooms available
                 {% if client_type == "Lecturer" %}

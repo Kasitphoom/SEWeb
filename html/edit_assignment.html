@@ -138,16 +138,55 @@
                             </div>
                             <!-- New profile picture upload field -->
                             <div class="add-assignment-content">
+                                <label for="attachment-files">ATTACHMENT FILES</label>
+                                <div class="userfiles" id="user-files">
+                                    {% for file in assignment.attachment %}
+                                    <div class="file">
+                                        <p>{{ file.split('/') | last }}</p>
+                                        <a href="/{{ file }}" target="_blank" class="remove-file">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% if not assignment.haveAttachment() %}
                                 <input type="file" name="attachmentFiles" id="attachment-files" style="display: none;" multiple>
                                 <input type="submit" class="input choose-file" value="CHOOSE FILES" id="choose-file">
+                                {% else %}
+                                <a class="status-type not-submitted" href="/classes/{{course_index}}/editAssignment/{{assignment_name}}/removeAttachment">
+                                    remove attachment
+                                </a>
+                                {% endif %}
                             </div>
                         </div>
                         <input type="submit" value="Save Changes" id="save-changes">
-                    </form>
+                    
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        const AttachmnetFiles = document.getElementById("attachment-files");
+        const ChooseFile = document.getElementById("choose-file");
+        ChooseFile.addEventListener("click", (e) => {
+            e.preventDefault();
+            AttachmnetFiles.click();
+        });
+
+        AttachmnetFiles.addEventListener("change", (e) => {
+            const UserFiles = document.getElementById("user-files");
+            const Files = AttachmnetFiles.files;
+            UserFiles.innerHTML = ""
+            for (let i = 0; i < Files.length; i++) {
+                const File = Files[i];
+                console.log(File);
+
+                UserFiles.innerHTML += `<div class="file">
+                            <a href="">${File.name}</a>
+                        </div>`;
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -380,6 +380,24 @@
     align-items: center;
 }
 
+.add-assignment-content .status-type{
+    font-weight: bold;
+    font-size: 1.6rem;
+    padding: 1rem 2rem;
+    border-radius: 3rem;
+    text-wrap: nowrap;
+}
+
+.add-assignment-content .not-submitted{
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.add-assignment-content .submitted{
+    background-color: var(--green);
+    color: var(--white);
+}
+
 .submission-ctn .status-type{
     font-weight: bold;
     font-size: 1.6rem;

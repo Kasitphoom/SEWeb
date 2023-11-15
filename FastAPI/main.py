@@ -175,6 +175,11 @@ async def edit_Assignment(request: Request, course_index: int, assignment_name: 
             break
     return templates.TemplateResponse("edit_assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment, "ID": ID})
 
+@app.post("/classes/{course_index}/removeAssignment/{assignment_name}")
+async def remove_Assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
+    client = clients[ID]
+    return {"message": "Assignment removed"}
+
 @app.on_event("shutdown")
 async def shutdown():
     transaction.commit()

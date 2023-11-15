@@ -133,6 +133,11 @@ class Course(persistent.Persistent):
         self.assignments.append(assignment)
         self._p_changed = True
 
+    def removeAssignment(self, assignment):
+        if assignment in self.assignments:
+            self.assignments.remove(assignment)
+            self._p_changed = True
+
 class Enrollment(persistent.Persistent):
     def __init__(self, course, score, student):
         self.course = course

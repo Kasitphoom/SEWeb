@@ -175,23 +175,78 @@ async def edit_Assignment(request: Request, course_index: int, assignment_name: 
             break
     return templates.TemplateResponse("edit_assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment, "ID": ID})
 
-@app.get("/classes/{course_index}/rooms")
-async def show_rooms(request: Request, course_index: int, ID: int = Cookie(None)):
+@app.get("/classes/{course_id}/rooms")
+async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
     client = clients[ID]
     client_type = "None"
     rooms = None
     
     if type(client) == Lecturer:
         client_type = "Lecturer"
-        course_id = client.courses[course_index].course_id
     elif type(client) == Student:
         client_type = "Student"
-        course_id = client.enrolls[course_index].course.course_id
         
     course = root.courses[course_id]
     rooms = course.rooms
         
     return templates.TemplateResponse("rooms.html", {"request": request, "client": client, "course": course, "client_type": client_type, "rooms": rooms, "ID": ID})
+
+@app.get("/room/edit/page/{room_id}")
+async def show_rooms(request: Request, room_id: str, ID: int = Cookie(None)):
+    client = clients[ID]
+    client_type = "None"
+    rooms = None
+    
+    if type(client) != Lecturer:
+        return {"message": "You are not allowed to edit room"}
+    
+    room = root.rooms[room_id]
+        
+    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "room": room, "ID": ID, "type": "edit"})
+
+@app.post("/room/edit/{room_id}")
+async def show_rooms(request: Request, room_id: str, title: str = Form(...), ID: int = Cookie(None)):
+    
+    room = root.rooms[room_id]
+    client = clients[ID]
+    course_id = client.courses[0].course_id
+    
+    room.setTitle(title)
+        
+    return RedirectResponse("/classes/{}/rooms".format(course_id), status_code=303)
+
+@app.get("/room/delete/{course_id}/{room_id}")
+async def deleteRoom(request: Request, room_id: str, course_id: int, ID: int = Cookie(None)):
+    client = clients[ID]
+    
+    if type(client) != Lecturer:
+        return {"message": "You are not allowed to edit room"}
+    
+    room = root.rooms[room_id]
+    course = root.courses[course_id]
+    
+    course.removeRoom(room)
+    room.delete()
+    del root.rooms[room_id]
+    
+    root._p_changed = True
+    
+    return RedirectResponse("/classes/{}/rooms".format(course_id), status_code=303)
+
+@app.get("/room/add/page/{course_id}")
+async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
+    
+    room_id = generate_uuid()
+        
+    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "room": None, "course_id": course_id, "room_id": room_id, "ID": ID, "type": "add"})
+
+@app.post("/room/add/{course_id}/{room_id}")
+async def show_rooms(request: Request, course_id: int, room_id: str, title: str = Form(...), ID: int = Cookie(None)):
+    
+    root.rooms[room_id] = Room(room_id, title)
+    root.courses[course_id].addRoom(root.rooms[room_id])
+        
+    return RedirectResponse("/classes/{}/rooms".format(course_id), status_code=303)
 
 @app.on_event("shutdown")
 async def shutdown():

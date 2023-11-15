@@ -115,11 +115,13 @@ class Course(persistent.Persistent):
     def setGradeScheme(self, gradeScheme):
         self.gradeScheme = gradeScheme
         
-    def addRoom(self, roomID):
-        self.rooms.append(roomID)
+    def addRoom(self, room):
+        self.rooms.append(room)
+        self._p_changed = True
         
-    def removeRoom(self, roomID):
-        self.rooms.remove(roomID)
+    def removeRoom(self, room):
+        self.rooms.remove(room)
+        self._p_changed = True
 
     def scoreGradingAsNum(self,score):
         grade = self.scoreGrading(score)
@@ -221,7 +223,6 @@ class Room(persistent.Persistent):
     
     def delete(self):
         del self
-        self._p_changed = True
 
 gradeScheme = [
     {"Grade": "A", "min":80, "max":100},

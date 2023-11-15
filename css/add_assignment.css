@@ -8,11 +8,12 @@ h2 {
     font-weight: bold;
 }
 
+.add-assignment-container-top{
+    padding: 4rem;
+}
 
 .add-assignment-container {
     width: 100%;
-    max-width: 80rem;
-    margin: 4rem;
     padding: 1rem;
     border-radius: 0.5rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

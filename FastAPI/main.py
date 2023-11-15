@@ -191,6 +191,24 @@ async def save_Edit_Assignment(request: Request, course_index: int, assignment_n
     return RedirectResponse("/classes/{}/assignments".format(course_index), status_code=303)
 
 
+@app.get("/classes/{course_index}/rooms")
+async def show_rooms(request: Request, course_index: int, ID: int = Cookie(None)):
+    client = clients[ID]
+    client_type = "None"
+    rooms = None
+    
+    if type(client) == Lecturer:
+        client_type = "Lecturer"
+        course_id = client.courses[course_index].course_id
+    elif type(client) == Student:
+        client_type = "Student"
+        course_id = client.enrolls[course_index].course.course_id
+        
+    course = root.courses[course_id]
+    rooms = course.rooms
+        
+    return templates.TemplateResponse("rooms.html", {"request": request, "client": client, "course": course, "client_type": client_type, "rooms": rooms, "ID": ID})
+
 @app.on_event("shutdown")
 async def shutdown():
     transaction.commit()

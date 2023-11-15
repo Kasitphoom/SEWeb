@@ -44,6 +44,9 @@ root.clients[1101].enrolls = [Enrollment(root.courses[101], 80, root.clients[110
 root.clients[1102] = Student(1102, [], "Pitiphong Khongkrapan","student1102", "1234")
 root.clients[1102].enrolls = [Enrollment(root.courses[101], 80, root.clients[1102]), Enrollment(root.courses[201], 87, root.clients[1102]), Enrollment(root.courses[202], 69, root.clients[1102]), Enrollment(root.courses[301], 80, root.clients[1102])]
 
+root.courses[101].rooms.append(Room("b16ca6d9-0264-4735-856c-83730aa6f30c", "Introduction To New SEWeb"))
+
+root.rooms = BTrees.OOBTree.BTree()
 
 transaction.commit()
 db.close()

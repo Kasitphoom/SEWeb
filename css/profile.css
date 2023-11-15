@@ -50,7 +50,7 @@ form {
     flex-direction: column;
 }
 
-label {
+.profile label {
     margin-top: 10px;
 }
 

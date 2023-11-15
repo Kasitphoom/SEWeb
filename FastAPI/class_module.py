@@ -30,7 +30,7 @@ class Client(persistent.Persistent):
         self.avatar = avatar
 
 class Lecturer(Client):
-    def __init__(self, ID, courses, name, user_name, password, avatar="../images/user-default-avatar.svg"):
+    def __init__(self, ID, courses, name, user_name, password, avatar="/images/user-default-avatar.svg"):
         super().__init__(ID ,name, user_name, password, avatar)
         self.courses = courses
 
@@ -42,7 +42,7 @@ class Lecturer(Client):
     
 
 class Student(Client):
-    def __init__(self, ID, enrolls, name, user_name, password, avatar="../images/user-default-avatar.svg"):
+    def __init__(self, ID, enrolls, name, user_name, password, avatar="/images/user-default-avatar.svg"):
         super().__init__(ID, name, user_name, password, avatar)
         self.enrolls = enrolls
 
@@ -115,11 +115,13 @@ class Course(persistent.Persistent):
     def setGradeScheme(self, gradeScheme):
         self.gradeScheme = gradeScheme
         
-    def addRoom(self, roomID):
-        self.rooms.append(roomID)
+    def addRoom(self, room):
+        self.rooms.append(room)
+        self._p_changed = True
         
-    def removeRoom(self, roomID):
-        self.rooms.remove(roomID)
+    def removeRoom(self, room):
+        self.rooms.remove(room)
+        self._p_changed = True
 
     def scoreGradingAsNum(self,score):
         grade = self.scoreGrading(score)
@@ -135,6 +137,11 @@ class Course(persistent.Persistent):
     def addAssignment(self, assignment):
         self.assignments.append(assignment)
         self._p_changed = True
+
+    def removeAssignment(self, assignment):
+        if assignment in self.assignments:
+            self.assignments.remove(assignment)
+            self._p_changed = True
 
 class Enrollment(persistent.Persistent):
     def __init__(self, course, score, student):
@@ -234,7 +241,6 @@ class Room(persistent.Persistent):
     
     def delete(self):
         del self
-        self._p_changed = True
 
 gradeScheme = [
     {"Grade": "A", "min":80, "max":100},

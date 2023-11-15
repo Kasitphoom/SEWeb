@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/classes.css">
+    <link rel="stylesheet" type="text/css" href="/css/add_assignment.css">
+    <script src="/js/header.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+
+<body>
+    {% include 'nav.html'%}
+
+    <div class="content">
+        
+        {% include 'sidebar.html'%}
+
+        <div class="right-content">
+            <div class="banner"></div>
+            <div class="add-assignment-container-top">
+                <div class="add-assignment-container">
+                    <h2>
+                        {{type}} Room
+                    </h2>
+                    {% if type == "edit" %}
+                    <form action="/room/edit/{{room.id}}" method="POST" enctype="multipart/form-data" id="profile">
+                        <!-- Existing form fields -->
+                        <div class="wrap-add-assignment">
+                            <div class="add-assignment-content">
+                                
+                                <label for="id">ROOM ID</label>
+                                <input type="text" id="id" name="id" value="{{room.id}}" required readonly>
+                                <label for="title">ROOM TITLE</label>
+                                <input type="text" id="title" name="title" value="{{room.title}}" required>
+                            </div>
+                        </div>
+                        <input type="submit" value="Save Changes" id="save-changes">
+                    </form>
+                    {% else %}
+                    <form action="/room/add/{{course_id}}/{{room_id}}" method="POST" enctype="multipart/form-data" id="profile">
+                        <!-- Existing form fields -->
+                        <div class="wrap-add-assignment">
+                            <div class="add-assignment-content">
+                                
+                                <label for="id">ROOM ID</label>
+                                <input type="text" id="id" name="id" value="{{room_id}}" required readonly>
+                                <label for="title">ROOM TITLE</label>
+                                <input type="text" id="title" name="title" value="" required>
+                            </div>
+                        </div>
+                        <input type="submit" value="Add Room" id="save-changes">
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -175,6 +175,17 @@ async def edit_Assignment(request: Request, course_index: int, assignment_name: 
             break
     return templates.TemplateResponse("edit_assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment, "ID": ID})
 
+@app.get("/classes/{course_index}/removeAssignment/{assignment_name}")
+async def remove_assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
+    client = clients[ID]
+    course = client.courses[course_index]
+    assignments = course.assignments
+    for assignment in assignments:
+        if assignment.name == assignment_name:
+            course.removeAssignment(assignment)
+            break
+    return RedirectResponse("/classes/{}/assignments".format(course_index), status_code=303)
+
 @app.post("/classes/{course_index}/editAssignment/{assignment_name}")
 async def save_Edit_Assignment(request: Request, course_index: int, assignment_name: str, name: str = Form(...), due_date: str = Form(...), description: str = Form(...), attachmentFiles: List[UploadFile] = File(None), ID: int = Cookie(None)):
     print("Gatttttt")
@@ -211,16 +222,6 @@ async def save_Edit_Assignment(request: Request, course_index: int, assignment_n
         
     return RedirectResponse("/classes/{}/assignments".format(course_index), status_code=303)
 
-# @app.get("/unsubmit/{course_index}/{ASS_ID}")
-# async def upload_file(request: Request, course_index: int, ASS_ID: str, ID: int = Cookie(None)):
-#     currentAss = None
-#     student = root.clients[ID]
-#     assignments = student.enrolls[course_index].course.assignments
-#     for assignment in assignments:
-#         if assignment.id == ASS_ID:
-#             currentAss = assignment
-#             currentAss.unSummitWork(ID)
-#     return RedirectResponse("/classes/{}/assignments/{}".format(course_index, currentAss.name), status_code=303)
 
 @app.get("/classes/{course_index}/editAssignment/{assignment_name}/removeAttachment")
 async def remove_attachment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
@@ -236,24 +237,79 @@ async def remove_attachment(request: Request, course_index: int, assignment_name
     return RedirectResponse("/classes/{}/editAssignment/{}".format(course_index, assignment_name), status_code=303)
 
 
-@app.get("/classes/{course_index}/rooms")
-async def show_rooms(request: Request, course_index: int, ID: int = Cookie(None)):
+@app.get("/classes/{course_id}/rooms")
+async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
     client = clients[ID]
     client_type = "None"
     rooms = None
     
     if type(client) == Lecturer:
         client_type = "Lecturer"
-        course_id = client.courses[course_index].course_id
     elif type(client) == Student:
         client_type = "Student"
-        course_id = client.enrolls[course_index].course.course_id
         
     course = root.courses[course_id]
     rooms = course.rooms
         
     return templates.TemplateResponse("rooms.html", {"request": request, "client": client, "course": course, "client_type": client_type, "rooms": rooms, "ID": ID})
 
+@app.get("/room/edit/page/{room_id}")
+async def show_rooms(request: Request, room_id: str, ID: int = Cookie(None)):
+    client = clients[ID]
+    client_type = "Lecturer"
+    rooms = None
+    
+    if type(client) != Lecturer:
+        return {"message": "You are not allowed to edit room"}
+    
+    room = root.rooms[room_id]
+        
+    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": room, "ID": ID, "type": "edit"})
+
+@app.post("/room/edit/{room_id}")
+async def show_rooms(request: Request, room_id: str, title: str = Form(...), ID: int = Cookie(None)):
+    
+    room = root.rooms[room_id]
+    client = clients[ID]
+    course_id = client.courses[0].course_id
+    
+    room.setTitle(title)
+        
+    return RedirectResponse("/classes/{}/rooms".format(course_id), status_code=303)
+
+@app.get("/room/delete/{course_id}/{room_id}")
+async def deleteRoom(request: Request, room_id: str, course_id: int, ID: int = Cookie(None)):
+    client = clients[ID]
+    
+    if type(client) != Lecturer:
+        return {"message": "You are not allowed to edit room"}
+    
+    room = root.rooms[room_id]
+    course = root.courses[course_id]
+    
+    course.removeRoom(room)
+    room.delete()
+    del root.rooms[room_id]
+    
+    root._p_changed = True
+    
+    return RedirectResponse("/classes/{}/rooms".format(course_id), status_code=303)
+
+@app.get("/room/add/page/{course_id}")
+async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
+    
+    room_id = generate_uuid()
+    client_type = "Lecturer"
+        
+    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": None, "course_id": course_id, "room_id": room_id, "ID": ID, "type": "add"})
+
+@app.post("/room/add/{course_id}/{room_id}")
+async def show_rooms(request: Request, course_id: int, room_id: str, title: str = Form(...), ID: int = Cookie(None)):
+    
+    root.rooms[room_id] = Room(room_id, title)
+    root.courses[course_id].addRoom(root.rooms[room_id])
+        
+    return RedirectResponse("/classes/{}/rooms".format(course_id), status_code=303)
 
 @app.on_event("shutdown")
 async def shutdown():

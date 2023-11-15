@@ -1,4 +1,5 @@
 import persistent
+import os
 
 class Client(persistent.Persistent):
     def __init__(self, ID, name, user_name, password, avatar):
@@ -162,6 +163,10 @@ class Assignment(persistent.Persistent):
         self._p_changed = True
 
     def unSummitWork(self, student):
+        #delete the submitted work from upload folder
+        for work in self.submitted_work[student]["work"]:
+            os.remove(work)
+        # print(self.submitted_work)
         self.submitted_work.pop(student)
 
     def grading(self, student, score):

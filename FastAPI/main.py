@@ -141,6 +141,9 @@ async def upload_file(request: Request, course_index: int, ASS_ID: str, ID: int 
             currentAss.unSummitWork(ID)
     return RedirectResponse("/classes/{}/assignments/{}".format(course_index, currentAss.name), status_code=303)
 
+@app.get("/add")
+
+
 @app.on_event("shutdown")
 async def shutdown():
     transaction.commit()

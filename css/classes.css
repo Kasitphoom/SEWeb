@@ -137,16 +137,19 @@
     border-radius: 2rem;
     background-color: var(--accent-color);
     color: var(--white);
-    transition: .2s;
+    transition: .3s;
+    max-width: 6rem;
 }
 
 .room-ctn .room a p{
     width: 0;
     opacity: 0;
+    overflow: hidden;
 }
 
 .room-ctn .room a:hover{
     gap: 1rem;
+    max-width: 30rem;
 }
 
 .room-ctn .room a:hover p{
@@ -319,6 +322,8 @@
     padding: 0.5rem 2rem;
     border-radius: 1rem;
     display: flex;
+    max-width: 6rem;
+    transition: max-width 0.3s;
 }
 
 .documents .document .option:nth-child(1){
@@ -331,11 +336,13 @@
 
 .documents .document .option p{
     opacity: 0;
-    width: 0;
+    width: 0px;
+    overflow: hidden;
 }
 
 .documents .document .option:hover{
     gap: 1rem;
+    max-width: 30rem;
 }
 
 .documents .document .option:hover p{
@@ -451,6 +458,6 @@
     }
     100%{
         opacity: 1;
-        width: 9rem;
+        width: 100%;
     }
 }

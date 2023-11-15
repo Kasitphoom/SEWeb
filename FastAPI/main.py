@@ -174,6 +174,23 @@ async def edit_Assignment(request: Request, course_index: int, assignment_name: 
             assignment = a
             break
     return templates.TemplateResponse("edit_assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment, "ID": ID})
+@app.get("/classes/{course_index}/rooms")
+async def show_rooms(request: Request, course_index: int, ID: int = Cookie(None)):
+    client = clients[ID]
+    client_type = "None"
+    rooms = None
+    
+    if type(client) == Lecturer:
+        client_type = "Lecturer"
+        course_id = client.courses[course_index].course_id
+    elif type(client) == Student:
+        client_type = "Student"
+        course_id = client.enrolls[course_index].course.course_id
+        
+    course = root.courses[course_id]
+    rooms = course.rooms
+        
+    return templates.TemplateResponse("rooms.html", {"request": request, "client": client, "course": course, "client_type": client_type, "rooms": rooms, "ID": ID})
 
 @app.on_event("shutdown")
 async def shutdown():

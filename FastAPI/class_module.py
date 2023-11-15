@@ -117,6 +117,9 @@ class Course(persistent.Persistent):
         
     def addRoom(self, roomID):
         self.rooms.append(roomID)
+        
+    def removeRoom(self, roomID):
+        self.rooms.remove(roomID)
 
     def scoreGradingAsNum(self,score):
         grade = self.scoreGrading(score)
@@ -207,6 +210,18 @@ class Assignment(persistent.Persistent):
     
     def haveAttachment(self):
         return len(self.attachment) > 0
+    
+class Room(persistent.Persistent):
+    def __init__(self, ID, title):
+        self.id = ID
+        self.title = title
+    
+    def setTitle(self, title):
+        self.title = title
+    
+    def delete(self):
+        del self
+        self._p_changed = True
 
 gradeScheme = [
     {"Grade": "A", "min":80, "max":100},

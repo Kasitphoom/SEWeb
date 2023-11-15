@@ -165,6 +165,9 @@ class Assignment(persistent.Persistent):
     def setDiscription(self, description):
         self.description = description
 
+    def getDesciption(self):
+        return self.description
+
     def addAttachment(self, attachment):
         self.attachment.append(attachment)
 

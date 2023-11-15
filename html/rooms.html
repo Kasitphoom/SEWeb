@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/header.css">
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <link rel="stylesheet" type="text/css" href="../css/classes.css">
-    <script src="../js/header.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/classes.css">
+    <script src="/js/header.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -18,7 +18,7 @@
     <nav>
         <div class="nav" id="navbar">
             <a href="/" class="nav-left">
-                <img class="nav-logo" src="../images/SE_logo_tranparent.svg" alt="">
+                <img class="nav-logo" src="/images/SE_logo_tranparent.svg" alt="">
                 <div class="nav-text">
                     <div class="nav-title">SOFTWARE ENGINEERING</div>
                     <div class="nav-title-small">King Mongkut's Institute of Technology Ladkrabang</div>
@@ -77,28 +77,50 @@
         <div class="side-bar">
             <label>Courses</label>
             <div class="course-container">
+                {% if client_type == "Student" %}
+                {% for enroll in client.enrolls %}
                 <div class="course">
-                    <label>Software Engineering</label>
+                    <label>{{enroll.course.name}}</label>
                     <div class="dropdown-content">
                         <div class="course-content">Anouncements</div>
-                        <div class="course-content">Rooms</div>
-                        <div class="course-content">Assignments</div>
+                        <a href="/classes/{{ loop.index - 1 }}/rooms">
+                            <div class="course-content">Rooms</div>
+                        </a>
+                        <a href="/classes/{{ loop.index - 1 }}/assignments">
+                            <div class="course-content">Assignments</div>
+                        </a>
                     </div>
                 </div>
+                {% endfor %}
+                {% elif client_type == "Lecturer" %}
+                {% for course in client.courses %}
                 <div class="course">
-                    <label>Software Engineering Principles</label>
+                    <label>{{course.name}}</label>
                     <div class="dropdown-content">
-                        <div class="course-content">Anouncements</div>
-                        <div class="course-content">Rooms</div>
-                        <div class="course-content">Assignments</div>
+                        <div class="course-content">Announcements</div>
+                        <a href="/classes/{{ loop.index - 1 }}/rooms">
+                            <div class="course-content">Rooms</div>
+                        </a>
+                        <a href="/classes/{{ loop.index - 1 }}/assignments">
+                            <div class="course-content">Assignments</div>
+                        </a>
                     </div>
                 </div>
+                {% endfor %}
+                {% else %}
+                <div>No enrolled courses.</div>
+                {% endif %}
             </div>
         </div>
         <div class="right-content">
             <div class="banner"></div>
             <div class="title">
-                [CLASS NAME] - Rooms available
+                {{ course.name }} - Rooms available
+                {% if client_type == "Lecturer" %}
+                <a href="/addRoom" class="add-assignment">
+                    ADD NEW ROOM <i class="fa-solid fa-plus"></i>
+                </a>
+                {% endif %}
             </div>
             <div class="wrap-assignment">
                 <div class="room-ctn">
@@ -108,29 +130,16 @@
                         <p>OPTIONS</p>
                     </div>
                     <div class="horizontal-line"></div>
+                    {% for room in course.rooms %}
                     <div class="room">
-                        <p>f768f10b-160f-4d81-b75b-257258f432d9</p>
-                        <p>Room Title</p>
+                        <p>{{ room.id }}</p>
+                        <p>{{ room.title }}</p>
                         <div class="room-options">
-                            <a href="">
+                            <a href="https://se-online.kasitphoom.com/{{ room.id }}">
                                 <i class="fa-solid fa-right-to-bracket"></i>
                                 <p>JOIN</p>
                             </a>
-                            <!-- 
-                            FOR TEACHER
-                            <a href="">Edit</a>
-                            <a href="">Delete</a> 
-                            -->
-                        </div>
-                    </div>
-                    <div class="room">
-                        <p>f768f10b-160f-4d81-b75b-257258f432d9</p>
-                        <p>Room Title</p>
-                        <div class="room-options">
-                            <a href="">
-                                <i class="fa-solid fa-right-to-bracket"></i>
-                                <p>JOIN</p>
-                            </a>
+                            {% if client_type == "Lecturer" %}
                             <a href="">
                                 <i class="fa-solid fa-pencil"></i>
                                 <p>EDIT</p>
@@ -139,9 +148,10 @@
                                 <i class="fa-solid fa-trash"></i>
                                 <p>DELETE</p>
                             </a>
-                           
+                            {% endif %}
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

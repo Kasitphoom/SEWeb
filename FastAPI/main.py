@@ -210,7 +210,7 @@ async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
 @app.get("/room/edit/page/{room_id}")
 async def show_rooms(request: Request, room_id: str, ID: int = Cookie(None)):
     client = clients[ID]
-    client_type = "None"
+    client_type = "Lecturer"
     rooms = None
     
     if type(client) != Lecturer:
@@ -218,7 +218,7 @@ async def show_rooms(request: Request, room_id: str, ID: int = Cookie(None)):
     
     room = root.rooms[room_id]
         
-    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "room": room, "ID": ID, "type": "edit"})
+    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": room, "ID": ID, "type": "edit"})
 
 @app.post("/room/edit/{room_id}")
 async def show_rooms(request: Request, room_id: str, title: str = Form(...), ID: int = Cookie(None)):
@@ -253,8 +253,9 @@ async def deleteRoom(request: Request, room_id: str, course_id: int, ID: int = C
 async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
     
     room_id = generate_uuid()
+    client_type = "Lecturer"
         
-    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "room": None, "course_id": course_id, "room_id": room_id, "ID": ID, "type": "add"})
+    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": None, "course_id": course_id, "room_id": room_id, "ID": ID, "type": "add"})
 
 @app.post("/room/add/{course_id}/{room_id}")
 async def show_rooms(request: Request, course_id: int, room_id: str, title: str = Form(...), ID: int = Cookie(None)):

@@ -15,114 +15,12 @@
 </head>
 
 <body>
-    <nav>
-        <div class="nav" id="navbar">
-            <a href="/" class="nav-left">
-                <img class="nav-logo" src="/images/SE_logo_tranparent.svg" alt="">
-                <div class="nav-text">
-                    <div class="nav-title">SOFTWARE ENGINEERING</div>
-                    <div class="nav-title-small">King Mongkut's Institute of Technology Ladkrabang</div>
-                </div>
-            </a>
-            <div class="nav-right" id="navRight">
-                <div class="wrap-darkmode">
-                    <div class="nav-move">
-                        <input type="checkbox" id="darkmode-toggle">
-                        <label for="darkmode-toggle" id="label-darkmode">
-                            <i class="fa-solid fa-moon fa-xl"></i>
-                            <i class="fa-solid fa-sun fa-xl"></i>
-                        </label>
-                        {% if client != None %}
-                        <a href="/classes/0/assignments">Classes</a>
-                        {% endif %}
-                        <a href="">About</a>
-                        <a href="">Program</a>
-                        <a href="">Admission</a>
-                        <a href="">Research</a>
-                        <a href="">Industry</a>
-                        <a href="">News</a>
-                        <a href="">Event</a>
-                        <a href="">EN</a>
-                    </div>
-                </div>
-                <a href="javascript:void(0);" class="bars" onclick="changeToResponsive()"><i
-                        class="fa-solid fa-bars fa-2xl"></i></a>
-                <div class="dropdown-header">
-                    <img id="login" src="{{ client.avatar }}" alt="Avatar">
-                    <div class="dropdown-header-content">
-                        <a href="/profile">
-                            <div>Profile</div>
-                        </a>
-                        <a href="/logout">
-                            <div>Logout</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="nav-bottom" style="display: none;">
-            <div class="nav-move" style="display: none;">
-                <div class="wrap-darkmode">
-                    <input type="checkbox" id="darkmode-toggle">
-                    <label for="darkmode-toggle" id="label-darkmode">
-                        <i class="fa-solid fa-moon fa-xl"></i>
-                        <i class="fa-solid fa-sun fa-xl"></i>
-                    </label>
-                </div>
-                <a href="">About</a>
-                <a href="">Program</a>
-                <a href="">Admission</a>
-                <a href="">Research</a>
-                <a href="">Industry</a>
-                <a href="">News</a>
-                <a href="">Event</a>
-                <a href="">EN</a>
-            </div>
-        </div>
-        <div class="accent-bar" id="accent-bar"></div>
-    </nav>
-
-    <div class="spacer" id="spacer"></div>
+    {% include 'nav.html'%}
 
     <div class="content">
-        <div class="side-bar">
-            <label>Courses</label>
-            <div class="course-container">
-                {% if client_type == "Student" %}
-                {% for enroll in client.enrolls %}
-                <div class="course">
-                    <label>{{enroll.course.name}}</label>
-                    <div class="dropdown-content">
-                        <div class="course-content">Anouncements</div>
-                        <a href="/classes/{{ enroll.course.course_id }}/rooms">
-                            <div class="course-content">Rooms</div>
-                        </a>
-                        <a href="/classes/{{ loop.index - 1 }}/assignments">
-                            <div class="course-content">Assignments</div>
-                        </a>
-                    </div>
-                </div>
-                {% endfor %}
-                {% elif client_type == "Lecturer" %}
-                {% for course in client.courses %}
-                <div class="course">
-                    <label>{{course.name}}</label>
-                    <div class="dropdown-content">
-                        <div class="course-content">Announcements</div>
-                        <a href="/classes/{{ course.course_id }}/rooms">
-                            <div class="course-content">Rooms</div>
-                        </a>
-                        <a href="/classes/{{ loop.index - 1 }}/assignments">
-                            <div class="course-content">Assignments</div>
-                        </a>
-                    </div>
-                </div>
-                {% endfor %}
-                {% else %}
-                <div>No enrolled courses.</div>
-                {% endif %}
-            </div>
-        </div>
+
+        {% include 'sidebar.html'%}
+
         <div class="right-content">
             <div class="banner"></div>
             {% if client_type == "Student" %}

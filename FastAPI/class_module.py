@@ -30,7 +30,7 @@ class Client(persistent.Persistent):
         self.avatar = avatar
 
 class Lecturer(Client):
-    def __init__(self, ID, courses, name, user_name, password, avatar="../images/user-default-avatar.svg"):
+    def __init__(self, ID, courses, name, user_name, password, avatar="/images/user-default-avatar.svg"):
         super().__init__(ID ,name, user_name, password, avatar)
         self.courses = courses
 
@@ -42,7 +42,7 @@ class Lecturer(Client):
     
 
 class Student(Client):
-    def __init__(self, ID, enrolls, name, user_name, password, avatar="../images/user-default-avatar.svg"):
+    def __init__(self, ID, enrolls, name, user_name, password, avatar="/images/user-default-avatar.svg"):
         super().__init__(ID, name, user_name, password, avatar)
         self.enrolls = enrolls
 

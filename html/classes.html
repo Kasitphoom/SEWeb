@@ -23,65 +23,57 @@
 
         <div class="right-content">
             <div class="banner">
-                {% if client_type == "Student" %}
-                <img src="{{ client.enrolls[course_index].course.banner}}" alt="">
-                {% elif client_type == "Lecturer" %}
-                <img src="{{ client.courses[course_index].banner}}" alt="">
-                {% else %}
-                <img src="/images/default-banner.png" alt="">
-                {% endif %}
+                <img src="{{ course.banner }}" alt="">
             </div>
-            {% if client_type == "Student" %}
             <div class="title">
-                {{ client.enrolls[course_index].course.name }} - Assignments
-            </div>
-            <div class="wrap-assignment">
-                {%if client.enrolls[course_index].course.assignments|length > 0 %}
-                {% for assignment in client.enrolls[course_index].course.assignments %}
-                <a href="/classes/{{course_index}}/assignments/{{assignment.name}}" class="assignment hover-orange">
-                    <div class="assignment-title">{{ assignment.name }}</div>
-                    <div class="assignment-status">{{ assignment.checkSubmitted(client.ID) }}</div>
-                    <div class="assignment-duedate">Due {{ assignment.due_date }}</div>
-                </a>
-                {% endfor %}
-                {% else %}
-                <div>No assignments.</div>
-                {% endif %}
-            </div>
-            {% elif client_type == "Lecturer" %}
-            <div class="title">
-                {{ client.courses[course_index].name }} - Assignments
-                <a href="/classes/{{course_index}}/addAssignment" class="add-assignment">
+                {{ course.name }} - Assignments
+                {% if client_type == "Lecturer" %}
+                <a href="/classes/{{course.course_id}}/addAssignment" class="add-assignment">
                     ADD ASSIGNMENT <i class="fa-solid fa-plus"></i>
                 </a>
-            </div>
-            <div class="wrap-assignment">
-                {%if client.courses[course_index].assignments|length > 0 %}
-                {% for assignment in client.courses[course_index].assignments %}
-                <div class="assignment">
-                    <div class="assignment-title">{{ assignment.name }}</div>
-                    <div class="assignment-ctn-edit">
-                        <a href=""> <!-- link to grading page -->
-                            <i class="fa-solid fa-check"></i>
-                            <p>GRADE</p>
-                        <a href="/classes/{{course_index}}/editAssignment/{{assignment.name}}">
-                            <i class="fa-solid fa-pencil"></i>
-                            <p>EDIT</p>
-                        </a>
-                        <a href="/classes/{{course_index}}/removeAssignment/{{assignment.name}}">
-                            <i class="fa-solid fa-trash"></i>
-                            <p>DELETE</p>
-                        </a>
-                    </div>
-
-                </div>
-
-                {% endfor %}
-                {% else %}
-                <div>No assignments.</div>
                 {% endif %}
             </div>
-            {% endif %}
+            <div class="wrap-assignment">
+                <div class="assignments-ctn">
+                    {%if course.assignments|length > 0 %}
+                    {% for assignment in course.assignments %}
+                        {% if client_type == "Lecturer" %}
+                        <div class="assignment">
+                            <div class="assignment-title">{{ assignment.name }}</div>
+                            
+                            <div class="assignment-ctn-edit">
+                                <a href="/classes/{{course.course_id}}/assignments/{{assignment.id}}"> <!-- link to grading page -->
+                                    <i class="fa-solid fa-eye"></i>
+                                    <p>PREVIEW</p>
+                                </a>
+                                <a href=""> <!-- link to grading page -->
+                                    <i class="fa-solid fa-check"></i>
+                                    <p>GRADE</p>
+                                </a>
+                                <a href="/classes/{{course.course_id}}/editAssignment/{{assignment.id}}">
+                                    <i class="fa-solid fa-pencil"></i>
+                                    <p>EDIT</p>
+                                </a>
+                                <a href="/classes/{{course.course_id}}/removeAssignment/{{assignment.id}}">
+                                    <i class="fa-solid fa-trash"></i>
+                                    <p>DELETE</p>
+                                </a>
+                            </div>
+    
+                        </div>
+                        {% else %}
+                        <a href="/classes/{{course.course_id}}/assignments/{{assignment.id}}" class="assignment hover-orange">
+                            <div class="assignment-title">{{ assignment.name }}</div>
+                            <div class="assignment-status">{{ assignment.checkSubmitted(client.ID) }}</div>
+                            <div class="assignment-duedate">Due {{ assignment.due_date }}</div>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                    {% else %}
+                    <div>No assignments.</div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </body>

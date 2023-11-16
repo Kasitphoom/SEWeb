@@ -10,7 +10,7 @@
                 <a href="/classes/{{ enroll.course.course_id }}/rooms">
                     <div class="course-content">Rooms</div>
                 </a>
-                <a href="/classes/{{ loop.index - 1 }}/assignments">
+                <a href="/classes/{{ enroll.course.course_id }}/assignments">
                     <div class="course-content">Assignments</div>
                 </a>
             </div>
@@ -25,7 +25,7 @@
                 <a href="/classes/{{ course.course_id }}/rooms">
                     <div class="course-content">Rooms</div>
                 </a>
-                <a href="/classes/{{ loop.index - 1 }}/assignments">
+                <a href="/classes/{{ course.course_id }}/assignments">
                     <div class="course-content">Assignments</div>
                 </a>
             </div>

@@ -223,13 +223,19 @@
 
 .wrap-assignment {
     width: 100%;
+    padding: 1rem 5rem;
+    color: var(--white);
+}
+
+.wrap-assignment .assignments-ctn{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 3rem;
-    padding: 1rem 5rem;
-    color: var(--white);
+    gap: 2rem;
+    padding: 3rem;
+    background-color: var(--middle-grey);
+    border-radius: 1rem;
 }
 
 
@@ -240,12 +246,20 @@
     align-items: center;
     gap: 5rem;
     padding: 2rem;
-    border-radius: 2rem;
-    background-color: var(--middle-grey);
-    transition: 0.5s;
+    border-radius: 1rem;
+    background-color: var(--light-grey);
+    transition: 0.3s;
     font-size: 1.6rem;
     color: var(--white);
     text-decoration: none;
+    box-shadow: 6px 5px 13px -5px var(--black);
+}
+
+.wrap-assignment .assignment:hover {
+    background-color: var(--dark-white);
+    color: var(--main-color);
+    box-shadow: 11px 10px 13px -5px var(--black);
+    transform: translate(-0.5rem, -0.5rem);
 }
 
 .wrap-assignment .assignment .assignment-title {
@@ -464,20 +478,6 @@
     color: var(--white);
 }
 
-@keyframes showtype{
-    0%{
-        opacity: 0;
-        width: 0;
-    }
-    100%{
-        opacity: 1;
-        width: 100%;
-    }
-}
-.hover-orange:hover{
-    background-color: var(--kmitl-orange);
-}
-
 .assignment a{
     display: flex;
     padding: 0.5rem 2rem;
@@ -503,16 +503,16 @@
     animation: showtype 0.3s ease-in-out forwards;
 }
 
-.assignment a:hover:nth-child(1){
+.assignment a:hover:nth-child(2){
     background-color: var(--green);
 }
 
-.assignment a:hover:nth-child(2){
+.assignment a:hover:nth-child(3){
     background-color: var(--yellow);
     color: var(--middle-grey);
 }
 
-.assignment a:hover:nth-child(3){
+.assignment a:hover:nth-child(4){
     background-color: var(--red);
 }
 
@@ -520,4 +520,15 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
+}
+
+@keyframes showtype{
+    0%{
+        opacity: 0;
+        width: 0;
+    }
+    100%{
+        opacity: 1;
+        width: 100%;
+    }
 }

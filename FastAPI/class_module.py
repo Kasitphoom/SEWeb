@@ -143,6 +143,8 @@ class Course(persistent.Persistent):
         if assignment in self.assignments:
             self.assignments.remove(assignment)
             self._p_changed = True
+            return True
+        return False
 
 class Enrollment(persistent.Persistent):
     def __init__(self, course, score, student):

@@ -25,12 +25,17 @@ app.mount("/js", StaticFiles(directory="../js"), name="js")
 app.mount("/Upload", StaticFiles(directory="Upload"), name="Upload")
 
 @app.get("/", response_class=HTMLResponse)
-def index(request: Request, ID: int = Cookie(None)):
-    if ID == None:
+def index(request: Request, ID: int = Cookie(None), client_type: str = Cookie(None)):
+    if ID == None or client_type == None:
         return templates.TemplateResponse("index.html", {"request": request, "client": None})
     client = clients[ID]
     print(client.avatar)
-    return templates.TemplateResponse("index.html", {"request": request, "client": client})
+    first_course_id = None
+    if client_type == "Lecturer":
+        first_course_id = client.courses[0].course_id
+    elif client_type == "Student":
+        first_course_id = client.enrolls[0].course.course_id
+    return templates.TemplateResponse("index.html", {"request": request, "client": client, "first_course_id": first_course_id})
 
 @app.get("/users/all")
 def get_all_users():
@@ -40,8 +45,17 @@ def get_all_users():
 async def set_login(request: Request, response: Response, ID: int = Form(...), password: str = Form(...)):
     if ID in clients.keys():
         if clients[ID].login(ID, password):
-            response = RedirectResponse(url="/classes/0/assignments", status_code=303)
+            client = clients[ID]
+            client_type = "None"
+            if type(client) == Lecturer:
+                client_type = "Lecturer"
+                first_course_id = client.courses[0].course_id
+            elif type(client) == Student:
+                client_type = "Student"
+                first_course_id = client.enrolls[0].course.course_id
+            response = RedirectResponse(url="/classes/{}/assignments".format(first_course_id), status_code=303)
             response.set_cookie(key="ID", value=ID)
+            response.set_cookie(key="client_type", value=client_type)
             return response
         else:
             return {"message": "Login failed"}
@@ -53,18 +67,22 @@ async def set_login(request: Request, response: Response, ID: int = Form(...), p
 async def login_form(request: Request, error: int = 0):
     return templates.TemplateResponse("login.html", {"request": request, "error": error})
 
-@app.get("/classes/{course_index}/assignments", response_class=HTMLResponse)
-async def get_classes(request: Request, course_index: int, ID: int = Cookie(None)):
-    if ID == None:
+@app.get("/classes/{course_id}/assignments", response_class=HTMLResponse)
+async def get_classes(request: Request, course_id: int, ID: int = Cookie(None), client_type: str = Cookie(None)):
+    if ID == None or client_type == None:
         return RedirectResponse(url="/", status_code=303)
+    
     client = clients[ID]
-    client_type = "None"
-    if type(client) == Lecturer:
-        client_type = "Lecturer"
-    elif type(client) == Student:
-        client_type = "Student"
-
-    return templates.TemplateResponse("classes.html", {"request": request, "client": client, "course_index": course_index, "client_type": client_type})
+    course = root.courses[course_id]
+    
+    data = {
+        "request": request, 
+        "client": client, 
+        "course": course, 
+        "client_type": client_type
+    }
+    
+    return templates.TemplateResponse("classes.html", data)
     
 @app.get("/logout")
 async def logout(response: Response):
@@ -91,62 +109,79 @@ async def set_profile(request: Request, ID: int = Cookie(None), name: str = Form
     client.setAvatar(saveas)
     return RedirectResponse(url="/profile", status_code=303)
 
-@app.get("/classes/{course_index}/assignments/{assignment_name}", response_class=HTMLResponse)
-async def get_assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
-    client = clients[ID]
-    client_type = "None"
-    if type(client) == Lecturer:
-        client_type = "Lecturer"
-        for a in client.courses[course_index].assignments:
-            if a.name == assignment_name:
-                assignment = a
-                break
-    elif type(client) == Student:
-        client_type = "Student"
-        for a in client.enrolls[course_index].course.assignments:
-            if a.name == assignment_name:
-                assignment = a
-                break
-    return templates.TemplateResponse("assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment, "ID": ID})
+@app.get("/classes/{course_id}/assignments/{assignment_id}", response_class=HTMLResponse)
+async def get_assignment(request: Request, course_id: int, assignment_id: str, ID: int = Cookie(None), client_type: str = Cookie(None)):
+    
+    if ID == None or client_type == None:
+        return RedirectResponse(url="/", status_code=303)
 
-@app.post("/uploadFile/{course_index}/{ASS_ID}")
-async def upload_file(request: Request, course_index: int, ASS_ID: str, assignmentFiles: List[UploadFile] = File(...), ID: int = Cookie(None)):
-    # loop through request.form()
+    try:
+        course = root.courses[course_id]
+        assignment = root.assignments[assignment_id]
+    except:
+        return RedirectResponse(url="/", status_code=303)
+    
+    if assignment not in course.assignments:
+        print("not in course")
+        return RedirectResponse(url="/", status_code=303)
+    
+    client = clients[ID]
+    
+    data = {
+        "request": request, 
+        "client": client, 
+        "course": course, 
+        "client_type": client_type, 
+        "assignment": assignment, 
+        "ID": ID
+    }
+
+    return templates.TemplateResponse("assignment.html", data)
+
+@app.post("/uploadFile/{course_id}/{ASS_ID}")
+async def upload_file(request: Request, course_id: int, ASS_ID: str, assignmentFiles: List[UploadFile] = File(None), ID: int = Cookie(None)):
+    
+    try:
+        course = root.courses[course_id]
+        assignment = root.assignments[ASS_ID]
+    except:
+        print("Error")
+        return RedirectResponse(url="/", status_code=303)
+    
+    if assignment not in course.assignments:
+        print("Not in course")
+        return RedirectResponse(url="/", status_code=303)
+    
     UPLOAD_DIR = "Upload"
     summitfiles = []
-    for file in assignmentFiles:
-        data = await file.read()
-        saveas = UPLOAD_DIR + "/" + file.filename
-        with open(saveas, 'wb') as f:
-            f.write(data)
-        summitfiles.append(saveas)
+    
+    if assignmentFiles[0].filename != "":
+        for file in assignmentFiles:
+            data = await file.read()
+            saveas = UPLOAD_DIR + "/" + file.filename
+            with open(saveas, 'wb') as f:
+                f.write(data)
+            summitfiles.append(saveas)
         
-    currentAss = None
     student = root.clients[ID]
-    assignments = student.enrolls[course_index].course.assignments
-    for assignment in assignments:
-        if assignment.id == ASS_ID:
-            currentAss = assignment
-            currentAss.summitWork(ID, summitfiles)
-            print(assignment.submitted_work, summitfiles)
-    return RedirectResponse("/classes/{}/assignments/{}".format(course_index, currentAss.name), status_code=303)
+    assignment = root.assignments[ASS_ID]
+    assignment.summitWork(ID, summitfiles)
+    print(assignment.submitted_work, summitfiles)
+    return RedirectResponse("/classes/{}/assignments/{}".format(course_id, ASS_ID), status_code=303)
 
-@app.get("/unsubmit/{course_index}/{ASS_ID}")
-async def upload_file(request: Request, course_index: int, ASS_ID: str, ID: int = Cookie(None)):
-    currentAss = None
+@app.get("/unsubmit/{course_id}/{ASS_ID}")
+async def upload_file(request: Request, course_id: int, ASS_ID: str, ID: int = Cookie(None)):
+
     student = root.clients[ID]
-    assignments = student.enrolls[course_index].course.assignments
-    for assignment in assignments:
-        if assignment.id == ASS_ID:
-            currentAss = assignment
-            currentAss.unSummitWork(ID)
-    return RedirectResponse("/classes/{}/assignments/{}".format(course_index, currentAss.name), status_code=303)
+    assignment = root.assignments[ASS_ID]
+    assignment.unSummitWork(ID)
+    
+    return RedirectResponse("/classes/{}/assignments/{}".format(course_id, assignment.id), status_code=303)
 
-@app.get("/classes/{course_index}/addAssignment", response_class=HTMLResponse)
-async def add_Assignment(request: Request, course_index: int, ID: int = Cookie(None)):
+@app.get("/classes/{course_id}/addAssignment", response_class=HTMLResponse)
+async def add_Assignment(request: Request, course_id: int, ID: int = Cookie(None), client_type: str = Cookie(None)):
     client = clients[ID]
-    client_type = "Lecturer"
-    course = client.courses[course_index]
+    course = root.courses[course_id]
     assignments = course.assignments
     new_id = None
 
@@ -158,49 +193,69 @@ async def add_Assignment(request: Request, course_index: int, ID: int = Cookie(N
     due_date = date.today()
     assignment_index = len(assignments)
     new_assignment = Assignment(new_id, "Assignment {}".format(assignment_index + 1), 10, due_date)
-    course.addAssignment(new_assignment)
-    assignment_name = new_assignment.name
+    root.assignments[new_assignment.id] = new_assignment
+    course.addAssignment(root.assignments[new_assignment.id])
     # for i in assignments:
     #     print(i)
+    
+    data = {
+        "request": request, 
+        "client": client, 
+        "course": course, 
+        "assignment": new_assignment, 
+        "client_type": client_type, 
+        "ID": ID
+    }
         
-    return templates.TemplateResponse("edit_assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": new_assignment, "ID": ID})
+    return templates.TemplateResponse("edit_assignment.html", data)
 
-@app.get("/classes/{course_index}/editAssignment/{assignment_name}", response_class=HTMLResponse)
-async def edit_Assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
+@app.get("/classes/{course_id}/editAssignment/{assignment_id}", response_class=HTMLResponse)
+async def edit_Assignment(request: Request, course_id: int, assignment_id: str, ID: int = Cookie(None), client_type: str = Cookie(None)):
     client = clients[ID]
-    client_type = "Lecturer"
-    for a in client.courses[course_index].assignments:
-        if a.name == assignment_name:
-            assignment = a
-            break
-    return templates.TemplateResponse("edit_assignment.html", {"request": request, "client": client, "course_index": course_index, "assignment_name": assignment_name, "client_type": client_type, "assignment": assignment, "ID": ID})
+    assignment = root.assignments[assignment_id]
+    course = root.courses[course_id]
+    
+    data = {
+        "request": request, 
+        "client": client, 
+        "course": course,
+        "client_type": client_type, 
+        "assignment": assignment, 
+        "ID": ID
+    }
+    
+    return templates.TemplateResponse("edit_assignment.html", data)
 
-@app.get("/classes/{course_index}/removeAssignment/{assignment_name}")
-async def remove_assignment(request: Request, course_index: int, assignment_name: str, ID: int = Cookie(None)):
+@app.get("/classes/{course_id}/removeAssignment/{assignment_id}")
+async def remove_assignment(request: Request, course_id: int, assignment_id: str, ID: int = Cookie(None)):
     client = clients[ID]
-    course = client.courses[course_index]
-    assignments = course.assignments
-    for assignment in assignments:
-        if assignment.name == assignment_name:
-            course.removeAssignment(assignment)
-            break
-    return RedirectResponse("/classes/{}/assignments".format(course_index), status_code=303)
+    course = root.courses[course_id]
+    try:
+        assignment = root.assignments[assignment_id]
+    except KeyError:
+        IncorrectAssignments = course.assignments
+        for i in IncorrectAssignments:
+            if i.id == assignment_id:
+                IncorrectAssignments.p
+        return RedirectResponse("/classes/{}/assignments".format(course_id), status_code=303)
+    
+    if course.removeAssignment(assignment):
+        root.assignments.pop(assignment_id)
+        root._p_changed = True
+    
+    return RedirectResponse("/classes/{}/assignments".format(course_id), status_code=303)
 
-@app.post("/classes/{course_index}/editAssignment/{assignment_name}")
-async def save_Edit_Assignment(request: Request, course_index: int, assignment_name: str, name: str = Form(...), due_date: str = Form(...), description: str = Form(...), ID: int = Cookie(None)):
+@app.post("/classes/{course_id}/editAssignment/{assignment_id}")
+async def save_Edit_Assignment(request: Request, course_id: int, assignment_id: str, name: str = Form(...), due_date: str = Form(...), description: str = Form(...), ID: int = Cookie(None), client_type: str = Cookie(None)):
     client = clients[ID]
-    client_type = "Lecturer"
-    assignment = None
-    for a in client.courses[course_index].assignments:
-        if a.name == assignment_name:
-            assignment = a
-            break
+    assignment = root.assignments[assignment_id]
     assignment.setDueDate(due_date)
     assignment.setName(name)
     assignment.setDescription(description)
     
-    return RedirectResponse("/classes/{}/assignments".format(course_index), status_code=303)
+    return RedirectResponse("/classes/{}/assignments".format(course_id), status_code=303)
 
+@app.post("/classes/{course_index}/addAssignment")
 
 @app.get("/classes/{course_id}/rooms")
 async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
@@ -265,8 +320,9 @@ async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
     
     room_id = generate_uuid()
     client_type = "Lecturer"
+    course = root.courses[course_id]
         
-    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": None, "course_id": course_id, "room_id": room_id, "ID": ID, "type": "add"})
+    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": None, "course_id": course_id, "course": course, "room_id": room_id, "ID": ID, "type": "add"})
 
 @app.post("/room/add/{course_id}/{room_id}")
 async def show_rooms(request: Request, course_id: int, room_id: str, title: str = Form(...), ID: int = Cookie(None)):

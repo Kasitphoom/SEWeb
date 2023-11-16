@@ -23,13 +23,7 @@
         
         <div class="right-content">
             <div class="banner">
-                {% if client_type == "Student" %}
-                <img src="{{ client.enrolls[course_index].course.banner}}" alt="">
-                {% elif client_type == "Lecturer" %}
-                <img src="{{ client.courses[course_index].banner}}" alt="">
-                {% else %}
-                <img src="/images/default-banner.png" alt="">
-                {% endif %}
+                <img src="{{ course.banner }}" alt="">
             </div>
             <div class="assignment-ctn">
                 <div class="information-ctn">
@@ -42,7 +36,10 @@
                         </div>
                     </div>
                     <div class="assignment-description">
-                        {{ assignment.description }}
+<pre>
+    {{ assignment.description }}
+</pre>
+                        
                     </div>
                     <div class="horizontal-line"></div>
                     <div class="others">
@@ -95,13 +92,13 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <form action="/uploadFile/{{course_index}}/{{ assignment.id }}" method="post" enctype="multipart/form-data">
+                    <form action="/uploadFile/{{course.course_id}}/{{ assignment.id }}" method="post" enctype="multipart/form-data">
                         <input type="file" name="assignmentFiles" id="assignment-files" style="display: none;" multiple>
                         {% if assignment.checkSubmitted(client.ID) == "Not Summited" %}
                         <input type="submit" class="input submit" value="SUBMIT">
                         <input type="submit" class="input choose-file" value="CHOOSE FILES" id="choose-file">
                         {% else %}
-                        <a class="status-type not-submitted" href="/unsubmit/{{course_index}}/{{ assignment.id }}">
+                        <a class="status-type not-submitted" href="/unsubmit/{{course.course_id}}/{{ assignment.id }}">
                             UNSUBMIT WORK
                         </a>
                         {% endif %}

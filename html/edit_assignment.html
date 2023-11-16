@@ -24,29 +24,23 @@
         
         <div class="right-content">
             <div class="banner">
-                {% if client_type == "Student" %}
-                <img src="{{ client.enrolls[course_index].course.banner}}" alt="">
-                {% elif client_type == "Lecturer" %}
-                <img src="{{ client.courses[course_index].banner}}" alt="">
-                {% else %}
-                <img src="/images/default-banner.png" alt="">
-                {% endif %}
+                <img src="{{ course.banner }}" alt="">
             </div>
             <div class="add-assignment-container-top">
                 <div class="add-assignment-container">
                     <h2>Edit Assignment</h2>
-                    <form action="/classes/{{course_index}}/editAssignment/{{assignment.name}}" method="POST" enctype="multipart/form-data" id="profile">
+                    <form action="/classes/{{course.course_id}}/editAssignment/{{assignment.id}}" method="POST" enctype="multipart/form-data" id="profile">
                         <!-- Existing form fields -->
                         <div class="wrap-add-assignment">
                             <div class="add-assignment-content">
                                 <label for="name">ASSIGNMENT NAME</label>
-                                <input type="text" id="name" name="name" value="{{assignment_name}}" required>
+                                <input type="text" id="name" name="name" value="{{assignment.name}}" required>
         
                                 <label for="due_date">DUE DATE(yyyy-mm-dd)</label>
                                 <input type="text" id="due_date" name="due_date" value="{{assignment.due_date}}" required>
 
                                 <label for="description">DESCRIPTION</label>
-                                <input type="text" id="description" name="description" value="{{assignment.description}}">
+                                <textarea id="description" name="description" cols="30" rows="10" value="{{assignment.description}}">{{assignment.description}}</textarea>
                             </div>
                             <!-- New profile picture upload field -->
                             <div class="add-assignment-content">

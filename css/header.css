@@ -42,6 +42,11 @@ nav {
     z-index: 100;
 }
 
+pre{
+    width: 100%;
+    white-space: pre-wrap;
+}
+
 .main-accent-button {
     font-size: 1.6rem;
     padding: 2.5rem;

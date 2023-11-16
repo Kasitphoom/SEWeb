@@ -25,6 +25,13 @@
                         <div class="assignment-title">
                             {{ assignment.name }}
                         </div>
+                        <div class="grade">
+                            {% if assignment.checkSubmitted(client.ID) == "Not Summited" %}
+                            0 / {{ assignment.max_score }}
+                            {% else %}
+                            {{ assignment.submitted_work[client.ID]["score"] }} / {{ assignment.max_score }}
+                            {% endif %}
+                        </div>
                         <div class="duedate">
                             Due: {{ assignment.due_date }}
                         </div>

@@ -104,11 +104,14 @@ async def set_profile(request: Request, ID: int = Cookie(None), name: str = Form
     client.setName(name)
     client.setUsername(user_name)
     data = await avatar.read()
-    saveas = UPLOAD_DIR + "/" + avatar.filename
-    with open(saveas, 'wb') as f:
-        f.write(data)
-    saveas = "/" + UPLOAD_DIR + "/" + avatar.filename
-    client.setAvatar(saveas)
+    try:
+        saveas = UPLOAD_DIR + "/" + avatar.filename
+        with open(saveas, 'wb') as f:
+            f.write(data)
+        saveas = "/" + UPLOAD_DIR + "/" + avatar.filename
+        client.setAvatar(saveas)
+    except:
+        pass
     return RedirectResponse(url="/profile", status_code=303)
 
 @app.get("/classes/{course_id}/assignments/{assignment_id}", response_class=HTMLResponse)

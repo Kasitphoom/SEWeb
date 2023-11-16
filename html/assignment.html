@@ -96,13 +96,15 @@
                     </div>
                     <form action="/uploadFile/{{course.course_id}}/{{ assignment.id }}" method="post" enctype="multipart/form-data">
                         <input type="file" name="assignmentFiles" id="assignment-files" style="display: none;" multiple>
-                        {% if assignment.checkSubmitted(client.ID) == "Not Summited" %}
-                        <input type="submit" class="input submit" value="SUBMIT">
-                        <input type="submit" class="input choose-file" value="CHOOSE FILES" id="choose-file">
-                        {% else %}
-                        <a class="status-type not-submitted" href="/unsubmit/{{course.course_id}}/{{ assignment.id }}">
-                            UNSUBMIT WORK
-                        </a>
+                        {% if client_type != "Lecturer" %}
+                            {% if assignment.checkSubmitted(client.ID) == "Not Summited" %}
+                            <input type="submit" class="input submit" value="SUBMIT">
+                            <input type="submit" class="input choose-file" value="CHOOSE FILES" id="choose-file">
+                            {% else %}
+                            <a class="status-type not-submitted" href="/unsubmit/{{course.course_id}}/{{ assignment.id }}">
+                                UNSUBMIT WORK
+                            </a>
+                            {% endif %}
                         {% endif %}
                     </form>
                 </div>

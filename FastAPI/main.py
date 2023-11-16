@@ -374,9 +374,10 @@ async def grading_Student(request: Request, course_id: int, ass_id: str, student
     return RedirectResponse("/classes/{}/grade/{}".format(course_id, ass_id), status_code=303)
 
 
-@app.get("/room/edit/page/{room_id}")
-async def show_rooms(request: Request, room_id: str, ID: int = Cookie(None), first_course_id: int = Cookie(None)):
+@app.get("/room/edit/page/{course_id}/{room_id}")
+async def show_rooms(request: Request, room_id: str, course_id: int, ID: int = Cookie(None), first_course_id: int = Cookie(None)):
     client = clients[ID]
+    course = root.courses[course_id]
     client_type = "Lecturer"
     rooms = None
     
@@ -385,7 +386,7 @@ async def show_rooms(request: Request, room_id: str, ID: int = Cookie(None), fir
     
     room = root.rooms[room_id]
         
-    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": room, "ID": ID, "type": "edit", "first_course_id": first_course_id})
+    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": room, "ID": ID, "type": "edit", "first_course_id": first_course_id, "course": course})
 
 @app.post("/room/edit/{room_id}")
 async def show_rooms(request: Request, room_id: str, title: str = Form(...), ID: int = Cookie(None)):

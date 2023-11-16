@@ -213,12 +213,15 @@ class Assignment(persistent.Persistent):
     def getDesciption(self):
         return self.description
 
-    def addAttachment(self, attachment):
-        self.attachment.append(attachment)
+    def setAttachment(self, attachment):
+        self.attachment = attachment
 
-    def removeAttachment(self, attachment):
-        if attachment in self.attachment:
-            self.attachment.remove(attachment)
+    def removeAttachment(self):
+        if len(self.attachment) > 0:
+            for file in self.attachment:
+                os.remove(file)
+        self.attachment = []
+        self._p_changed = True
 
     def getWorkScore(self, student):
         return self.submitted_work[student]["score"]

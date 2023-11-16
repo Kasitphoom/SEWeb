@@ -246,16 +246,41 @@ async def remove_assignment(request: Request, course_id: int, assignment_id: str
     return RedirectResponse("/classes/{}/assignments".format(course_id), status_code=303)
 
 @app.post("/classes/{course_id}/editAssignment/{assignment_id}")
-async def save_Edit_Assignment(request: Request, course_id: int, assignment_id: str, name: str = Form(...), due_date: str = Form(...), description: str = Form(...), ID: int = Cookie(None), client_type: str = Cookie(None)):
+async def save_Edit_Assignment(request: Request, course_id: int, assignment_id: str, name: str = Form(...), due_date: str = Form(...), description: str = Form(...), attachmentFiles: List[UploadFile] = File(None), ID: int = Cookie(None), client_type: str = Cookie(None)):
     client = clients[ID]
     assignment = root.assignments[assignment_id]
     assignment.setDueDate(due_date)
-    assignment.setName(name)
     assignment.setDescription(description)
+    # set attachment
+    UPLOAD_DIR = "Upload"
+    summitfiles = []
     
+    print(assignment.attachment)
+    if attachmentFiles != None :
+        try:
+            for file in attachmentFiles:
+                data = await file.read()
+                saveas = UPLOAD_DIR + "/" + file.filename
+                with open(saveas, 'wb') as f:
+                    f.write(data)
+                summitfiles.append(saveas)
+            
+            assignment.setAttachment(summitfiles)
+        except:
+            pass
+        
     return RedirectResponse("/classes/{}/assignments".format(course_id), status_code=303)
 
-@app.post("/classes/{course_index}/addAssignment")
+
+@app.get("/classes/{course_id}/editAssignment/{assignment_id}/removeAttachment")
+async def remove_attachment(request: Request, course_id: int, assignment_id: str, ID: int = Cookie(None)):
+    
+    client = root.clients[ID]
+    assignment = root.assignments[assignment_id]
+    assignment.removeAttachment()
+
+    return RedirectResponse("/classes/{}/editAssignment/{}".format(course_id, assignment_id), status_code=303)
+
 
 @app.get("/classes/{course_id}/rooms")
 async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):

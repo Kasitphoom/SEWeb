@@ -719,3 +719,33 @@
         width: 100%;
     }
 }
+
+@media screen and (max-width: 800px){
+    .banner{
+        height: 10vh;
+    }
+    .side-bar{
+        width: 30%;
+    }
+    .right-content{
+        padding-left: calc(100vw * 0.30);
+    }
+    .wrap-assignment{
+        padding: 1rem;
+    }
+    .wrap-assignment .assignments-ctn{
+        padding: 1rem;
+    }
+    .wrap-assignment .assignment{
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .rooms-title p:nth-child(1), .room p:nth-child(1){
+        display: none;
+    }
+
+    .room-ctn .rooms-title, .room-ctn .room{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

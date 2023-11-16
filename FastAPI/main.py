@@ -217,7 +217,7 @@ async def add_Assignment(request: Request, course_id: int, ID: int = Cookie(None
     return templates.TemplateResponse("edit_assignment.html", data)
 
 @app.get("/classes/{course_id}/editAssignment/{assignment_id}", response_class=HTMLResponse)
-async def edit_Assignment(request: Request, course_id: int, assignment_id: str, ID: int = Cookie(None), client_type: str = Cookie(None)):
+async def edit_Assignment(request: Request, course_id: int, assignment_id: str, ID: int = Cookie(None), client_type: str = Cookie(None), first_course_id: int = Cookie(None)):
     client = clients[ID]
     assignment = root.assignments[assignment_id]
     course = root.courses[course_id]

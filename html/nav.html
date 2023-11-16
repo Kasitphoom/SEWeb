@@ -64,29 +64,23 @@
             {% endif %}
         </div>
     </div>
-    <div class="nav-bottom" style="display: none">
-        <div class="nav-move" style="display: none">
-            <div class="wrap-darkmode">
-                <input type="checkbox" id="darkmode-toggle" />
-                <label for="darkmode-toggle" id="label-darkmode">
-                    <i class="fa-solid fa-moon fa-xl"></i>
-                    <i class="fa-solid fa-sun fa-xl"></i>
-                </label>
-            </div>
-            {% if client != None %}
-            <a href="/classes/0">Clases</a>
-            {% endif %}
-            <a href="">About</a>
-            <a href="">Program</a>
-            <a href="">Admission</a>
-            <a href="">Research</a>
-            <a href="">Industry</a>
-            <a href="">News</a>
-            <a href="">Event</a>
-            <a href="">EN</a>
-        </div>
-    </div>
     <div class="accent-bar" id="accent-bar"></div>
 </nav>
 
 <div class="spacer" id="spacer"></div>
+
+<div class="nav-bottom" id="nav-responsive">
+    <div class="nav-move">
+        {% if client != None %}
+        <a href="/classes/{{ first_course_id }}/assignments">Classes</a>
+        {% endif %}
+        <a href="">About</a>
+        <a href="">Program</a>
+        <a href="">Admission</a>
+        <a href="">Research</a>
+        <a href="">Industry</a>
+        <a href="">News</a>
+        <a href="">Event</a>
+        <a href="">EN</a>
+    </div>
+</div>

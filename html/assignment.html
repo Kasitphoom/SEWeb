@@ -26,6 +26,7 @@
                             {{ assignment.name }}
                         </div>
                         <div class="grade">
+                            Grade: 
                             {% if assignment.checkSubmitted(client.ID) == "Not Summited" %}
                             0 / {{ assignment.max_score }}
                             {% else %}

@@ -1,12 +1,8 @@
 isPageOnTop = true;
 
 function changeToResponsive() {
-    var x = document.getElementById("navRight");
-    if (x.className === "nav-right") {
-        x.className += " responsive";
-    } else {
-        x.className = "nav-right";
-    }
+    var x = document.getElementById("nav-responsive");
+    x.classList.toggle("nav-responsive");
 }
 
 // check if scrolled?

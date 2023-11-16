@@ -271,3 +271,29 @@
     font-size: 1.6rem;
     flex-grow: 1;
 }
+
+@media screen and (max-width: 800px) {
+    .intro-text {
+        left: 10%;
+    }
+    .news-wrap{
+        padding: 4rem 2rem;
+    }
+    .news-boxes {
+        flex-direction: column;
+    }
+    .news-img{
+        height: 30rem;
+    }
+    .news-box {
+        width: 100%;
+    }
+    .event-wrap {
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .event{
+        background: linear-gradient(180deg, var(--middle-grey) 40%, hsla(0, 5%, 9%, 0)),
+        url(../images/kmitl-campus-drone-view.png) no-repeat center center / cover;
+    }
+}

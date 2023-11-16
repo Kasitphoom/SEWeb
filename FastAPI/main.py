@@ -56,6 +56,7 @@ async def set_login(request: Request, response: Response, ID: int = Form(...), p
             response = RedirectResponse(url="/classes/{}/assignments".format(first_course_id), status_code=303)
             response.set_cookie(key="ID", value=ID)
             response.set_cookie(key="client_type", value=client_type)
+            response.set_cookie(key="first_course_id", value=first_course_id)
             return response
         else:
             return {"message": "Login failed"}
@@ -68,7 +69,7 @@ async def login_form(request: Request, error: int = 0):
     return templates.TemplateResponse("login.html", {"request": request, "error": error})
 
 @app.get("/classes/{course_id}/assignments", response_class=HTMLResponse)
-async def get_classes(request: Request, course_id: int, ID: int = Cookie(None), client_type: str = Cookie(None)):
+async def get_classes(request: Request, course_id: int, ID: int = Cookie(None), client_type: str = Cookie(None), first_course_id: int = Cookie(None)):
     if ID == None or client_type == None:
         return RedirectResponse(url="/", status_code=303)
     
@@ -79,7 +80,8 @@ async def get_classes(request: Request, course_id: int, ID: int = Cookie(None), 
         "request": request, 
         "client": client, 
         "course": course, 
-        "client_type": client_type
+        "client_type": client_type,
+        "first_course_id": first_course_id,
     }
     
     return templates.TemplateResponse("classes.html", data)
@@ -91,9 +93,9 @@ async def logout(response: Response):
     return response
 
 @app.get("/profile", response_class=HTMLResponse)
-async def get_profile(request: Request, ID: int = Cookie(None)):
+async def get_profile(request: Request, ID: int = Cookie(None), client_type: str = Cookie(None), first_course_id: int = Cookie(None)):
     client = clients[ID]
-    return templates.TemplateResponse("profile.html", {"request": request, "client": client})
+    return templates.TemplateResponse("profile.html", {"request": request, "client": client, "first_course_id": first_course_id})
 
 @app.post("/profile")
 async def set_profile(request: Request, ID: int = Cookie(None), name: str = Form(...), user_name: str = Form(...), avatar: UploadFile = File(...)):
@@ -113,7 +115,7 @@ async def set_profile(request: Request, ID: int = Cookie(None), name: str = Form
     return RedirectResponse(url="/profile", status_code=303)
 
 @app.get("/classes/{course_id}/assignments/{assignment_id}", response_class=HTMLResponse)
-async def get_assignment(request: Request, course_id: int, assignment_id: str, ID: int = Cookie(None), client_type: str = Cookie(None)):
+async def get_assignment(request: Request, course_id: int, assignment_id: str, ID: int = Cookie(None), client_type: str = Cookie(None), first_course_id: int = Cookie(None)):
     
     if ID == None or client_type == None:
         return RedirectResponse(url="/", status_code=303)
@@ -136,7 +138,8 @@ async def get_assignment(request: Request, course_id: int, assignment_id: str, I
         "course": course, 
         "client_type": client_type, 
         "assignment": assignment, 
-        "ID": ID
+        "ID": ID,
+        "first_course_id": first_course_id
     }
 
     return templates.TemplateResponse("assignment.html", data)
@@ -182,7 +185,7 @@ async def upload_file(request: Request, course_id: int, ASS_ID: str, ID: int = C
     return RedirectResponse("/classes/{}/assignments/{}".format(course_id, assignment.id), status_code=303)
 
 @app.get("/classes/{course_id}/addAssignment", response_class=HTMLResponse)
-async def add_Assignment(request: Request, course_id: int, ID: int = Cookie(None), client_type: str = Cookie(None)):
+async def add_Assignment(request: Request, course_id: int, ID: int = Cookie(None), client_type: str = Cookie(None), first_course_id: int = Cookie(None)):
     client = clients[ID]
     course = root.courses[course_id]
     assignments = course.assignments
@@ -207,13 +210,14 @@ async def add_Assignment(request: Request, course_id: int, ID: int = Cookie(None
         "course": course, 
         "assignment": new_assignment, 
         "client_type": client_type, 
+        "first_course_id": first_course_id,
         "ID": ID
     }
         
     return templates.TemplateResponse("edit_assignment.html", data)
 
 @app.get("/classes/{course_id}/editAssignment/{assignment_id}", response_class=HTMLResponse)
-async def edit_Assignment(request: Request, course_id: int, assignment_id: str, ID: int = Cookie(None), client_type: str = Cookie(None)):
+async def edit_Assignment(request: Request, course_id: int, assignment_id: str, ID: int = Cookie(None), client_type: str = Cookie(None), first_course_id: int = Cookie(None)):
     client = clients[ID]
     assignment = root.assignments[assignment_id]
     course = root.courses[course_id]
@@ -224,7 +228,8 @@ async def edit_Assignment(request: Request, course_id: int, assignment_id: str, 
         "course": course,
         "client_type": client_type, 
         "assignment": assignment, 
-        "ID": ID
+        "ID": ID,
+        "first_course_id": first_course_id,
     }
     
     return templates.TemplateResponse("edit_assignment.html", data)
@@ -287,7 +292,7 @@ async def remove_attachment(request: Request, course_id: int, assignment_id: str
 
 
 @app.get("/classes/{course_id}/rooms")
-async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
+async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None), first_course_id: int = Cookie(None)):
     client = clients[ID]
     client_type = "None"
     rooms = None
@@ -300,10 +305,10 @@ async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
     course = root.courses[course_id]
     rooms = course.rooms
         
-    return templates.TemplateResponse("rooms.html", {"request": request, "client": client, "course": course, "client_type": client_type, "rooms": rooms, "ID": ID})
+    return templates.TemplateResponse("rooms.html", {"request": request, "client": client, "course": course, "client_type": client_type, "rooms": rooms, "ID": ID, "first_course_id": first_course_id})
 
 @app.get("/classes/{course_id}/grade/{ass_id}")
-async def gradeAssignment(request: Request, course_id: int, ass_id: str, ID: int = Cookie(None), client_type: str = Cookie(None)):
+async def gradeAssignment(request: Request, course_id: int, ass_id: str, ID: int = Cookie(None), client_type: str = Cookie(None), first_course_id: int = Cookie(None)):
     
     client = root.clients[ID]
     course = root.courses[course_id]
@@ -317,7 +322,8 @@ async def gradeAssignment(request: Request, course_id: int, ass_id: str, ID: int
         "client_type": client_type,
         "assignment": assignment,
         "submitted_work": submitted_work,
-        "root": root
+        "root": root,
+        "first_course_id": first_course_id
     }
     
     print(submitted_work)
@@ -333,7 +339,7 @@ async def removeSubmission(request: Request, course_id: int, student_id: int, as
     return RedirectResponse(url = "/classes/{}/grade/{}".format(course_id, ass_id), status_code=303)
 
 @app.get("/classes/{course_id}/grade/{ass_id}/{student_id}")
-async def grade_Student(request: Request, course_id: int, ass_id: str, student_id: int, ID: int = Cookie(None), client_type: str = Cookie(None)):
+async def grade_Student(request: Request, course_id: int, ass_id: str, student_id: int, ID: int = Cookie(None), client_type: str = Cookie(None), first_course_id: int = Cookie(None)):
     client = root.clients[ID]
     course = root.courses[course_id]
     assignment = root.assignments[ass_id]
@@ -348,7 +354,8 @@ async def grade_Student(request: Request, course_id: int, ass_id: str, student_i
         "client_type": client_type,
         "assignment": assignment,
         "submitted_work": submitted_work,
-        "root": root
+        "root": root,
+        "first_course_id": first_course_id
     }
 
     return templates.TemplateResponse("gradeIndividual.html", data)
@@ -367,9 +374,10 @@ async def grading_Student(request: Request, course_id: int, ass_id: str, student
     return RedirectResponse("/classes/{}/grade/{}".format(course_id, ass_id), status_code=303)
 
 
-@app.get("/room/edit/page/{room_id}")
-async def show_rooms(request: Request, room_id: str, ID: int = Cookie(None)):
+@app.get("/room/edit/page/{course_id}/{room_id}")
+async def show_rooms(request: Request, room_id: str, course_id: int, ID: int = Cookie(None), first_course_id: int = Cookie(None)):
     client = clients[ID]
+    course = root.courses[course_id]
     client_type = "Lecturer"
     rooms = None
     
@@ -378,7 +386,7 @@ async def show_rooms(request: Request, room_id: str, ID: int = Cookie(None)):
     
     room = root.rooms[room_id]
         
-    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": room, "ID": ID, "type": "edit"})
+    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": room, "ID": ID, "type": "edit", "first_course_id": first_course_id, "course": course})
 
 @app.post("/room/edit/{room_id}")
 async def show_rooms(request: Request, room_id: str, title: str = Form(...), ID: int = Cookie(None)):
@@ -410,13 +418,13 @@ async def deleteRoom(request: Request, room_id: str, course_id: int, ID: int = C
     return RedirectResponse("/classes/{}/rooms".format(course_id), status_code=303)
 
 @app.get("/room/add/page/{course_id}")
-async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
+async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None), first_course_id: int = Cookie(None)):
     
     room_id = generate_uuid()
     client_type = "Lecturer"
     course = root.courses[course_id]
         
-    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": None, "course_id": course_id, "course": course, "room_id": room_id, "ID": ID, "type": "add"})
+    return templates.TemplateResponse("editroom.html", {"request": request, "client": client, "client_type": client_type, "room": None, "course_id": course_id, "course": course, "room_id": room_id, "ID": ID, "type": "add", "first_course_id": first_course_id})
 
 @app.post("/room/add/{course_id}/{room_id}")
 async def show_rooms(request: Request, course_id: int, room_id: str, title: str = Form(...), ID: int = Cookie(None)):

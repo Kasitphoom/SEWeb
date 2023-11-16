@@ -68,9 +68,8 @@ pre{
     transition: 0.3s;
 }
 
-.nav-logo img {
+.nav-logo {
     width: 10rem;
-    height: 5rem;
 }
 
 .nav-left {
@@ -134,9 +133,37 @@ pre{
     color: var(--accent-color);
 }
 
-.nav-bottom {
+.nav-bottom{
+    position: fixed;
+    z-index: 1;
+    left: -100%;
+    top: 0;
+    height: 100vh;
+    width: 90vw;
     background-color: var(--middle-grey);
-    height: 80px;
+    transition: left 0.5s ease-in-out;
+}
+
+.nav-bottom.nav-responsive{
+    left: 0;
+}
+
+.nav-bottom .nav-move{
+    height: 100%;
+    padding: 14rem 2rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 3rem;
+    gap: 6rem;
+}
+
+.nav-bottom .nav-move a{
+    color: var(--white);
+    transition: .2s;
+}
+
+.nav-bottom .nav-move a:hover {
+    color: var(--accent-color);
 }
 
 .accent-bar {
@@ -353,12 +380,12 @@ div .facebook {
         display: none;
     }
 
-    /* .responsive .nav-move {
+    .responsive .nav-move {
         display: flex;
         position: absolute;
         display: block;
     }
-    */
+   
 }
 
 /* footer responsive */
@@ -400,6 +427,13 @@ div .facebook {
 }
 
 @media screen and (max-width: 750px) {
+    html{
+        font-size: 40%;
+    }
+
+    .nav-logo {
+        width: 6rem;
+    }
 
     .footer-content .contract-section {
         font-size: 0.9rem;
@@ -537,8 +571,8 @@ div .facebook {
   
   /* Style for the avatar image */
   #login {
-    width: 50px; /* Adjust the width as needed */
-    height: 50px; /* Adjust the height as needed */
+    width: 5rem; /* Adjust the width as needed */
+    height: 5rem; /* Adjust the height as needed */
     border-radius: 50%; /* Make it round */
     cursor: pointer;
     transition: transform 0.3s ease; /* Add a smooth transition effect */

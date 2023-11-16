@@ -89,6 +89,55 @@
     justify-content: space-between;
 }
 
+.right-content .student-small-title{
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--white);
+    padding: 1rem 1rem 1rem 5rem;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.right-content .grading-title{
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--white);
+    padding: 1rem;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.grading-form{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.grading-form .input{
+    padding: 1rem 3rem;
+    border-radius: 2rem;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.6rem;
+    border: none;
+    cursor: pointer;
+    transition: .2s;
+    background-color: var(--main-color);
+}
+
+.grading-form .input[type="submit"]{
+    width: 20%;
+    background-color: var(--green);
+}
+
+.grading-form .input[type="submit"]:hover{
+    background-color: var(--accent-color);
+}
+
+
 .right-content .title .add-assignment{
     background-color: var(--green);
     padding: 1.5rem 2rem;

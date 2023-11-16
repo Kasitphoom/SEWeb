@@ -204,7 +204,9 @@ class Assignment(persistent.Persistent):
     def grading(self, student, score):
         #check whether student has submitted work
         if student not in self.submitted_work.keys():
+            print("Student has not submitted work")
             return False
+        print("Grading")
         self.submitted_work[student]["score"] = score
         self._p_changed = True
         return True
@@ -216,7 +218,7 @@ class Assignment(persistent.Persistent):
         if len(due_date.split("-")) != 3 and len(due_date) != 10 and len(due_date.split("-")[0]) != 4:
             self.due_date = date.today()
         else:
-            self.due_date = datetime.strptime(due_date, '%m-%d-%Y').date()
+            self.due_date = datetime.strptime(due_date, '%Y-%m-%d').date()
         
 
     def setDescription(self, description):

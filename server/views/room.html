@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/room.css">
+    <script>
+        var pathArray = window.location.pathname.split('/');
+        const ROOM_ID = pathArray[0];
+    </script>
+    <script src="https://unpkg.com/peerjs@1.5.1/dist/peerjs.min.js" defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    
+    <script src="/js/room.js" defer></script>
+    <script src="/js/canvas.js" defer></script>
+    <script src="/js/bestfit.js" defer></script>
+</head>
+<body>
+    <div class="canvas-controller hide" id="canvas-controller">
+        <div class="canvas-controls-ctn">
+            <div class="control mover" id="mover">
+                <i class="fa-solid fa-ellipsis"></i>
+            </div>
+            <div id="brush" class="control active-brush">
+                <i class="fa-solid fa-paintbrush"></i>
+            </div>
+            <div id="eraser" class="control">
+                <i class="fa-solid fa-eraser"></i>
+            </div>
+            <div class="horizontal-line"></div>
+            <div id="canvas-color" class="control">
+                <i class="fa-solid fa-paintbrush"></i>
+                <div class="color-preview" id="color-preview"></div>
+                <input type="color" name="color" id="canvas-color-picker" class="hide">
+            </div>
+            <div id="thickness" class="control">
+                <div class="thickness">
+                    <div class="thick t4"></div>
+                    <div class="thick t3"></div>
+                    <div class="thick t2"></div>
+                    <div class="thick t1"></div>
+                </div>
+                <p class="thickness-number" id="thickness-number">5px</p>
+            </div>
+            <div class="horizontal-line"></div>
+            <div id="clear-canvas">
+                <i class="fa-solid fa-trash"></i>
+                <p>CLEAR</p>
+            </div>
+        </div>
+        <div class="tools-dropdown hide" id="tools-dropdown">
+            <div class="hide" id="thickness-picker">
+                <p class="thickness-number" id="thickness-number">5px</p>
+                <input type="range" name="thickness-value" id="thickness-value" value="5" min="1" max="30">
+            </div>
+        </div>
+    </div>
+    <div class="meeting-screen">
+        <div id="video-grid"></div>
+        <div id="controls">
+            <div class="button-control" id="camera-control">
+                <i class="fa-solid fa-video"></i>
+            </div>
+            <div class="button-control" id="mic-control">
+                <i class="fa-solid fa-microphone"></i>
+            </div>
+            <div class="button-control" id="hand-control">
+                <i class="fa-solid fa-hand"></i>
+            </div>
+            <div class="end-call" id="end-call">
+                <div class="main-accent-button">
+                    LEAVE MEETING
+                </div>
+            </div>
+            <div class="button-control" id="canvas-control">
+                <i class="fa-solid fa-paintbrush"></i>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

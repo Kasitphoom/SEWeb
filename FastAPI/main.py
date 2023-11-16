@@ -190,7 +190,7 @@ async def add_Assignment(request: Request, course_id: int, ID: int = Cookie(None
         if not any(new_id == assignment.id for assignment in assignments):
             break
 
-    due_date = date.today()
+    due_date = str(date.today())
     assignment_index = len(assignments)
     new_assignment = Assignment(new_id, "Assignment {}".format(assignment_index + 1), 10, due_date)
     root.assignments[new_assignment.id] = new_assignment
@@ -249,6 +249,7 @@ async def remove_assignment(request: Request, course_id: int, assignment_id: str
 async def save_Edit_Assignment(request: Request, course_id: int, assignment_id: str, name: str = Form(...), due_date: str = Form(...), description: str = Form(...), attachmentFiles: List[UploadFile] = File(None), ID: int = Cookie(None), client_type: str = Cookie(None)):
     client = clients[ID]
     assignment = root.assignments[assignment_id]
+    assignment.setName(name)
     assignment.setDueDate(due_date)
     assignment.setDescription(description)
     # set attachment
@@ -327,6 +328,40 @@ async def removeSubmission(request: Request, course_id: int, student_id: int, as
     assignment = root.assignments[ass_id]
     assignment.unSummitWork(student_id)
     return RedirectResponse(url = "/classes/{}/grade/{}".format(course_id, ass_id), status_code=303)
+
+@app.get("/classes/{course_id}/grade/{ass_id}/{student_id}")
+async def grade_Student(request: Request, course_id: int, ass_id: str, student_id: int, ID: int = Cookie(None), client_type: str = Cookie(None)):
+    client = root.clients[ID]
+    course = root.courses[course_id]
+    assignment = root.assignments[ass_id]
+    submitted_work = assignment.submitted_work
+    student = root.clients[student_id]
+
+    data = {
+        "request": request,
+        "client": client,
+        "course": course,
+        "student": student,
+        "client_type": client_type,
+        "assignment": assignment,
+        "submitted_work": submitted_work,
+        "root": root
+    }
+
+    return templates.TemplateResponse("gradeIndividual.html", data)
+
+@app.post("/grading/{course_id}/{ass_id}/{student_id}")
+async def grading_Student(request: Request, course_id: int, ass_id: str, student_id: int, score: int = Form(None) ,ID: int = Cookie(None), client_type: str = Cookie(None)):
+    if score == None:
+        pass
+    else:
+        assignment = root.assignments[ass_id]
+        if score > assignment.max_score:
+            score = assignment.max_score
+        assignment.grading(student_id, score)
+
+    return RedirectResponse("/classes/{}/grade/{}".format(course_id, ass_id), status_code=303)
+
 
 @app.get("/room/edit/page/{room_id}")
 async def show_rooms(request: Request, room_id: str, ID: int = Cookie(None)):

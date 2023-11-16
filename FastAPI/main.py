@@ -321,6 +321,14 @@ async def gradeAssignment(request: Request, course_id: int, ass_id: str, ID: int
     
     return templates.TemplateResponse("gradeall.html", data)
 
+@app.get("/delete/submission/{course_id}/{ass_id}/{student_id}")
+async def removeSubmission(request: Request, course_id: int, student_id: int, ass_id: str, ID: int = Cookie(None), client_type: str = Cookie(None)):
+    if client_type != "Lecturer":
+        return {"Message": "NO PERMISSION"}
+    assignment = root.assignments[ass_id]
+    assignment.unSummitWork(student_id)
+    return RedirectResponse(url = "/classes/{}/grade/{}".format(course_id, ass_id), status_code=303)
+
 @app.get("/classes/{course_id}/grade/{ass_id}/{student_id}")
 async def grade_Student(request: Request, course_id: int, ass_id: str, student_id: int, ID: int = Cookie(None), client_type: str = Cookie(None)):
     client = root.clients[ID]

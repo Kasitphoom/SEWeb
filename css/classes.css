@@ -337,6 +337,12 @@
     border-radius: 1rem;
 }
 
+.assignment-information-title .grade{
+    color: var(--white);
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
 .assignment-information-title .assignment-title{
     font-size: 2.5rem;
     font-weight: bold;

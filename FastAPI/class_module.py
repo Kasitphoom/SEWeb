@@ -1,7 +1,7 @@
 import persistent
 import os
 import uuid
-from datetime import date
+from datetime import date, datetime
 
 def generate_uuid():
     return str(uuid.uuid4())
@@ -172,14 +172,26 @@ class Assignment(persistent.Persistent):
         self.id = ID
         self.name = name
         self.max_score = max_score
-        self.due_date = due_date
+        self.due_date = datetime.strptime(due_date, '%Y-%m-%d').date()
         self.attachment = attachment
         self.submitted_work = submitted_work
         self.description = description
 
     def summitWork(self, studentId, work):
-        self.submitted_work[studentId] = {"work": work, "score": 0}
+        self.submitted_work[studentId] = {
+            "id": studentId, 
+            "work": work, 
+            "score": 0, 
+            "submit_date": date.today(), 
+            "late": False,
+        }
+        self.submitted_work[studentId]["late"] = self.checkSubmitLate(studentId)
         self._p_changed = True
+        
+    def checkSubmitLate(self, studentId): 
+        if self.submitted_work[studentId]["submit_date"] > self.due_date:
+            return True
+        return False
 
     def unSummitWork(self, student):
         #delete the submitted work from upload folder
@@ -204,7 +216,7 @@ class Assignment(persistent.Persistent):
         if len(due_date.split("-")) != 3 and len(due_date) != 10 and len(due_date.split("-")[0]) != 4:
             self.due_date = date.today()
         else:
-            self.due_date = due_date
+            self.due_date = datetime.strptime(due_date, '%m-%d-%Y').date()
         
 
     def setDescription(self, description):

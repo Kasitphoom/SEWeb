@@ -540,6 +540,121 @@
     gap: 1rem;
 }
 
+/* for grading */
+.grade-all-ctn{
+    width: 100%;
+    background-color: var(--middle-grey);
+    padding: 2.5rem 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.grade-all-ctn p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grade-all-ctn .grade-all-title{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 100%;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.grade-all-ctn .student{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 100%;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: var(--light-grey);
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 1px 2px 7px 1px var(--accent-color);
+}
+
+
+.grade-all-ctn .grade-options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.grade-all-ctn .student a{
+    display: flex;
+    padding: 0.5rem 2rem;
+    border-radius: 2rem;
+    background-color: var(--accent-color);
+    color: var(--white);
+    transition: .3s;
+    max-width: 6rem;
+}
+
+.grade-all-ctn .student a p{
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.grade-all-ctn .student a:hover{
+    gap: 1rem;
+    max-width: 30rem;
+}
+
+.grade-all-ctn .student a:hover p{
+    animation: showtype 0.3s ease-in-out forwards;
+}
+
+.grade-all-ctn .student a:hover:nth-child(1){
+    background-color: var(--green);
+}
+
+.grade-all-ctn .student a:hover:nth-child(2){
+    background-color: var(--red);
+}
+
+.grade-all-ctn .grade{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.grade-all-ctn .grade .max-grade{
+    color: var(--main-color);
+}
+
+.grade-all-ctn .submission-status{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.grade-all-ctn .submission-status div{
+    padding: 0.5rem 2rem;
+    border-radius: 5rem;
+    width: 70%;
+    gap: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grade-all-ctn .submission-status .late{
+    background-color: var(--red);
+}
+
+.grade-all-ctn .submission-status .ontime{
+    background-color: var(--green);
+}
+
+
 @keyframes showtype{
     0%{
         opacity: 0;

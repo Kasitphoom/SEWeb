@@ -298,6 +298,28 @@ async def show_rooms(request: Request, course_id: int, ID: int = Cookie(None)):
         
     return templates.TemplateResponse("rooms.html", {"request": request, "client": client, "course": course, "client_type": client_type, "rooms": rooms, "ID": ID})
 
+@app.get("/classes/{course_id}/grade/{ass_id}")
+async def gradeAssignment(request: Request, course_id: int, ass_id: str, ID: int = Cookie(None), client_type: str = Cookie(None)):
+    
+    client = root.clients[ID]
+    course = root.courses[course_id]
+    assignment = root.assignments[ass_id]
+    submitted_work = assignment.submitted_work
+    
+    data = {
+        "request": request,
+        "client": client,
+        "course": course,
+        "client_type": client_type,
+        "assignment": assignment,
+        "submitted_work": submitted_work,
+        "root": root
+    }
+    
+    print(submitted_work)
+    
+    return templates.TemplateResponse("gradeall.html", data)
+
 @app.get("/room/edit/page/{room_id}")
 async def show_rooms(request: Request, room_id: str, ID: int = Cookie(None)):
     client = clients[ID]

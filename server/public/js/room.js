@@ -17,6 +17,7 @@ const myPeer = new Peer(undefined, {
 let isVideoLoaded = false;
 let isShareScreen = false;
 let screenStream = null;
+let videoStream = null;
 let oldUserId = null;
 let myUserID = null;
 let PresentedUsers = [];
@@ -61,7 +62,7 @@ navigator.mediaDevices.getUserMedia({
     video: CamID ? {deviceId: CamID} : false,
     audio: MicID ? {deviceId: MicID} : true
 }).then(stream => {
-
+    videoStream = stream;
     
 
     // add my video
@@ -109,25 +110,6 @@ navigator.mediaDevices.getUserMedia({
         avatarPlaceholder.classList.toggle('hide');
     });
 
-    const ScreenControl = document.getElementById('screen-control');
-    ScreenControl.addEventListener('click', () => {
-        
-        if(isShareScreen){
-            screenStream.getVideoTracks()[0].stop();
-            myVideo.srcObject = stream;
-            return isShareScreen = false;
-        }
-        navigator.mediaDevices.getDisplayMedia({
-            video: true,
-            audio: true
-        }).then(screen => {
-            isShareScreen = true;  
-            screenStream = screen; 
-            myVideo.srcObject = screenStream;
-        }).catch(err => {
-            console.log(err);
-        });
-    });
 
     const handControl = document.getElementById('hand-control');
     handControl.addEventListener('click', () => {

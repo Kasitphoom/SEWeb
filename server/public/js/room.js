@@ -4,9 +4,7 @@
 const CamID = sessionStorage.getItem('cam');
 const MicID = sessionStorage.getItem('mic');
 
-if(!CamID || !MicID){
-    window.location.href = '/';
-}
+console.log(CamID, MicID);
 
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid');
@@ -58,9 +56,12 @@ endCallBtn.addEventListener('click', () => {
 });
 
 navigator.mediaDevices.getUserMedia({
-    video: {deviceId: CamID},
-    audio: {deviceId: MicID}
+    video: CamID ? {deviceId: CamID} : false,
+    audio: MicID ? {deviceId: MicID} : true
 }).then(stream => {
+
+    
+
     // add my video
     addVideoStream(myVideo, stream, 'myVideo', 'video');
 
@@ -91,7 +92,7 @@ navigator.mediaDevices.getUserMedia({
         socket.emit('camera-triggered', ROOM_ID, myUserID); // send signal to server
         cameraNotMute = "fa-video"
         cameraMute = "fa-video-slash"
-        stream.getVideoTracks()[0].enabled = !(stream.getVideoTracks()[0].enabled);
+        if (CamID) stream.getVideoTracks()[0].enabled = !(stream.getVideoTracks()[0].enabled);
         cameraControl.classList.toggle('camera-off');
         if (cameraControl.classList.contains('camera-off')) {
             cameraControl.innerHTML = `<i class="fas ${cameraMute}"></i>`;

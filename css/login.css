@@ -15,7 +15,7 @@ body {
 }
 
 
-.container:hover, .container:active, .fixed-image:hover, .fixed-image:active{
+.container:hover, .container:active, .container:focus, .fixed-image:hover, .fixed-image:active, .fixed-image:focus, .hover {
   .top::before, .top::after, .bottom::before, .bottom::after {
     margin-left: 20rem;
     transform-origin: -20rem 50%;

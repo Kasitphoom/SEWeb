@@ -1,3 +1,8 @@
+document.addEventListener("touchstart", function () {
+    document.getElementsByClassName("container")[0].classList.toggle("hover")
+});
+
+
 // document.addEventListener("DOMContentLoaded", function () {
 //     const userForm = document.getElementById("login-form");
 //     const messageDiv = document.getElementById("message");

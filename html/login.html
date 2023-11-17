@@ -10,7 +10,7 @@
 
 <body>
   <!-- content goes here -->
-  <div class="container">
+  <div class="container" onclick="">
     <img src="/images/SE_logo_tranparent.svg" alt="" class="fixed-image">
     <div class="top"></div>
     <div class="bottom"></div>
@@ -28,6 +28,7 @@
     </div>
   </div>
   <!-- content end here -->
+  <script src="/js/login.js"></script>
   <script>
     const params = new Proxy(new URLSearchParams(window.location.search), {
       get: (searchParams, prop) => searchParams.get(prop),

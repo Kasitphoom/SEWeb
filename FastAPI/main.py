@@ -59,9 +59,9 @@ async def set_login(request: Request, response: Response, ID: int = Form(...), p
             response.set_cookie(key="first_course_id", value=first_course_id)
             return response
         else:
-            return {"message": "Login failed"}
+            return RedirectResponse(url="/login?error=1", status_code=303)
     else: 
-        return {"message": "No client found"}
+        return RedirectResponse(url="/login?error=1", status_code=303)
 
 
 @app.get("/login", response_class=HTMLResponse)

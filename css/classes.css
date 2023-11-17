@@ -732,7 +732,14 @@
     }
     .side-bar{
         width: 30%;
+        height: calc(100vh - 14rem)
     }
+
+    .right-content .title{
+        flex-direction: column;
+        gap: 2rem;
+    }
+
     .right-content{
         padding-left: calc(100vw * 0.30);
     }

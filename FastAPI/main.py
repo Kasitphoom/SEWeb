@@ -24,6 +24,8 @@ app.mount("/images", StaticFiles(directory="../images"), name="images")
 app.mount("/js", StaticFiles(directory="../js"), name="js")
 app.mount("/Upload", StaticFiles(directory="Upload"), name="Upload")
 
+templates.env.globals["generate_uuid"] = generate_uuid
+
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request, ID: int = Cookie(None), client_type: str = Cookie(None)):
     if ID == None or client_type == None:

@@ -28,20 +28,26 @@ cd FastAPI
 - Real-time video conferencing.
 - Owner can customize room name, description.
 - personal real-time canvas.
+
 **Room Availability**
 - Check room availability in real-time.
 - Join their preferred room in real-time.
+
 **Basic Online meeting controls**
 - Microphone + Camera + Hand raise
+
 **Audio Video Devices selection**
 - Allow users to manage their input and output devices. User Authentication
 - Secure login for students and teachers.
 - User profiles with role-based access.
+
 **Homework Submissions**
 - Upload and submit homework assignments + File management for students and teachers.
 - Grading mechanisms.
+
 **User Customization**
 - Customize user profiles with personal information.
+
 **Security and Privacy**
 - End-to-end encryption for private meetings.
 - Reporting and moderation features for maintaining a safe environment.

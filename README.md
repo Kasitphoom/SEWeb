@@ -11,9 +11,11 @@
   - Install ZODB by run `pip install fastapi` in your terminal
 ### Run FastAPI server
 1. go to `FastAPI` directory
-``` cd FastAPI ```
-2. Run command `uvicorn main:app --reload`
-3. Enter `http://localhost:8000` in to your browser
+``` cmd
+cd FastAPI
+```
+3. Run command `uvicorn main:app --reload`
+4. Enter `http://localhost:8000` in to your browser
 
 ## Collaborator
 - **Kasitphoom Thowongs**

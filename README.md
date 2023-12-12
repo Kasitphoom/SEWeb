@@ -2,13 +2,17 @@
 
 ## HOW TO RUN LOCALLY
 ### Install dependencies
-1. You must have **Pythono** installed
+1. You must have **Python** installed
 2. You must have **uvicorn** dependency installed
   - Install uvicorn by run `pip install uvicorn` in your terminal
 3. You must have **zodb** dependency installed
   - Install ZODB by run `pip install zodb` in your terminal
 4. You must have **FastAPI** dependency installed
   - Install ZODB by run `pip install fastapi` in your terminal
+5. Clone this repository
+``` cmd
+git clone https://www.github.com/Kasitphoom/SEWeb.git
+```
 ### Run FastAPI server
 1. go to `FastAPI` directory
 ``` cmd

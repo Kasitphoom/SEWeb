@@ -6,8 +6,8 @@
 ### How to use
 1. Click on user avatar
 2. Click on login
-  - For teacher: Username - 9001 ; Password - 1234
-  - For student: Username - 1100, 1101, 1102 ; Password - 1234
+    - For teacher: Username - 9001 ; Password - 1234
+    - For student: Username - 1100, 1101, 1102 ; Password - 1234
 3. Browse through features as you want
 > :warning: **ANY CHANGES OR UPLOADS WILL PERMANENTLY AFFECTED AND UPLOADED**: Be very careful here! _**Do not upload any vulnerable informations**_
 

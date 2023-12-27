@@ -1,4 +1,15 @@
 # SEWeb
+**Software Engineering Website project** was created to encourage education and teamwork in the software engineering industry. Meeting rooms, room availability management, user authentication, homework submission, and user customization are just a few of the features that this platform will provide to meet the needs of both teachers and students. This web application uses a web socket to communicate throughout the meeting. Fast API server on python to fetch user authentication data. Uses ZODB database to store website data and user information.
+
+## SEE ON WEBSITE
+[Software Engineering ALL-IN-ONE Website](https://seweb.kasitphoom.com/)
+### How to use
+1. Click on user avatar
+2. Click on login
+  - For teacher: Username - 9001 ; Password - 1234
+  - For student: Username - 1100, 1101, 1102 ; Password - 1234
+3. Browse through features as you want
+> :warning: **ANY CHANGES OR UPLOADS WILL PERMANENTLY AFFECTED AND UPLOADED**: Be very careful here! _**Do not upload any vulnerable informations**_
 
 ## HOW TO RUN LOCALLY
 ### Install dependencies

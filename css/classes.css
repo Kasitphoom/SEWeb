@@ -21,8 +21,8 @@
     position: fixed;
     height: 5vh;
     z-index: 20;
-    background-color: var(--middle-grey);
-    color: var(--white);
+    background-color: var(--accent-color);
+    color: var(--middle-grey);
     padding: 2rem;
     border-radius: 100%;
     width: calc(5vh);
@@ -32,6 +32,7 @@
     top: calc(2.5vh + 14rem);
     left: 2rem;
     display: none;
+    font-weight: bold;
 }
 
 .course-container{

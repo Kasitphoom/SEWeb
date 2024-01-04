@@ -1,3 +1,13 @@
+<div class="responsive-bar" id="bar-icon">
+    <div class="responsive-bar-icon">
+        <i class="fas fa-bars"></i>
+    </div>
+</div>
+<script>
+    document.querySelector("#bar-icon").addEventListener("click", () => {
+        document.querySelector(".side-bar").classList.toggle("active");
+    });
+</script>
 <div class="side-bar">
     <label>Courses</label>
     <div class="course-container">

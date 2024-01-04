@@ -147,6 +147,7 @@ pre{
 
 .nav-bottom.nav-responsive{
     left: 0;
+    z-index: 90;
 }
 
 .nav-bottom .nav-move{

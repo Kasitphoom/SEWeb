@@ -22,7 +22,7 @@
     height: 5vh;
     z-index: 20;
     background-color: var(--accent-color);
-    color: var(--middle-grey);
+    color: var(--white);
     padding: 2rem;
     border-radius: 100%;
     width: calc(5vh);
